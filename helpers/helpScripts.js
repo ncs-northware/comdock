@@ -6,8 +6,7 @@ import { useEffect, useState } from 'react';
 export async function fetcher(endpoint, query, options = {}) {
     let response;
     let url
-
-
+    
     if (!query || query == ``) {
       url = process.env.NEXT_PUBLIC_STRAPI_URL+'/api/'+endpoint
     } else {
