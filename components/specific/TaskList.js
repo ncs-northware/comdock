@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dialog, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
-import { FilePond } from 'react-filepond';
 
 export default function TaskList({user, allTasks}) {
     // Filter Tasks
@@ -94,9 +93,7 @@ export default function TaskList({user, allTasks}) {
     }    
 
     function openModal() {
-        setIsOpen(true)
-        // Hier ggf. Daten mit übergeben
-        
+        setIsOpen(true)        
     }
     return(
         <>
@@ -183,34 +180,28 @@ export default function TaskList({user, allTasks}) {
                                                         {task.task == "Digitale Beglaubigung mit Dokument" || task.task =="Digitale Unterschrift mit Dokument" ? (
                                                             /* FIXME: Dieses Auswahlfeld wird fälschlicherweise bei allen Einträgen gezeigt,
                                                              wenn nur ein Element in der Liste mit Dokument fordert. #53 */
-                                                            // <div className="col-span-full">
-                                                            //     {/* FIXME: Es gibt noch keine Ansicht für ein ausgewähltes Dokument #53 */}
-                                                            //     <label htmlFor="cert-doc" className="block text-sm font-medium leading-6 text-gray-900">
-                                                            //         Zertifikat hinzufügen
-                                                            //     </label>
-                                                            //     <div className="file-input-wrapper mt-2 flex justify-center px-6 py-10">
-                                                            //         <div className="text-center">
-                                                            //             <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                                                            //                 <label htmlFor="file-upload" className="file-input-label">
-                                                            //                     <span>Vom Computer auswählen</span>
-                                                            //                     <input 
-                                                            //                         id="certificate_doc"
-                                                            //                         name="certificate_doc"
-                                                            //                         type="file"
-                                                            //                         className="sr-only"
-                                                            //                     />
-                                                            //                 </label>
-                                                            //             </div>
-                                                            //             <p className="text-xs leading-5 text-gray-600">PNG, JPG, SVG, PDF, XLS</p>
-                                                            //         </div>
-                                                            //     </div>
-                                                            // </div>
-                                                            <FilePond 
-                                                            server={{
-                                                                process: `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/upload`,
-                                                                load: `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/upload/files/id`,
-                                                              }} 
-                                                            />
+                                                            <div className="col-span-full">
+                                                                {/* FIXME: Es gibt noch keine Ansicht für ein ausgewähltes Dokument #53 */}
+                                                                <label htmlFor="cert-doc" className="block text-sm font-medium leading-6 text-gray-900">
+                                                                    Zertifikat hinzufügen
+                                                                </label>
+                                                                <div className="file-input-wrapper mt-2 flex justify-center px-6 py-10">
+                                                                    <div className="text-center">
+                                                                        <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                                                                            <label htmlFor="file-upload" className="file-input-label">
+                                                                                <span>Vom Computer auswählen</span>
+                                                                                <input 
+                                                                                    id="certificate_doc"
+                                                                                    name="certificate_doc"
+                                                                                    type="file"
+                                                                                    className="sr-only"
+                                                                                />
+                                                                            </label>
+                                                                        </div>
+                                                                        <p className="text-xs leading-5 text-gray-600">PNG, JPG, SVG, PDF, XLS</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         ) : (
                                                             <p className="block text-sm font-medium leading-6 text-gray-900">Für diese Aufgabe ist kein Zertifikat notwendig.</p>
                                                         )}
@@ -248,7 +239,6 @@ export default function TaskList({user, allTasks}) {
                     ))}
                 </>
             ))}
-            <h1 className='text-primary'>Erledigte Aufgaben</h1>
             {/* TODO tasksDone */}
         </>
     )
