@@ -4,25 +4,25 @@ import { faBuilding, faBuildingColumns, faCircleMinus, faCirclePlus, faCodeBranc
 import { useEffect, useState } from 'react';
 
 export async function fetcher(endpoint, query, options = {}) {
-    let response;
-    let url
+  let response;
+  let url
 
 
-    if (!query || query == ``) {
-      url = process.env.NEXT_PUBLIC_STRAPI_URL+'/api/'+endpoint
-    } else {
-      url = process.env.NEXT_PUBLIC_STRAPI_URL+'/api/'+endpoint+'?'+query
-    }
-
-    if (!options) {
-      response = await fetch(url);
-    } else {
-      response = await fetch(url, options);
-    }
-
-    const data = await response.json();
-    return data;
+  if (!query || query == ``) {
+    url = process.env.NEXT_PUBLIC_STRAPI_URL+'/api/'+endpoint
+  } else {
+    url = process.env.NEXT_PUBLIC_STRAPI_URL+'/api/'+endpoint+'?'+query
   }
+
+  if (!options) {
+    response = await fetch(url);
+  } else {
+    response = await fetch(url, options);
+  }
+
+  const data = await response.json();
+  return data;
+}
 
 export function germanDate(dateString) {
   // Renders the given dateString to German format TT.MM.YYYY

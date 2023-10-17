@@ -16,6 +16,7 @@
     "build": "next build",
     "start": "next start -p 50090",
     "lint": "next lint"
+    
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
