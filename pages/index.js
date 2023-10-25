@@ -18,13 +18,13 @@ const Index = ({companies, persons, texts, jumbotron}) => {
     }
   }, [companies]);
 
-  // if (!companies || !persons || !texts) {
-  //   return(<ConnectionFailFullSite />)
-  // }
+  if (!companies || !persons || !texts) {
+    return(<ConnectionFailFullSite />)
+  }
 
   return(
     <Layout nopageHeader>
-      {/* <div className="bg-white rounded-lg p-4 index-wrapper mt-8 shadow">
+      <div className="bg-white rounded-lg p-4 index-wrapper mt-8 shadow">
         <div className="mx-auto max-w-4xl">
           <h3 className="text-primary mb-3">{texts.attributes.headline}</h3>
           <div className="leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: jumbotron }}></div>
@@ -49,7 +49,7 @@ const Index = ({companies, persons, texts, jumbotron}) => {
             </Link>
           </div>
         </section>
-      </div> */}
+      </div>
     </Layout>
   )
 }
