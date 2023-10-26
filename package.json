@@ -1,6 +1,6 @@
 {
   "name": "comdock-frontend",
-  "version": "1.1.0-beta.0",
+  "version": "1.1.0-beta.1",
   "description": "COMDOCK is a web application that allows you to view simulated fake company informations. This is the frontend of the WebApp.",
   "homepage": "https://github.com/onissen/comdock-frontend",
   "bugs": {
@@ -16,7 +16,6 @@
     "build": "next build",
     "start": "next start -p 50090",
     "lint": "next lint"
-    
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
