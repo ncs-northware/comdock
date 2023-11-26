@@ -1,7 +1,6 @@
 {
   "name": "comdock-backend",
   "private": true,
-  "version": "1.1.0-beta.2",
   "description": "Backend für die Unternehmensdatenbank COMDOCK. Diese WebApp wurde nur zu Übungszwecken erstellt. Jeglicher Daten-Inhalt ist frei erfunden!",
   "homepage": "https://github.com/onissen/comdock-backend",
   "bugs": {
