@@ -16,5 +16,46 @@ updates:
     labels:
       - "dependencies"
     commit-message:
-      prefix: "npm"
+      prefix: "[dependabot/root]"
+      prefix-development: "[dependabot/root/devDependencies]"
+      include: "scope"
+  
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/frontend" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "14:00"
+    assignees:
+      - "onissen"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "[dependabot/frontend]"
+      prefix-development: "[dependabot/frontend/devDependencies]"
+      include: "scope"
+  
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/backend" # Location of package manifests
+    groups:
+      strapi:
+        patterns:
+          - "@strapi*"
+          - "strapi*"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "14:00"
+    ignore:
+      - dependency-name: "react"
+      - dependency-name: "react-router-dom"
+      - dependency-name: "styled-components"
+      # Those 3 dependencies are used by strapi v4.15.0 and above and can only be upgraded when strapi is ready for it.
+    assignees:
+      - "onissen"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "[dependabot/backend]"
+      prefix: "[dependabot/backend/devDependencies]"
       include: "scope"
