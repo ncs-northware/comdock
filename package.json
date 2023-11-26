@@ -14,6 +14,23 @@
     "onissen (https://github.com/onissen)"
   ],
   "license": "MIT",
+
+  "scripts": {
+    "dev": "concurrently -n FRONT,BACK -c auto,auto \"npm run dev:frontend\" \"npm run dev:back\"",
+    "start": "concurrently -n FRONT,BACK -c auto,auto \"npm run start:frontend\" \"npm run backstart:win\"",
+    "build": "concurrently -n FRONT,BACK -c auto,auto \"npm run build:frontend\" \"npm run build:back\"",
+    "build:win": "concurrently -n FRONT,BACK -c auto,auto \"npm run build:frontend\" \"npm run winbuild:back\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:back": "cd backend && npm run dev",
+
+    "build:frontend": "cd frontend && npm run build",
+    "build:back": "cd backend && npm run build",
+    "winbuild:back": "cd backend && npm run build:win",
+    "start:frontend": "cd frontend && npm run start",
+    "backstart:win": "cd backend && npm run start:win"
+  },
+
+
   "dependencies": {
     "concurrently": "^8.2.2"
   }
