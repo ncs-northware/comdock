@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "persons",
+  "info": {
+    "singularName": "person",
+    "pluralName": "persons",
+    "displayName": "Person",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "first_name": {
+      "type": "string",
+      "required": true
+    },
+    "sir_name": {
+      "type": "string",
+      "required": true
+    },
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "birthday": {
+      "type": "date"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "networkChildren": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::network.network",
+      "mappedBy": "parentPerson"
+    },
+    "pubsMentioned": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::hr-public.hr-public",
+      "mappedBy": "mentionedPersons"
+    }
+  }
+}

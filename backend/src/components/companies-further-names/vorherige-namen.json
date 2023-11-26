@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_companies_further_names_vorherige_namen",
+  "info": {
+    "displayName": "Vorherige Namen"
+  },
+  "options": {},
+  "attributes": {
+    "further_cname": {
+      "type": "string",
+      "required": true
+    },
+    "name_upto": {
+      "type": "date"
+    }
+  }
+}

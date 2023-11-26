@@ -1,0 +1,30 @@
+{
+  "name": "comdock-frontend",
+  "description": "COMDOCK is a web application that allows you to view simulated fake company informations. This is the frontend of the WebApp.",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 50090",
+    "build": "next build",
+    "start": "next start -p 50090",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^1.7.16",
+    "@heroicons/react": "^2.0.18",
+    "next": "14.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "remarkable": "^2.0.1",
+    "sass": "^1.69.5"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.5"
+  }
+}

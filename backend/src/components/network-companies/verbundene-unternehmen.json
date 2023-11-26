@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_network_companies_verbundene_unternehmen",
+  "info": {
+    "displayName": "Verbundene Unternehmen",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "connected_company": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::company.company"
+    },
+    "connection_type": {
+      "type": "enumeration",
+      "enum": [
+        "Beteiligung",
+        "Komplementär"
+      ],
+      "required": true
+    },
+    "since": {
+      "type": "date",
+      "required": false
+    },
+    "upto": {
+      "type": "date"
+    },
+    "hr_public": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::hr-public.hr-public"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "networks",
+  "info": {
+    "singularName": "network",
+    "pluralName": "networks",
+    "displayName": "Netzwerk",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "childCompany": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::company.company",
+      "inversedBy": "networkParents"
+    },
+    "parentCompany": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::company.company",
+      "inversedBy": "networkChildren"
+    },
+    "parentExternal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::external-shareholder.external-shareholder",
+      "inversedBy": "parentNetworks"
+    },
+    "parentPerson": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::person.person",
+      "inversedBy": "networkChildren"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Beteiligung",
+        "Komplementär VH",
+        "Kommanditist TH",
+        "Gesellschafter",
+        "Geschäftsführer",
+        "CEO",
+        "COO",
+        "Einzelprokura",
+        "Gesamtprokura",
+        "Filialprokura",
+        "Andere Vertretungsbefugnis"
+      ],
+      "required": true
+    },
+    "since": {
+      "type": "date",
+      "required": true
+    },
+    "upto": {
+      "type": "date",
+      "required": false
+    },
+    "leiParent": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

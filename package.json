@@ -1,38 +1,37 @@
 {
-  "name": "comdock-frontend",
-  "version": "1.1.0-beta.5",
-  "description": "COMDOCK is a web application that allows you to view simulated fake company informations. This is the frontend of the WebApp.",
-  "homepage": "https://github.com/onissen/comdock-frontend",
-  "bugs": {
-    "url": "https://github.com/onissen/comdock-frontend/issues"
-  },
-  "author": {
-    "name": "onissen"
-  },
-  "license": "MIT",
+  "name": "comdock",
+  "version": "1.2.0-beta.0",
   "private": true,
+  "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
+  "homepage": "https://github.com/ncs-northware/comdock",
+  "bugs": "https://github.com/ncs-northware/comdock/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ncs-northware/comdock.git"
+  },
+  "author": "NCS Northware (https://github.com/ncs-northware)",
+  "contributors": [
+    "onissen (https://github.com/onissen)"
+  ],
+  "license": "MIT",
+
   "scripts": {
-    "dev": "next dev -p 50090",
-    "build": "next build",
-    "start": "next start -p 50090",
-    "lint": "next lint"
+    "dev": "concurrently -n FRONT,BACK -c auto,auto \"npm run dev:frontend\" \"npm run dev:back\"",
+    "start": "concurrently -n FRONT,BACK -c auto,auto \"npm run start:frontend\" \"npm run backstart:win\"",
+    "build": "concurrently -n FRONT,BACK -c auto,auto \"npm run build:frontend\" \"npm run build:back\"",
+    "build:win": "concurrently -n FRONT,BACK -c auto,auto \"npm run build:frontend\" \"npm run winbuild:back\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:back": "cd backend && npm run dev",
+
+    "build:frontend": "cd frontend && npm run build",
+    "build:back": "cd backend && npm run build",
+    "winbuild:back": "cd backend && npm run build:win",
+    "start:frontend": "cd frontend && npm run start",
+    "backstart:win": "cd backend && npm run start:win"
   },
+
+
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.4.2",
-    "@fortawesome/free-regular-svg-icons": "^6.4.2",
-    "@fortawesome/free-solid-svg-icons": "^6.4.2",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@headlessui/react": "^1.7.16",
-    "@heroicons/react": "^2.0.18",
-    "next": "14.0.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "remarkable": "^2.0.1",
-    "sass": "^1.69.5"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.27",
-    "tailwindcss": "^3.3.5"
+    "concurrently": "^8.2.2"
   }
 }

@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_related_docs_related_docs",
+  "info": {
+    "displayName": "relatedDocs",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "document": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Unterschriftsnachweis",
+        "Apostille",
+        "Beglaubigung",
+        "Zertifizierung"
+      ],
+      "required": true
+    }
+  }
+}

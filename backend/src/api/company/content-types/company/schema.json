@@ -1,0 +1,119 @@
+{
+  "kind": "collectionType",
+  "collectionName": "companies",
+  "info": {
+    "singularName": "company",
+    "pluralName": "companies",
+    "displayName": "Firma",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "company_name": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "aktiv",
+        "gelöscht",
+        "Liquidation",
+        "Gesellschaft verlassen"
+      ],
+      "default": "aktiv"
+    },
+    "hr_dept": {
+      "type": "enumeration",
+      "enum": [
+        "HRA",
+        "HRB"
+      ],
+      "required": true
+    },
+    "hr_number": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "hr_court": {
+      "type": "string",
+      "required": true
+    },
+    "lei": {
+      "type": "string"
+    },
+    "main_branch": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::place.place",
+      "inversedBy": "mb_companies"
+    },
+    "branches": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::place.place",
+      "inversedBy": "br_companies"
+    },
+    "corp_object": {
+      "type": "richtext"
+    },
+    "capital": {
+      "type": "decimal"
+    },
+    "represent_rules": {
+      "type": "text"
+    },
+    "legal_form": {
+      "type": "string"
+    },
+    "furtherNames": {
+      "displayName": "Vorherige Namen",
+      "type": "component",
+      "repeatable": true,
+      "component": "companies-further-names.vorherige-namen"
+    },
+    "networkChildren": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::network.network",
+      "mappedBy": "parentCompany"
+    },
+    "networkParents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::network.network",
+      "mappedBy": "childCompany"
+    },
+    "hr_pubs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::hr-public.hr-public",
+      "mappedBy": "company"
+    },
+    "company_displaytitle": {
+      "type": "string",
+      "private": true
+    },
+    "pageslug": {
+      "type": "string",
+      "required": false,
+      "unique": true
+    },
+    "docs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::reg-doc.reg-doc",
+      "inversedBy": "companies"
+    },
+    "pubsMentioned": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::hr-public.hr-public",
+      "mappedBy": "mentionedCompanies"
+    }
+  }
+}

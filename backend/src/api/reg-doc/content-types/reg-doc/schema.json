@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reg_docs",
+  "info": {
+    "singularName": "reg-doc",
+    "pluralName": "reg-docs",
+    "displayName": "Registrierte Dokumente",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Gesellschaftsvertrag",
+        "Liste der Gesellschafter",
+        "Jahresabschluss / Bilanz",
+        "Anmeldung HRA",
+        "Eintragungsanzeige",
+        "Weitere Unterlagen"
+      ],
+      "required": true
+    },
+    "mainDoc": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "relatedDocs": {
+      "displayName": "relatedDocs",
+      "type": "component",
+      "repeatable": true,
+      "component": "related-docs.related-docs"
+    },
+    "companies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::company.company",
+      "mappedBy": "docs"
+    },
+    "hr": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::hr-public.hr-public",
+      "mappedBy": "docs"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_person_network_netzwerk_der_people",
+  "info": {
+    "displayName": "Netzwerk der Person",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "company": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::company.company"
+    },
+    "since": {
+      "type": "date",
+      "required": true
+    },
+    "upto": {
+      "type": "date"
+    },
+    "connection_type": {
+      "type": "enumeration",
+      "enum": [
+        "Geschäftsführer",
+        "Gesellschafter",
+        "CEO",
+        "COO",
+        "Einzelprokura",
+        "Gesamtprokura",
+        "Filialprokura",
+        "Andere Vertretungsbefugnis"
+      ]
+    },
+    "hr_public": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::hr-public.hr-public"
+    }
+  }
+}

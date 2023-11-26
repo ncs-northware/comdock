@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "external_shareholders",
+  "info": {
+    "singularName": "external-shareholder",
+    "pluralName": "external-shareholders",
+    "displayName": "Externe Gesellschafter",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "company_name": {
+      "type": "string",
+      "required": true
+    },
+    "reg_dept": {
+      "type": "enumeration",
+      "enum": [
+        "HRA",
+        "HRB",
+        "GnR",
+        "Behörde",
+        "ANDERE"
+      ],
+      "required": true
+    },
+    "reg_number": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "reg_court": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "parentNetworks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::network.network",
+      "mappedBy": "parentExternal"
+    }
+  }
+}

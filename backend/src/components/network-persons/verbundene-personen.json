@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_network_persons_verbundene_personens",
+  "info": {
+    "displayName": "Verbundene Personen",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "connected_person": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::person.person"
+    },
+    "connection_type": {
+      "type": "enumeration",
+      "enum": [
+        "Geschäftsführer",
+        "Gesellschafter",
+        "CEO",
+        "COO",
+        "Einzelprokura",
+        "Gesamtprokura",
+        "Filialprokura",
+        "Andere Vertretungsbefugnis"
+      ],
+      "required": true
+    },
+    "since": {
+      "type": "date"
+    },
+    "upto": {
+      "type": "date",
+      "required": false
+    },
+    "hr_public": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::hr-public.hr-public"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-# COMDOCK frontend
+# COMDOCK
 
 COMDOCK is a web application that allows you to view simulated **fake** company informations, similar to what you would find in applications such as [NorthData](http://www.northdata.de) or the German Websites [unternehmensregister.de](http://www.unternehmensregister.de) and [handelsregister.de](http://www.handelsregister.de) for real informations.
 
@@ -10,25 +10,38 @@ The app visualizes information about companies that could be published in the [G
 
 The resulting web application and its contents of this repository are in many parts very similar to the official websites and entries of the german company register. It is expressly pointed out that all contents of this website in live state and into this repository are entirely fictitious. Any similarities in company names or connections to real existing persons and companies are purely coincidental and do not correspond to reality.
 
-The containing data of the website should be inserted exclusively through an external database. If you still find data into the code of this repository that does not seem to serve the basic structure of the website, please report by an [issue](https://github.com/onissen/comdock-frontend/issues) into this repository. Even if you find parts of the code that do not seem to be intended for the public despite our previous review (such as access data or other backdoors), please [report](https://github.com/onissen/comdock-frontend/issues) them as an issue to the repository owner. Thank you!
+The containing data of the website should be inserted exclusively through an external database. If you still find data into the code of this repository that does not seem to serve the basic structure of the website, please report by an [issue](https://github.com/ncs-northware/comdock/issues) into this repository. Even if you find parts of the code that do not seem to be intended for the public despite our previous review (such as access data or other backdoors), please [report](https://github.com/ncs-northware/comdock/issues) them as an issue to the repository owner. Thank you!
 
-## Technical Informations
 
-This project is powered by [Next.js](http://nextjs.org/). It consumes and visualizes data from a [Strapi Project](http://strapi.io) stored in [onissen/comdock-backend](http://github.com/onissen/comdock-backend).
+## Install and run this project
 
-This App uses these libraries in particular:
+### Install the backend
 
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Headless UI](https://headlessui.com/)
-- [FontAwesome Icons](https://fontawesome.com/)
+**Run these commands in the `/backend` folder.**
 
-All libraries used can be found in the `package.json` of this repo.
+First you will have to install all that is needed, so run
 
-### Install and run this project
+```bash
+npm install
+```
 
-To run this Project you also need to use [onissen/comdock-backend](https://github.com/onissen/comdock-backend/). More info on running the Backend can be found in this project.
+The installation process will install all needed packages as defined in `package.json`.
 
-To connect this frontend to the backend you need to create an `.env` File in the project root that contains the `NEXT_PUBLIC_STRAPI_URL`:
+After it rename the file `env.example` to `.env` and fill the secrets as described.
+
+To start this Strapi Application in Development configuration, now run
+
+```bash
+npm run dev
+```
+
+**Attention**: In other Strapi projects this will not work, since the default command provided by strapi is `npm run develop`.
+
+### Install the frontend
+
+**Run these commands in `/frontend`.**
+
+To connect this frontend to the backend you need to create an `.env` File in `/frontend` that contains the `NEXT_PUBLIC_STRAPI_URL`:
 
 ```bash
 NEXT_PUBLIC_STRAPI_URL = <your backend URL>
@@ -45,5 +58,7 @@ After it, navigate to [localhost:3000](localhost:3000) with your Browser to see 
 
 ## More Infos
 
+- Please see the issue [Strapi Backup (Data Import/Export/Transfer) #45](https://github.com/onissen/comdock-backend/issues/45) to learn how to backup data when using this Backend.
 - [Next.js Documentation](https://nextjs.org/docs/)
-- I've learned Next.js and Strapi Development with the official YouTube series [Create your "next" app using Next.js and Strapi](https://youtube.com/playlist?list=PL7Q0DQYATmvjXSuHfB8CY_n_oUeqZzauZ) by Strapi.
+- [Strapi Documentation](http://docs.strapi.io)
+- I've learned Next.js and Strapi Development with the official YouTube series [Create your "next" app using Next.js and Strapi](http://youtube.com/playlist?list=PL7Q0DQYATmvjXSuHfB8CY_n_oUeqZzauZ) by Strapi.

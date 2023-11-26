@@ -1,0 +1,35 @@
+{
+  "name": "comdock-backend",
+  "private": true,
+  "description": "Backend für die Unternehmensdatenbank COMDOCK. Diese WebApp wurde nur zu Übungszwecken erstellt. Jeglicher Daten-Inhalt ist frei erfunden!",
+  "scripts": {
+    "dev": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "build:win": "cross-env NODE_ENV=production npm run build",
+    "strapi": "strapi",
+    "start:win": "cross-env NODE_ENV=production npm start",
+    "depupdate": "npm i && npm run build"
+  },
+  "dependencies": {
+    "@strapi/plugin-i18n": "4.15.4",
+    "@strapi/plugin-users-permissions": "4.15.4",
+    "@strapi/provider-upload-local": "^4.15.4",
+    "@strapi/strapi": "4.15.4",
+    "better-sqlite3": "9.1.1",
+    "cross-env": "^7.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^5.3.4",
+    "strapi-plugin-slugify": "^2.3.8",
+    "styled-components": "^5.3.11"
+  },
+  "strapi": {
+    "uuid": "3430114d-578a-42c7-beb6-94a6f579c233"
+  },
+  "engines": {
+    "node": ">=18.x.x <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

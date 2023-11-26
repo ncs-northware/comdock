@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_externals_externals",
+  "info": {
+    "displayName": "externals",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "connected_external": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::external-shareholder.external-shareholder"
+    },
+    "connection_type": {
+      "type": "enumeration",
+      "enum": [
+        "Komplementär",
+        "Beteiligung",
+        "Gesellschafter"
+      ],
+      "required": true
+    },
+    "since": {
+      "type": "date",
+      "required": true
+    },
+    "upto": {
+      "type": "date"
+    }
+  }
+}
