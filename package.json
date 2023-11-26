@@ -1,6 +1,6 @@
 {
   "name": "comdock",
-  "version": "1.2.0-beta.0",
+  "version": "1.2.0-beta.1",
   "private": true,
   "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
   "homepage": "https://github.com/ncs-northware/comdock",
@@ -14,7 +14,6 @@
     "onissen (https://github.com/onissen)"
   ],
   "license": "MIT",
-
   "scripts": {
     "dev": "concurrently -n FRONT,BACK -c auto,auto \"npm run dev:frontend\" \"npm run dev:back\"",
     "start": "concurrently -n FRONT,BACK -c auto,auto \"npm run start:frontend\" \"npm run backstart:win\"",
@@ -22,15 +21,12 @@
     "build:win": "concurrently -n FRONT,BACK -c auto,auto \"npm run build:frontend\" \"npm run winbuild:back\"",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:back": "cd backend && npm run dev",
-
     "build:frontend": "cd frontend && npm run build",
     "build:back": "cd backend && npm run build",
     "winbuild:back": "cd backend && npm run build:win",
     "start:frontend": "cd frontend && npm run start",
     "backstart:win": "cd backend && npm run start:win"
   },
-
-
   "dependencies": {
     "concurrently": "^8.2.2"
   }
