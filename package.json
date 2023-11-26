@@ -1,0 +1,20 @@
+{
+  "name": "comdock",
+  "version": "1.2.0-beta.1",
+  "private": true,
+  "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
+  "homepage": "https://github.com/ncs-northware/comdock",
+  "bugs": "https://github.com/ncs-northware/comdock/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ncs-northware/comdock.git"
+  },
+  "author": "NCS Northware (https://github.com/ncs-northware)",
+  "contributors": [
+    "onissen (https://github.com/onissen)"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
