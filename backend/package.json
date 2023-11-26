@@ -2,10 +2,6 @@
   "name": "comdock-backend",
   "private": true,
   "description": "Backend für die Unternehmensdatenbank COMDOCK. Diese WebApp wurde nur zu Übungszwecken erstellt. Jeglicher Daten-Inhalt ist frei erfunden!",
-  "homepage": "https://github.com/onissen/comdock-backend",
-  "bugs": {
-    "url": "https://github.com/onissen/comdock-backend/issues"
-  },
   "scripts": {
     "dev": "strapi develop",
     "start": "strapi start",
@@ -27,9 +23,6 @@
     "react-router-dom": "^5.3.4",
     "strapi-plugin-slugify": "^2.3.8",
     "styled-components": "^5.3.11"
-  },
-  "author": {
-    "name": "onissen"
   },
   "strapi": {
     "uuid": "3430114d-578a-42c7-beb6-94a6f579c233"

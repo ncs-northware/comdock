@@ -1,6 +1,6 @@
 {
   "name": "comdock",
-  "version": "1.2.0-beta.1",
+  "version": "1.2.0-beta.0",
   "private": true,
   "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
   "homepage": "https://github.com/ncs-northware/comdock",

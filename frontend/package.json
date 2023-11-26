@@ -1,13 +1,6 @@
 {
   "name": "comdock-frontend",
   "description": "COMDOCK is a web application that allows you to view simulated fake company informations. This is the frontend of the WebApp.",
-  "homepage": "https://github.com/onissen/comdock-frontend",
-  "bugs": {
-    "url": "https://github.com/onissen/comdock-frontend/issues"
-  },
-  "author": {
-    "name": "onissen"
-  },
   "license": "MIT",
   "private": true,
   "scripts": {
