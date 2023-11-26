@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "indexcontents",
+  "info": {
+    "singularName": "indexcontent",
+    "pluralName": "indexcontents",
+    "displayName": "IndexContent",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "jumbotron": {
+      "type": "richtext"
+    },
+    "headline": {
+      "type": "string"
+    }
+  }
+}

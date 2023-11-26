@@ -1,0 +1,74 @@
+{
+  "kind": "collectionType",
+  "collectionName": "hr_publics",
+  "info": {
+    "singularName": "hr-public",
+    "pluralName": "hr-publics",
+    "displayName": "HR Publikation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "company": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::company.company",
+      "inversedBy": "hr_pubs"
+    },
+    "pub_title": {
+      "type": "string",
+      "required": true
+    },
+    "pub_summary": {
+      "type": "string"
+    },
+    "pub_date": {
+      "type": "date",
+      "required": true
+    },
+    "pub_icon": {
+      "type": "enumeration",
+      "enum": [
+        "faEllipsis",
+        "faGraduationCap",
+        "faUser",
+        "faCirclePlus",
+        "faBuilding",
+        "faFile",
+        "faCircleMinus",
+        "faCodeBranch"
+      ],
+      "required": true,
+      "default": "faEllipsis"
+    },
+    "pub_text": {
+      "type": "richtext",
+      "required": true
+    },
+    "docs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::reg-doc.reg-doc",
+      "inversedBy": "hr"
+    },
+    "mentionedCompanies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::company.company",
+      "inversedBy": "pubsMentioned"
+    },
+    "mentionedPersons": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::person.person",
+      "inversedBy": "pubsMentioned"
+    },
+    "dropdownLabel": {
+      "type": "string",
+      "required": false
+    }
+  }
+}
