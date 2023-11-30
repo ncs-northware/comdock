@@ -58,7 +58,7 @@ After it, navigate to [localhost:3000](localhost:3000) with your Browser to see 
 
 ## More Infos
 
-- Please see the issue [Strapi Backup (Data Import/Export/Transfer) #45](https://github.com/onissen/comdock-backend/issues/45) to learn how to backup data when using this Backend.
+- Please see the issue [Strapi Backup (Data Import/Export/Transfer) #117](https://github.com/ncs-northware/comdock/issues/117) to learn how to backup data when using this App.
 - [Next.js Documentation](https://nextjs.org/docs/)
 - [Strapi Documentation](http://docs.strapi.io)
 - I've learned Next.js and Strapi Development with the official YouTube series [Create your "next" app using Next.js and Strapi](http://youtube.com/playlist?list=PL7Q0DQYATmvjXSuHfB8CY_n_oUeqZzauZ) by Strapi.

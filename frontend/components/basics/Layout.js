@@ -28,10 +28,10 @@ export default function Layout ({children, siteTitle, nopageHeader}) {
                 
                 <p className="text-xs text-center text-zinc-300 font-light">
                     Dies ist eine ausdrücklich nichtamtliche Webseite zu Übungszwecken. Jegliche Daten sind frei erfunden. 
-                    <Link href="https://github.com/onissen/comdock-frontend/blob/main/README.md" className="underline font-normal hover:text-primary-100">Mehr Infos in der README-Datei</Link>
+                    <Link href="https://github.com/ncs-northware/comdock/blob/main/README.md" target="_blank" className="underline font-normal hover:text-primary-100">Mehr Infos in der README-Datei</Link>
                 </p>
                 <p className="text-xs text-center text-zinc-300 font-light">
-                    &copy; {year} <Link href="https://github.com/onissen" target="_blank" className="underline font-normal hover:text-primary-100">onissen</Link> | Version {version}
+                    &copy; {year} <Link href="https://github.com/ncs-northware" target="_blank" className="underline font-normal hover:text-primary-100">ncs-northware</Link> and <Link href="https://github.com/onissen" target="_blank" className="underline font-normal hover:text-primary-100">onissen</Link> | Version {version}
                 </p>
             </footer>
         </>
