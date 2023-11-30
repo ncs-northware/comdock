@@ -61,7 +61,7 @@ export async function getServerSideProps({params}) {
     try {
         const contentResponse = await fetcher(
             `hr-publics/${id}`,
-            `populate[company][fields][0]=company_name,hr_dept,hr_number,pageslug&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url`
+            'populate[company][fields][0]=company_name&populate[company][fields][1]=hr_dept&populate[company][fields][2]=hr_number&populate[company][fields][3]=pageslug&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url'
         )
 
         const pub_text = await markdownToHtml(contentResponse.data.attributes.pub_text);

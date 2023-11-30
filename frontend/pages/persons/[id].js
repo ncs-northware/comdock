@@ -73,7 +73,7 @@ export async function getServerSideProps({params}) {
     try{
         const contentResponse = await fetcher(
             `persons/${id}`,
-            'populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number,pageslug&populate[pubsMentioned][populate][company][fields][0]=company_name,pageslug'
+            'populate[networkChildren][populate][childCompany][fields][0]=hr_number&populate[networkChildren][populate][childCompany][fields][1]=company_name&populate[networkChildren][populate][childCompany][fields][2]=pageslug&populate[pubsMentioned][populate][company][fields][0]=hr_number&populate[pubsMentioned][populate][company][fields][1]=company_name&populate[pubsMentioned][populate][company][fields][2]=pageslug'
         )
         return {
             props: {
