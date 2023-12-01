@@ -8,8 +8,7 @@
     "build": "strapi build",
     "build:win": "cross-env NODE_ENV=production npm run build",
     "strapi": "strapi",
-    "start:win": "cross-env NODE_ENV=production npm start",
-    "depupdate": "npm i && npm run build"
+    "start:win": "cross-env NODE_ENV=production npm start"
   },
   "dependencies": {
     "@strapi/plugin-i18n": "4.15.5",
