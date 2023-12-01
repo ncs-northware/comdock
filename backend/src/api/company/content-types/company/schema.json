@@ -43,9 +43,6 @@
       "type": "string",
       "required": true
     },
-    "lei": {
-      "type": "string"
-    },
     "main_branch": {
       "type": "relation",
       "relation": "manyToOne",

@@ -736,7 +736,6 @@ export interface ApiCompanyCompany extends Schema.CollectionType {
     hr_dept: Attribute.Enumeration<['HRA', 'HRB']> & Attribute.Required;
     hr_number: Attribute.String & Attribute.Required & Attribute.Unique;
     hr_court: Attribute.String & Attribute.Required;
-    lei: Attribute.String;
     main_branch: Attribute.Relation<
       'api::company.company',
       'manyToOne',
@@ -934,6 +933,64 @@ export interface ApiIndexcontentIndexcontent extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::indexcontent.indexcontent',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLeiEntryLeiEntry extends Schema.CollectionType {
+  collectionName: 'lei_entries';
+  info: {
+    singularName: 'lei-entry';
+    pluralName: 'lei-entries';
+    displayName: 'LEI Eintr\u00E4ge';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    lei: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 20;
+        maxLength: 20;
+      }>;
+    company: Attribute.Relation<
+      'api::lei-entry.lei-entry',
+      'oneToOne',
+      'api::company.company'
+    >;
+    lou: Attribute.Enumeration<
+      [
+        'Bloomberg Finance LP (5493001KJTIIGC8Y1R12)',
+        'Bundesanzeiger Verlag GmbH (39120001KULK7200U106)',
+        'WM Datenservice (5299000J2N45DDNE4Y28)'
+      ]
+    > &
+      Attribute.DefaultTo<'WM Datenservice (5299000J2N45DDNE4Y28)'>;
+    satus: Attribute.Enumeration<
+      ['ISSUED (ausgegeben)', 'LAPSED (abgelaufen)', 'INACTIVE']
+    > &
+      Attribute.DefaultTo<'ISSUED (ausgegeben)'>;
+    first_registration: Attribute.Date;
+    last_update: Attribute.Date;
+    next_renewal: Attribute.Date;
+    leiHistory: Attribute.Component<'lei-history.lei-history', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::lei-entry.lei-entry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::lei-entry.lei-entry',
       'oneToOne',
       'admin::user'
     > &
@@ -1171,6 +1228,7 @@ declare module '@strapi/types' {
       'api::external-shareholder.external-shareholder': ApiExternalShareholderExternalShareholder;
       'api::hr-public.hr-public': ApiHrPublicHrPublic;
       'api::indexcontent.indexcontent': ApiIndexcontentIndexcontent;
+      'api::lei-entry.lei-entry': ApiLeiEntryLeiEntry;
       'api::network.network': ApiNetworkNetwork;
       'api::person.person': ApiPersonPerson;
       'api::place.place': ApiPlacePlace;

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_lei_history_lei_histories",
+  "info": {
+    "displayName": "lei-history"
+  },
+  "options": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "details": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}
