@@ -6,6 +6,10 @@ module.exports = {
           company: {
             field: 'pageslug',
             references: 'hr_number'
+          },
+          lei: {
+            field: 'pageslug',
+            references: 'identifier'
           }
         },
         shouldUpdateSlug: true,
