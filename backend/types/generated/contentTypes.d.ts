@@ -940,27 +940,21 @@ export interface ApiIndexcontentIndexcontent extends Schema.SingleType {
   };
 }
 
-export interface ApiLeiEntryLeiEntry extends Schema.CollectionType {
-  collectionName: 'lei_entries';
+export interface ApiLeiLei extends Schema.CollectionType {
+  collectionName: 'leis';
   info: {
-    singularName: 'lei-entry';
-    pluralName: 'lei-entries';
-    displayName: 'LEI Eintr\u00E4ge';
+    singularName: 'lei';
+    pluralName: 'leis';
+    displayName: 'Legal Entity Identifier';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    lei: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        minLength: 20;
-        maxLength: 20;
-      }>;
+    identifier: Attribute.String & Attribute.Required & Attribute.Unique;
     company: Attribute.Relation<
-      'api::lei-entry.lei-entry',
+      'api::lei.lei',
       'oneToOne',
       'api::company.company'
     >;
@@ -978,20 +972,13 @@ export interface ApiLeiEntryLeiEntry extends Schema.CollectionType {
       Attribute.DefaultTo<'ISSUED (ausgegeben)'>;
     first_registration: Attribute.DateTime;
     leiHistory: Attribute.Component<'lei-history.lei-history', true>;
+    pageslug: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::lei-entry.lei-entry',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: Attribute.Relation<'api::lei.lei', 'oneToOne', 'admin::user'> &
       Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::lei-entry.lei-entry',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: Attribute.Relation<'api::lei.lei', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -1226,7 +1213,7 @@ declare module '@strapi/types' {
       'api::external-shareholder.external-shareholder': ApiExternalShareholderExternalShareholder;
       'api::hr-public.hr-public': ApiHrPublicHrPublic;
       'api::indexcontent.indexcontent': ApiIndexcontentIndexcontent;
-      'api::lei-entry.lei-entry': ApiLeiEntryLeiEntry;
+      'api::lei.lei': ApiLeiLei;
       'api::network.network': ApiNetworkNetwork;
       'api::person.person': ApiPersonPerson;
       'api::place.place': ApiPlacePlace;

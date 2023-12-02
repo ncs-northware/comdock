@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * lei-entry service
+ * lei service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::lei-entry.lei-entry');
+module.exports = createCoreService('api::lei.lei');

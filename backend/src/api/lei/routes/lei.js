@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * lei-entry router
+ * lei router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::lei-entry.lei-entry');
+module.exports = createCoreRouter('api::lei.lei');
