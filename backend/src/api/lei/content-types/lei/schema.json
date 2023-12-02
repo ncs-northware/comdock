@@ -20,7 +20,8 @@
     "company": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::company.company"
+      "target": "api::company.company",
+      "inversedBy": "lei"
     },
     "lou": {
       "type": "enumeration",

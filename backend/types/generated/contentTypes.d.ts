@@ -781,6 +781,7 @@ export interface ApiCompanyCompany extends Schema.CollectionType {
       'manyToMany',
       'api::hr-public.hr-public'
     >;
+    lei: Attribute.Relation<'api::company.company', 'oneToOne', 'api::lei.lei'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
