@@ -43,14 +43,8 @@
       "default": "ISSUED (ausgegeben)"
     },
     "first_registration": {
-      "type": "date",
+      "type": "datetime",
       "required": false
-    },
-    "last_update": {
-      "type": "date"
-    },
-    "next_renewal": {
-      "type": "date"
     },
     "leiHistory": {
       "displayName": "lei-history",

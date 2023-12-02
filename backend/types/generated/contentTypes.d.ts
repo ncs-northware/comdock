@@ -976,9 +976,7 @@ export interface ApiLeiEntryLeiEntry extends Schema.CollectionType {
       ['ISSUED (ausgegeben)', 'LAPSED (abgelaufen)', 'INACTIVE']
     > &
       Attribute.DefaultTo<'ISSUED (ausgegeben)'>;
-    first_registration: Attribute.Date;
-    last_update: Attribute.Date;
-    next_renewal: Attribute.Date;
+    first_registration: Attribute.DateTime;
     leiHistory: Attribute.Component<'lei-history.lei-history', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
