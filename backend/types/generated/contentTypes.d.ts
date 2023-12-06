@@ -967,11 +967,16 @@ export interface ApiLeiLei extends Schema.CollectionType {
       ]
     > &
       Attribute.DefaultTo<'WM Datenservice (5299000J2N45DDNE4Y28)'>;
-    satus: Attribute.Enumeration<
-      ['ISSUED (ausgegeben)', 'LAPSED (abgelaufen)', 'INACTIVE']
+    lei_status: Attribute.Enumeration<
+      ['ISSUED (ausgegeben)', 'LAPSED (abgelaufen)', 'INACTIVE', 'PLANNED']
     > &
+      Attribute.Required &
       Attribute.DefaultTo<'ISSUED (ausgegeben)'>;
     first_registration: Attribute.DateTime;
+    auto_renew: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<true>;
+    last_renewal: Attribute.DateTime;
     leiHistory: Attribute.Component<'lei-history.lei-history', true>;
     pageslug: Attribute.String;
     createdAt: Attribute.DateTime;
