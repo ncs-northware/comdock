@@ -11,7 +11,6 @@ import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 
 
 const LEIDetail = ({item, network}) => {
-    console.log(network)
     useEffect(() => {
         if (!item || !network) {
             setTimeout(() => {
@@ -142,6 +141,7 @@ const LEIDetail = ({item, network}) => {
                         </Alert>
                     )}
                 </section>
+                {network.length !== 0 ? (
                 <section id="leinetwork" className="detailSection">
                     <h4 className="mb-3 sectionLabel">Netzwerk</h4>
                     {network.map((relation) => (
@@ -195,6 +195,7 @@ const LEIDetail = ({item, network}) => {
                     ) : ''
                     ))}
                 </section>
+                ):''}
             </DetailPage>
         </Layout>
     )

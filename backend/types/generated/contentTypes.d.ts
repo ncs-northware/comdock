@@ -978,7 +978,7 @@ export interface ApiLeiLei extends Schema.CollectionType {
       Attribute.DefaultTo<true>;
     last_renewal: Attribute.DateTime;
     leiHistory: Attribute.Component<'lei-history.lei-history', true>;
-    pageslug: Attribute.String;
+    leiPageslug: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

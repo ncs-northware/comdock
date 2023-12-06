@@ -8,7 +8,7 @@ module.exports = {
             references: 'hr_number'
           },
           lei: {
-            field: 'pageslug',
+            field: 'leiPageslug',
             references: 'identifier'
           }
         },

@@ -60,7 +60,7 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
                     {item.attributes.lei.data != null ? (
                         <p id="lei" className="my-2">
                             <span className="badge">LEI</span>
-                            <Link href={'/lei/'+item.attributes.lei.data.attributes.pageslug} className="inlineLink">{item.attributes.lei.data.attributes.identifier}</Link>
+                            <Link href={'/lei/'+item.attributes.lei.data.attributes.leiPageslug} className="inlineLink">{item.attributes.lei.data.attributes.identifier}</Link>
                         </p>
                     ) : ''}
                 </section>

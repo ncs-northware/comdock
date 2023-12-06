@@ -61,7 +61,7 @@
       "repeatable": true,
       "component": "lei-history.lei-history"
     },
-    "pageslug": {
+    "leiPageslug": {
       "type": "string"
     }
   }
