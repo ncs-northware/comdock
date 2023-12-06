@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import PageHeader from "../basics/PageHeader"
-import { faBuilding, faUser } from "@fortawesome/free-solid-svg-icons"
+import { faBuilding, faFingerprint, faUser } from "@fortawesome/free-solid-svg-icons"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { Now } from "@/helpers/helpScripts"
 import style from '@/layout/DetailPage.module.sass'
 
 
-export default function DetailPage({title, children, contentType, badge}) {
+export default function DetailPage({title, children, contentType, badge, noBreadcrumb = false}) {
 
     const [activeLink, setActiveLink] = useState();
     
@@ -37,12 +37,13 @@ export default function DetailPage({title, children, contentType, badge}) {
 
     return (
         <>
-            <PageHeader title={title}>
+            <PageHeader title={title} noBreadcrumb={noBreadcrumb}>
                 <div className="h1 flex items-center">
                     { contentType && (
                     <div className="flex-none w-8 mr-6">
                         {contentType == 'company' ? (<FontAwesomeIcon icon={faBuilding} />) : ''}
                         {contentType == 'person' ? (<FontAwesomeIcon icon={faUser} />) : ''}
+                        {contentType == 'lei' ? (<FontAwesomeIcon icon={faFingerprint} />) : ''}
                     </div>
                     )}
                     <span>{title}</span>
