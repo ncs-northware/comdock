@@ -32,18 +32,28 @@
       ],
       "default": "WM Datenservice (5299000J2N45DDNE4Y28)"
     },
-    "satus": {
+    "lei_status": {
       "type": "enumeration",
       "enum": [
         "ISSUED (ausgegeben)",
         "LAPSED (abgelaufen)",
-        "INACTIVE"
+        "INACTIVE",
+        "PLANNED"
       ],
-      "default": "ISSUED (ausgegeben)"
+      "default": "ISSUED (ausgegeben)",
+      "required": true
     },
     "first_registration": {
       "type": "datetime",
       "required": false
+    },
+    "auto_renew": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "last_renewal": {
+      "type": "datetime"
     },
     "leiHistory": {
       "displayName": "lei-history",
