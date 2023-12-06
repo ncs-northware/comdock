@@ -116,7 +116,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::lei.lei",
-      "mappedby": "company"
+      "mappedBy": "company"
     }
   }
 }
