@@ -196,6 +196,20 @@ const LEIDetail = ({item, network}) => {
                     ))}
                 </section>
                 ):''}
+
+                {item.attributes.leiHistory.length > 0 ? (
+                    <section id="leiHistory" className="detailSection">
+                        <h4 className="mb-3 sectionLabel">LEI Historie</h4>
+                        
+                        {item.attributes.leiHistory.map((leievent) => (
+                            <div className={style.leiEvent} key={leievent.id}>
+                                <div className={style.date}>{germanDate(leievent.date)}</div>
+                                <div className={`${style.comment}`}>{leievent.details}</div>
+                            </div>
+                        ))}
+                    </section>
+                ) : ''}
+
             </DetailPage>
         </Layout>
     )
@@ -206,7 +220,7 @@ export async function getServerSideProps({params}) {
     try {
         const contentResponse = await fetcher(
         `slugify/slugs/lei/${leiPageslug}`,
-        'populate[company][fields][0]=company_name&populate[company][fields][1]=legal_form&populate[company][fields][2]=hr_number&populate[company][fields][3]=hr_dept&populate[company][fields][4]=hr_court&populate[company][fields][5]=status&populate[company][fields][6]=pageslug&populate[company][populate]=main_branch&populate[company][populate]=branches'
+        'populate[company][fields][0]=company_name&populate[company][fields][1]=legal_form&populate[company][fields][2]=hr_number&populate[company][fields][3]=hr_dept&populate[company][fields][4]=hr_court&populate[company][fields][5]=status&populate[company][fields][6]=pageslug&populate[company][populate]=main_branch&populate[company][populate]=branches&populate=leiHistory'
         )
         const networkResponse = await fetcher(
             'networks',
