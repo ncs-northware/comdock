@@ -32,6 +32,17 @@ export interface ExternalsExternals extends Schema.Component {
   };
 }
 
+export interface LeiHistoryLeiHistory extends Schema.Component {
+  collectionName: 'components_lei_history_lei_histories';
+  info: {
+    displayName: 'lei-history';
+  };
+  attributes: {
+    date: Attribute.Date;
+    details: Attribute.RichText & Attribute.Required;
+  };
+}
+
 export interface NetworkCompaniesVerbundeneUnternehmen
   extends Schema.Component {
   collectionName: 'components_network_companies_verbundene_unternehmen';
@@ -148,6 +159,7 @@ declare module '@strapi/types' {
     export interface Components {
       'companies-further-names.vorherige-namen': CompaniesFurtherNamesVorherigeNamen;
       'externals.externals': ExternalsExternals;
+      'lei-history.lei-history': LeiHistoryLeiHistory;
       'network-companies.verbundene-unternehmen': NetworkCompaniesVerbundeneUnternehmen;
       'network-persons.verbundene-personen': NetworkPersonsVerbundenePersonen;
       'person-network.netzwerk-der-person': PersonNetworkNetzwerkDerPerson;

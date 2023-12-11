@@ -736,7 +736,6 @@ export interface ApiCompanyCompany extends Schema.CollectionType {
     hr_dept: Attribute.Enumeration<['HRA', 'HRB']> & Attribute.Required;
     hr_number: Attribute.String & Attribute.Required & Attribute.Unique;
     hr_court: Attribute.String & Attribute.Required;
-    lei: Attribute.String;
     main_branch: Attribute.Relation<
       'api::company.company',
       'manyToOne',
@@ -782,6 +781,7 @@ export interface ApiCompanyCompany extends Schema.CollectionType {
       'manyToMany',
       'api::hr-public.hr-public'
     >;
+    lei: Attribute.Relation<'api::company.company', 'oneToOne', 'api::lei.lei'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -937,6 +937,53 @@ export interface ApiIndexcontentIndexcontent extends Schema.SingleType {
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLeiLei extends Schema.CollectionType {
+  collectionName: 'leis';
+  info: {
+    singularName: 'lei';
+    pluralName: 'leis';
+    displayName: 'Legal Entity Identifier';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    identifier: Attribute.String & Attribute.Required & Attribute.Unique;
+    company: Attribute.Relation<
+      'api::lei.lei',
+      'oneToOne',
+      'api::company.company'
+    >;
+    lou: Attribute.Enumeration<
+      [
+        'Bloomberg Finance LP (5493001KJTIIGC8Y1R12)',
+        'Bundesanzeiger Verlag GmbH (39120001KULK7200U106)',
+        'WM Datenservice (5299000J2N45DDNE4Y28)'
+      ]
+    > &
+      Attribute.DefaultTo<'WM Datenservice (5299000J2N45DDNE4Y28)'>;
+    lei_status: Attribute.Enumeration<
+      ['ISSUED (ausgegeben)', 'LAPSED (abgelaufen)', 'INACTIVE', 'PLANNED']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'ISSUED (ausgegeben)'>;
+    first_registration: Attribute.DateTime;
+    auto_renew: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<true>;
+    last_renewal: Attribute.DateTime;
+    leiHistory: Attribute.Component<'lei-history.lei-history', true>;
+    leiPageslug: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::lei.lei', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::lei.lei', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -1171,6 +1218,7 @@ declare module '@strapi/types' {
       'api::external-shareholder.external-shareholder': ApiExternalShareholderExternalShareholder;
       'api::hr-public.hr-public': ApiHrPublicHrPublic;
       'api::indexcontent.indexcontent': ApiIndexcontentIndexcontent;
+      'api::lei.lei': ApiLeiLei;
       'api::network.network': ApiNetworkNetwork;
       'api::person.person': ApiPersonPerson;
       'api::place.place': ApiPlacePlace;

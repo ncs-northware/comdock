@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "leis",
+  "info": {
+    "singularName": "lei",
+    "pluralName": "leis",
+    "displayName": "Legal Entity Identifier",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "identifier": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "company": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::company.company",
+      "inversedBy": "lei"
+    },
+    "lou": {
+      "type": "enumeration",
+      "enum": [
+        "Bloomberg Finance LP (5493001KJTIIGC8Y1R12)",
+        "Bundesanzeiger Verlag GmbH (39120001KULK7200U106)",
+        "WM Datenservice (5299000J2N45DDNE4Y28)"
+      ],
+      "default": "WM Datenservice (5299000J2N45DDNE4Y28)"
+    },
+    "lei_status": {
+      "type": "enumeration",
+      "enum": [
+        "ISSUED (ausgegeben)",
+        "LAPSED (abgelaufen)",
+        "INACTIVE",
+        "PLANNED"
+      ],
+      "default": "ISSUED (ausgegeben)",
+      "required": true
+    },
+    "first_registration": {
+      "type": "datetime",
+      "required": false
+    },
+    "auto_renew": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "last_renewal": {
+      "type": "datetime"
+    },
+    "leiHistory": {
+      "displayName": "lei-history",
+      "type": "component",
+      "repeatable": true,
+      "component": "lei-history.lei-history"
+    },
+    "leiPageslug": {
+      "type": "string"
+    }
+  }
+}

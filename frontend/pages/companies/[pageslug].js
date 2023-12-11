@@ -7,6 +7,7 @@ import PablicationSection from '@/components/detailPages/PublicationSection';
 import { ConnectionFailFullSite } from '@/components/errors/ConnectionFailFullSite';
 import { useEffect } from 'react';
 import Network from "@/components/detailPages/Network";
+import Link from "next/link";
 
 
 const CompanyDetail = ({item, relationalInfo, corp_object}) => {
@@ -56,10 +57,10 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
                         <span className="badge">HR</span>
                         <span>{item.attributes.hr_court} | {item.attributes.hr_dept+' '+item.attributes.hr_number}</span>
                     </p>
-                    {item.attributes.lei ? (
+                    {item.attributes.lei.data != null ? (
                         <p id="lei" className="my-2">
                             <span className="badge">LEI</span>
-                            <span>{item.attributes.lei}</span>
+                            <Link href={'/lei/'+item.attributes.lei.data.attributes.leiPageslug} className="inlineLink">{item.attributes.lei.data.attributes.identifier}</Link>
                         </p>
                     ) : ''}
                 </section>

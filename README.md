@@ -4,7 +4,13 @@ COMDOCK is a web application that allows you to view simulated **fake** company 
 
 ## What you can do with this App
 
-The app visualizes information about companies that could be published in the [German Company Register](https://www.unternehmensregister.de/) or the German [DPMAregister](https://register.dpma.de/).The app collects and processes this data and then presents it in an easy-to-understand format.
+The app visualizes information about companies that could be published in different Bussiness Registers, such as:
+
+- the German [Company Register](https://www.unternehmensregister.de/) 
+- the German [DPMAregister](https://register.dpma.de/).
+- the European Legal Entity Identifer Register (different providers, such as the [GLEIF Register](https://search.gleif.org/), the German [LEIReg](https://www.leireg.de/) or the [WM LEI-Portal](https://www.wm-leiportal.org/app/de/lei-suche))
+
+The app collects and processes this data and then presents it in an easy-to-understand format inspired by the German App [NorthData](https://www.northdata.de/).
 
 ## DISCLAIMER
 

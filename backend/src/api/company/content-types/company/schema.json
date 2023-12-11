@@ -43,9 +43,6 @@
       "type": "string",
       "required": true
     },
-    "lei": {
-      "type": "string"
-    },
     "main_branch": {
       "type": "relation",
       "relation": "manyToOne",
@@ -114,6 +111,12 @@
       "relation": "manyToMany",
       "target": "api::hr-public.hr-public",
       "mappedBy": "mentionedCompanies"
+    },
+    "lei": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::lei.lei",
+      "mappedBy": "company"
     }
   }
 }
