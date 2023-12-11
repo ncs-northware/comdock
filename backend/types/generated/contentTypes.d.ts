@@ -950,7 +950,7 @@ export interface ApiLeiLei extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     identifier: Attribute.String & Attribute.Required & Attribute.Unique;
@@ -981,7 +981,6 @@ export interface ApiLeiLei extends Schema.CollectionType {
     leiPageslug: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::lei.lei', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::lei.lei', 'oneToOne', 'admin::user'> &
