@@ -11,7 +11,7 @@ updates:
       interval: "weekly"
       day: "friday"
       time: "14:00"
-    assignees:
+    reviewers:
       - "onissen"
     labels:
       - "dependencies"
@@ -26,7 +26,7 @@ updates:
       interval: "weekly"
       day: "friday"
       time: "14:00"
-    assignees:
+    reviewers:
       - "onissen"
     labels:
       - "dependencies"
@@ -51,7 +51,7 @@ updates:
       - dependency-name: "react-router-dom"
       - dependency-name: "styled-components"
       # Those 3 dependencies are used by strapi v4.15.0 and above and can only be upgraded when strapi is ready for it.
-    assignees:
+    reviewers:
       - "onissen"
     labels:
       - "dependencies"
