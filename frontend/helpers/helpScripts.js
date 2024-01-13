@@ -78,17 +78,17 @@ export async function markdownToHtml(markdown) {
 
 export function dynamicIconHandler(import_icon) {
     const iconMap = {
-        'faEllipsis': faEllipsis,
-        'faGraduationCap': faGraduationCap,
-        'faUser': faUser,
-        'faCirclePlus': faCirclePlus,
         'faBuilding': faBuilding,
-        'faFile': faFile,
-        'faCircleMinus': faCircleMinus,
-        'faCodeBranch': faCodeBranch,
-        'faIndustry': faIndustry,
         'faBuildingColumns': faBuildingColumns,
-        'faHouseUser': faHouseUser
+        'faCircleMinus': faCircleMinus,
+        'faCirclePlus': faCirclePlus,
+        'faCodeBranch': faCodeBranch,
+        'faEllipsis': faEllipsis,
+        'faFile': faFile,
+        'faGraduationCap': faGraduationCap,
+        'faHouseUser': faHouseUser,
+        'faIndustry': faIndustry,
+        'faUser': faUser
     };
     const export_icon = iconMap[import_icon];
     return export_icon

@@ -955,14 +955,17 @@ export interface ApiHrPublicHrPublic extends Schema.CollectionType {
     pub_date: Attribute.Date & Attribute.Required;
     pub_icon: Attribute.Enumeration<
       [
-        'faEllipsis',
-        'faGraduationCap',
-        'faUser',
-        'faCirclePlus',
         'faBuilding',
-        'faFile',
+        'faBuildingColumns',
         'faCircleMinus',
-        'faCodeBranch'
+        'faCirclePlus',
+        'faCodeBranch',
+        'faEllipsis',
+        'faFile',
+        'faGraduationCap',
+        'faHouseUser',
+        'faIndustry',
+        'faUser'
       ]
     > &
       Attribute.Required &

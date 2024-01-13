@@ -32,14 +32,17 @@
     "pub_icon": {
       "type": "enumeration",
       "enum": [
-        "faEllipsis",
-        "faGraduationCap",
-        "faUser",
-        "faCirclePlus",
         "faBuilding",
-        "faFile",
+        "faBuildingColumns",
         "faCircleMinus",
-        "faCodeBranch"
+        "faCirclePlus",
+        "faCodeBranch",
+        "faEllipsis",
+        "faFile",
+        "faGraduationCap",
+        "faHouseUser",
+        "faIndustry",
+        "faUser"
       ],
       "required": true,
       "default": "faEllipsis"
