@@ -35,19 +35,19 @@ const PersonDetail = ({item}) => {
                                 .sort((newest, oldest) => oldest.attributes.since.localeCompare(newest.attributes.since))
                                 .map((person) => {
                                 return (
-                                    <div className={`${style.listItem} ${person.attributes.upto ? (style.deleted) : ''} rounded-lg`}>
-                                        <div className={`${style.listIcon} flex-none rounded-l-lg`}>
-                                            <FontAwesomeIcon icon={faBuilding} size="lg" />
-                                        </div>
-                                        <div className={`${style.listContent} flex-auto`}>
-                                            <Link href={'/companies/'+person.attributes.childCompany.data.attributes.pageslug} key={person.id}>
+                                    <Link href={'/companies/'+person.attributes.childCompany.data.attributes.pageslug} key={person.id}>
+                                        <div className={`${style.listItem} ${person.attributes.upto ? (style.deleted) : ''} rounded-lg`}>
+                                            <div className={`${style.listIcon} flex-none rounded-l-lg`}>
+                                                <FontAwesomeIcon icon={faBuilding} size="lg" />
+                                            </div>
+                                            <div className={`${style.listContent} flex-auto`}>
                                                 <p className={`${style.summary}`}>{person.attributes.childCompany.data.attributes.company_name}</p>
                                                 <p className={`${style.meta}`}>
                                                     {person.attributes.type} {person.attributes.upto ? ('(bis '+germanDate(person.attributes.upto)+')') : ''}
                                                 </p>
-                                            </Link>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 );
                             })}
                         </div>
