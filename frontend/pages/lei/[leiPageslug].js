@@ -146,16 +146,16 @@ const LEIDetail = ({item, network}) => {
                     <h4 className="mb-3 sectionLabel">Netzwerk</h4>
                     {network.map((relation) => (
                         relation.attributes.childCompany.data.attributes.pageslug != item.attributes.company.data.attributes.pageslug ? (
+                        <Link href={
+                            relation.attributes.childCompany.data.attributes.lei.data !== null ? (
+                                '/lei/'+ relation.attributes.childCompany.data.attributes.lei.data.attributes.identifier) : (
+                                '/companies/'+relation.attributes.childCompany.data.attributes.pageslug
+                        )} >
                         <div className={`${style.networkItem} my-4 rounded-lg`} key={relation.id}>
-                        <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                <FontAwesomeIcon icon={faBuilding} size="lg" />
-                        </div>
-                        <div className={`${style.listContent} flex-auto`}>
-                            <Link href={
-                                relation.attributes.childCompany.data.attributes.lei.data !== null ? (
-                                    '/lei/'+ relation.attributes.childCompany.data.attributes.lei.data.attributes.identifier) : (
-                                    '/companies/'+relation.attributes.childCompany.data.attributes.pageslug
-                            )} >
+                            <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                                    <FontAwesomeIcon icon={faBuilding} size="lg" />
+                            </div>
+                            <div className={`${style.listContent} flex-auto`}>
                                 <p className={`${style.summary} items-center inline-flex`}>
                                     <span >{relation.attributes.childCompany.data.attributes.company_name}</span>
                                     <span className={`badge ${style.StatusBadge}`}>Tochtergesellschaft</span>    
@@ -163,23 +163,23 @@ const LEIDetail = ({item, network}) => {
                                 {relation.attributes.childCompany.data.attributes.lei.data !== null ? (
                                     <p className={`${style.meta}`}>{relation.attributes.childCompany.data.attributes.lei.data.attributes.identifier}</p>
                                 ) : ''}
-                            </Link>
-                        </div>
-                    </div>
-                    ) :
-                    relation.attributes.parentCompany.data.attributes.pageslug != item.attributes.company.data.attributes.pageslug ? (
-                        <div className={`${style.networkItem} my-4 rounded-lg`} key={relation.id}>
-                        <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                            <div className={style.faIcon}>
-                                <FontAwesomeIcon icon={faBuilding} />
                             </div>
                         </div>
-                        <div className={`${style.listContent} flex-auto`}>
-                            <Link href={
-                                relation.attributes.parentCompany.data.attributes.lei.data !== null ? (
-                                    '/lei/'+ relation.attributes.parentCompany.data.attributes.lei.data.attributes.identifier) : (
-                                    '/companies/'+relation.attributes.parentCompany.data.attributes.pageslug
-                            )}>
+                    </Link>
+                    ) :
+                    relation.attributes.parentCompany.data.attributes.pageslug != item.attributes.company.data.attributes.pageslug ? (
+                        <Link href={
+                            relation.attributes.parentCompany.data.attributes.lei.data !== null ? (
+                                '/lei/'+ relation.attributes.parentCompany.data.attributes.lei.data.attributes.identifier) : (
+                                '/companies/'+relation.attributes.parentCompany.data.attributes.pageslug
+                        )}>
+                        <div className={`${style.networkItem} my-4 rounded-lg`} key={relation.id}>
+                            <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                                <div className={style.faIcon}>
+                                    <FontAwesomeIcon icon={faBuilding} />
+                                </div>
+                            </div>
+                            <div className={`${style.listContent} flex-auto`}>
                                 <p className={`${style.summary} items-center inline-flex`}>
                                     <span>{relation.attributes.parentCompany.data.attributes.company_name}</span>
                                     <span className={`badge ${style.StatusBadge}`}>Muttergesellschaft</span>    
@@ -187,9 +187,9 @@ const LEIDetail = ({item, network}) => {
                                 {relation.attributes.parentCompany.data.attributes.lei.data !== null ? (
                                     <p className={`${style.meta}`}>{relation.attributes.parentCompany.data.attributes.lei.data.attributes.identifier}</p>
                                 ) : ''}
-                            </Link>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                     ) : ''
                     ))}
                 </section>
