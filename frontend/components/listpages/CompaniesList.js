@@ -12,9 +12,7 @@ const CompaniesList = ({content}) => {
                     <Link href={'/companies/'+item.attributes.pageslug} key={item.attributes.pageslug}>
                         <div className={`${style.listItem} rounded-lg`}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                <div className='w-5'>
-                                    <FontAwesomeIcon icon={faBuilding} />
-                                </div>
+                                <FontAwesomeIcon icon={faBuilding} size='lg' />
                             </div>
                             <div className={`${style.listContent} flex-auto`}>
                                 <p className={`${style.summary} flex items-center`}>

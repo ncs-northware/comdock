@@ -12,9 +12,7 @@ const PersonsList = ({content}) => {
                     <Link href={'/persons/'+item.id} key={item.id}>
                         <div className={`${style.listItem} rounded-lg`}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                <div className='w-5'>
-                                    <FontAwesomeIcon icon={faUser} />
-                                </div>
+                                <FontAwesomeIcon icon={faUser} size='lg' />
                             </div>
                             <div className={`${style.listContent} flex-auto`}>
                                 <p className={`${style.summary}`}>{item.attributes.first_name+' '+item.attributes.sir_name} </p>

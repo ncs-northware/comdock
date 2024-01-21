@@ -26,9 +26,7 @@ export default function Network({networkInfo}) {
         <>
             <div className={`${style.networkItem} ${style.headItem} mb-5 rounded-lg`}>
                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                    <div className='w-5'>
-                        <FontAwesomeIcon icon={faBuilding} />
-                    </div>
+                    <FontAwesomeIcon icon={faBuilding} size='lg' />
                 </div>
                 <div className={`${style.listContent} flex-auto`}>
                     <p className={`${style.summary}`}>{networkInfo.attributes.company_name}</p>
@@ -42,9 +40,7 @@ export default function Network({networkInfo}) {
                         return (
                             <div className={`${style.networkItem} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <div className={style.faIcon}>
-                                        <FontAwesomeIcon icon={faBuilding} />
-                                    </div>
+                                    <FontAwesomeIcon icon={faBuilding} size='lg' />
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
                                     <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.pageslug} >
@@ -59,13 +55,11 @@ export default function Network({networkInfo}) {
                         return (
                             <div className={`${style.networkItem} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <div className={style.faIcon}>
-                                        {parent.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
-                                            <FontAwesomeIcon icon={faBuildingColumns} />
-                                        ) : (
-                                            <FontAwesomeIcon icon={faIndustry} />
-                                        )}
-                                    </div>
+                                    {parent.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
+                                        <FontAwesomeIcon icon={faBuildingColumns} size='lg' />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faIndustry} size='lg' />
+                                    )}
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
                                     <Link href={parent.attributes.parentExternal.data.attributes.url} target='_blank' >
@@ -80,9 +74,7 @@ export default function Network({networkInfo}) {
                         return (
                             <div className={`${style.networkItem} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <div className={style.faIcon}>
-                                        <FontAwesomeIcon icon={faUser} />
-                                    </div>
+                                    <FontAwesomeIcon icon={faUser} size='lg' />
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
                                     <Link href={'/persons/'+parent.attributes.parentPerson.data.id} >
@@ -99,9 +91,7 @@ export default function Network({networkInfo}) {
                     return (
                         <div className={`${style.networkItem} rounded-lg`} key={child.id}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                <div className={style.faIcon}>
-                                    <FontAwesomeIcon icon={faBuildingCircleArrowRight} />
-                                </div>
+                                <FontAwesomeIcon icon={faBuildingCircleArrowRight} size='lg'  />
                             </div>
                             <div className={`${style.listContent} flex-auto`}>
                                 <Link href={'/companies/'+child.attributes.childCompany.data.attributes.pageslug} >
@@ -119,9 +109,7 @@ export default function Network({networkInfo}) {
                         return (
                             <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <div className={style.faIcon}>
-                                        <FontAwesomeIcon icon={faBuilding} />
-                                    </div>
+                                    <FontAwesomeIcon icon={faBuilding} size='lg' />
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
                                     <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.pageslug} >
@@ -138,13 +126,11 @@ export default function Network({networkInfo}) {
                         return (
                             <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <div className={style.faIcon}>
-                                        {parent.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
-                                            <FontAwesomeIcon icon={faBuildingColumns} />
-                                        ) : (
-                                            <FontAwesomeIcon icon={faIndustry} />
-                                        )}
-                                    </div>
+                                    {parent.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
+                                        <FontAwesomeIcon icon={faBuildingColumns} size='lg' />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faIndustry} size='lg' />
+                                    )}
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
                                     <Link href={parent.attributes.parentExternal.data.attributes.url} target='_blank' >
@@ -161,9 +147,7 @@ export default function Network({networkInfo}) {
                         return (
                             <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <div className={style.faIcon}>
-                                        <FontAwesomeIcon icon={faUser} />
-                                    </div>
+                                    <FontAwesomeIcon icon={faUser} size='lg' />
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
                                     <Link href={'/persons/'+parent.attributes.parentPerson.data.id} >
@@ -182,9 +166,7 @@ export default function Network({networkInfo}) {
                     return (
                         <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={child.id}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                <div className={style.faIcon}>
-                                    <FontAwesomeIcon icon={faBuildingCircleArrowRight} />
-                                </div>
+                                <FontAwesomeIcon icon={faBuildingCircleArrowRight} size='lg' />
                             </div>
                             <div className={`${style.listContent} flex-auto`}>
                                 <Link href={'/companies/'+child.attributes.childCompany.data.attributes.pageslug} >
