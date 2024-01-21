@@ -16,7 +16,7 @@ function Error({ statusCode }) {
                 </Link>
 
                 <div className="grow text-center justify-center items-center flex flex-col">
-                    <AlertIcon theme="error" weightClass='w-12' />
+                    <AlertIcon theme="error" size="xl" />
                     <div className="mt-10">
                         {statusCode ? (
                             <h4 className="text-error">{statusCode}</h4>

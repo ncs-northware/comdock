@@ -17,18 +17,14 @@ export default function DocList({content}) {
                             <div className={open ? 'bg-slate-100 rounded-lg shadow-sm' : ''}>
                                 <Disclosure.Button className={`${style.listItem} rounded-lg w-full text-left`} id={`doc${item.id}`}>
                                     <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                        <div className="w-5">
-                                            <FontAwesomeIcon icon={faFileLines} />
-                                        </div>
+                                        <FontAwesomeIcon icon={faFileLines} size='lg' />
                                     </div>
                                     <div className={`${style.listContent} flex-auto`}>
                                         <p className={`${style.summary}`}>{item.attributes.type}</p>
                                         <p className={`${style.meta}`}>{germanDate(item.attributes.createdAt)}</p>
                                     </div>
                                     <div className="flex-none my-auto mx-5 text-zinc-300/75">
-                                        <div className={`${open ? 'rotate-180 transform' : ''} w-5`}>
-                                            <FontAwesomeIcon icon={faCircleChevronDown} />
-                                        </div>
+                                        <FontAwesomeIcon icon={faCircleChevronDown} className={`${open ? 'rotate-180 transform' : ''}`}/>
                                     </div>
                                 </Disclosure.Button>
                                 <Disclosure.Panel>
@@ -37,7 +33,7 @@ export default function DocList({content}) {
                                         {item.attributes.mainDoc.data ? (
                                             <Link href={process.env.NEXT_PUBLIC_STRAPI_URL+item.attributes.mainDoc.data.attributes.url} target="_blank">
                                                 <button className="flex items-center font-medium text-sm text-primary hover:bg-sky-200/70 rounded-md px-2 py-1">
-                                                    <FontAwesomeIcon icon={faFile} className="w-3" />
+                                                    <FontAwesomeIcon icon={faFile} />
                                                     <span className="ml-3">Dokument öffnen</span>
                                                 </button>
                                             </Link>
@@ -48,7 +44,7 @@ export default function DocList({content}) {
                                                 {item.attributes.relatedDocs.map((relation) => (
                                                     <Link href={process.env.NEXT_PUBLIC_STRAPI_URL+relation.document.data.attributes.url} target="_blank" className='col-auto'>
                                                         <button className="flex items-center font-medium text-sm text-primary hover:bg-sky-200/70 rounded-md px-2 py-1">
-                                                            <FontAwesomeIcon icon={faFile} className="w-3" />
+                                                            <FontAwesomeIcon icon={faFile} />
                                                             <span className="ml-3">{relation.type} öffnen</span>
                                                         </button>
                                                     </Link>

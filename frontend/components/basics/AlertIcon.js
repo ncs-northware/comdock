@@ -4,25 +4,25 @@ import style from '@/layout/Alert.module.sass'
 
 
 
-export default function AlertIcon({theme = 'info', weightClass = 'w-8'}) {
+export default function AlertIcon({theme = 'info', size = 'lg'}) {
     return (
         <div className={`rounded-lg p-5 ${style[theme]} relative w-fit`}>
             {
                 theme == 'info' ? (
                     <div>
-                        <FontAwesomeIcon icon={faCircleInfo} className={weightClass} />
+                        <FontAwesomeIcon icon={faCircleInfo} size={size} />
                     </div>
                 ) : 
                 theme == 'success' ? (
-                    <FontAwesomeIcon icon={faCircleCheck} className={weightClass} />
+                    <FontAwesomeIcon icon={faCircleCheck} size={size} />
                 ) : 
                 theme == 'warning' ? (
-                    <FontAwesomeIcon icon={faCircleExclamation} className={weightClass} />
+                    <FontAwesomeIcon icon={faCircleExclamation} size={size} />
                 ) : 
                 theme == 'error' ? (
-                    <FontAwesomeIcon icon={faCircleXmark} className={weightClass} />
+                    <FontAwesomeIcon icon={faCircleXmark} size={size} />
                 ) : 
-                (<FontAwesomeIcon icon={faCircleInfo} className={weightClass}/>)
+                (<FontAwesomeIcon icon={faCircleInfo} size={size}/>)
             }
         </div>
     )

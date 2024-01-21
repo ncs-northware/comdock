@@ -19,7 +19,7 @@ export function ConnectionFailFullSite() {
                 </Link>
 
                 <div className="grow text-center justify-center items-center flex flex-col">
-                    <AlertIcon theme="warning" weightClass='w-12' />
+                    <AlertIcon theme="warning" size="xl" />
                     <div className="mt-10">
                     <h1>Wir haben unsere Daten verloren</h1>
                     <p>

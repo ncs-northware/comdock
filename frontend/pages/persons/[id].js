@@ -37,9 +37,7 @@ const PersonDetail = ({item}) => {
                                 return (
                                     <div className={`${style.listItem} ${person.attributes.upto ? (style.deleted) : ''} rounded-lg`}>
                                         <div className={`${style.listIcon} flex-none rounded-l-lg`}>
-                                            <div className={style.faIcon}>
-                                                <FontAwesomeIcon icon={faBuilding} />
-                                            </div>
+                                            <FontAwesomeIcon icon={faBuilding} size="lg" />
                                         </div>
                                         <div className={`${style.listContent} flex-auto`}>
                                             <Link href={'/companies/'+person.attributes.childCompany.data.attributes.pageslug} key={person.id}>

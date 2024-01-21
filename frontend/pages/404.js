@@ -17,7 +17,7 @@ export default function NotFound() {
                 </Link>
 
                 <div className="grow text-center justify-center items-center flex flex-col">
-                    <AlertIcon theme="primary" weightClass='w-12' />
+                    <AlertIcon theme="primary" size="xl" />
                     <div className="mt-10">
                         <h4 className="text-primary">404</h4>
                         <h1 className="mt-4">Seite nicht gefunden</h1>

@@ -40,10 +40,10 @@ export default function DetailPage({title, children, contentType, badge, noBread
             <PageHeader title={title} noBreadcrumb={noBreadcrumb}>
                 <div className="h1 flex items-center">
                     { contentType && (
-                    <div className="flex-none w-8 mr-6">
+                    <div className="flex-none mr-6">
                         {contentType == 'company' ? (<FontAwesomeIcon icon={faBuilding} />) : ''}
-                        {contentType == 'person' ? (<FontAwesomeIcon icon={faUser} />) : ''}
-                        {contentType == 'lei' ? (<FontAwesomeIcon icon={faFingerprint} />) : ''}
+                        {contentType == 'person' ? (<FontAwesomeIcon icon={faUser}  />) : ''}
+                        {contentType == 'lei' ? (<FontAwesomeIcon icon={faFingerprint}  />) : ''}
                     </div>
                     )}
                     <span>{title}</span>

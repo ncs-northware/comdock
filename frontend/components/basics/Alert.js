@@ -8,18 +8,18 @@ export default function Alert({children, title = '', theme='info'}) {
             <div className={`${style.alertIcon} ${style[theme]} aspect-square relative`}>
                 {
                     theme == 'info' ? (
-                        <FontAwesomeIcon icon={faCircleInfo} className='w-6' />
+                        <FontAwesomeIcon icon={faCircleInfo} size='lg' />
                     ) : 
                     theme == 'success' ? (
-                        <FontAwesomeIcon icon={faCircleCheck} className='w-6' />
+                        <FontAwesomeIcon icon={faCircleCheck} size='lg' />
                     ) : 
                     theme == 'warning' ? (
-                        <FontAwesomeIcon icon={faCircleExclamation} className='w-6' />
+                        <FontAwesomeIcon icon={faCircleExclamation} size='lg' />
                     ) : 
                     theme == 'error' ? (
-                        <FontAwesomeIcon icon={faCircleXmark} className='w-6' />
+                        <FontAwesomeIcon icon={faCircleXmark} size='lg' />
                     ) : 
-                    (<FontAwesomeIcon icon={faCircleInfo} className='w-6' />)
+                    (<FontAwesomeIcon icon={faCircleInfo} size='lg' />)
                 }
             </div>
             <div className={style.alertMessage}>

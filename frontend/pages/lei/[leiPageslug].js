@@ -148,9 +148,7 @@ const LEIDetail = ({item, network}) => {
                         relation.attributes.childCompany.data.attributes.pageslug != item.attributes.company.data.attributes.pageslug ? (
                         <div className={`${style.networkItem} my-4 rounded-lg`} key={relation.id}>
                         <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                            <div className={style.faIcon}>
-                                <FontAwesomeIcon icon={faBuilding} />
-                            </div>
+                                <FontAwesomeIcon icon={faBuilding} size="lg" />
                         </div>
                         <div className={`${style.listContent} flex-auto`}>
                             <Link href={
