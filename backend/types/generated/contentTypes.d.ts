@@ -512,6 +512,8 @@ export interface PluginContentReleasesRelease extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     releasedAt: Attribute.DateTime;
+    scheduledAt: Attribute.DateTime;
+    timezone: Attribute.String;
     actions: Attribute.Relation<
       'plugin::content-releases.release',
       'oneToMany',
@@ -1268,6 +1270,7 @@ export interface ApiRegDocRegDoc extends Schema.CollectionType {
       [
         'Gesellschaftsvertrag',
         'Liste der Gesellschafter',
+        'Aufsichtsratsliste',
         'Jahresabschluss / Bilanz',
         'Anmeldung HRA',
         'Eintragungsanzeige',
