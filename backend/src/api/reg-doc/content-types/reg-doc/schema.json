@@ -22,6 +22,7 @@
       "enum": [
         "Gesellschaftsvertrag",
         "Liste der Gesellschafter",
+        "Aufsichtsratsliste",
         "Jahresabschluss / Bilanz",
         "Anmeldung HRA",
         "Eintragungsanzeige",
