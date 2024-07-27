@@ -1283,7 +1283,7 @@ export interface ApiRegDocRegDoc extends Schema.CollectionType {
       ]
     > &
       Attribute.Required;
-    mainDoc: Attribute.Media & Attribute.Required;
+    mainDoc: Attribute.Media<'images' | 'files'> & Attribute.Required;
     relatedDocs: Attribute.Component<'related-docs.related-docs', true>;
     companies: Attribute.Relation<
       'api::reg-doc.reg-doc',
