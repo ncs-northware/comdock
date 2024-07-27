@@ -15,6 +15,40 @@ export interface RelatedDocsRelatedDocs extends Schema.Component {
   };
 }
 
+export interface PersonNetworkNetzwerkDerPerson extends Schema.Component {
+  collectionName: 'components_person_network_netzwerk_der_people';
+  info: {
+    displayName: 'Netzwerk der Person';
+    description: '';
+  };
+  attributes: {
+    company: Attribute.Relation<
+      'person-network.netzwerk-der-person',
+      'oneToOne',
+      'api::company.company'
+    >;
+    since: Attribute.Date & Attribute.Required;
+    upto: Attribute.Date;
+    connection_type: Attribute.Enumeration<
+      [
+        'Gesch\u00E4ftsf\u00FChrer',
+        'Gesellschafter',
+        'CEO',
+        'COO',
+        'Einzelprokura',
+        'Gesamtprokura',
+        'Filialprokura',
+        'Andere Vertretungsbefugnis'
+      ]
+    >;
+    hr_public: Attribute.Relation<
+      'person-network.netzwerk-der-person',
+      'oneToOne',
+      'api::hr-public.hr-public'
+    >;
+  };
+}
+
 export interface NetworkPersonsVerbundenePersonen extends Schema.Component {
   collectionName: 'components_network_persons_verbundene_personens';
   info: {
@@ -77,40 +111,6 @@ export interface NetworkCompaniesVerbundeneUnternehmen
   };
 }
 
-export interface PersonNetworkNetzwerkDerPerson extends Schema.Component {
-  collectionName: 'components_person_network_netzwerk_der_people';
-  info: {
-    displayName: 'Netzwerk der Person';
-    description: '';
-  };
-  attributes: {
-    company: Attribute.Relation<
-      'person-network.netzwerk-der-person',
-      'oneToOne',
-      'api::company.company'
-    >;
-    since: Attribute.Date & Attribute.Required;
-    upto: Attribute.Date;
-    connection_type: Attribute.Enumeration<
-      [
-        'Gesch\u00E4ftsf\u00FChrer',
-        'Gesellschafter',
-        'CEO',
-        'COO',
-        'Einzelprokura',
-        'Gesamtprokura',
-        'Filialprokura',
-        'Andere Vertretungsbefugnis'
-      ]
-    >;
-    hr_public: Attribute.Relation<
-      'person-network.netzwerk-der-person',
-      'oneToOne',
-      'api::hr-public.hr-public'
-    >;
-  };
-}
-
 export interface LeiHistoryLeiHistory extends Schema.Component {
   collectionName: 'components_lei_history_lei_histories';
   info: {
@@ -158,9 +158,9 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'related-docs.related-docs': RelatedDocsRelatedDocs;
+      'person-network.netzwerk-der-person': PersonNetworkNetzwerkDerPerson;
       'network-persons.verbundene-personen': NetworkPersonsVerbundenePersonen;
       'network-companies.verbundene-unternehmen': NetworkCompaniesVerbundeneUnternehmen;
-      'person-network.netzwerk-der-person': PersonNetworkNetzwerkDerPerson;
       'lei-history.lei-history': LeiHistoryLeiHistory;
       'externals.externals': ExternalsExternals;
       'companies-further-names.vorherige-namen': CompaniesFurtherNamesVorherigeNamen;
