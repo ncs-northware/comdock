@@ -4,9 +4,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 50090",
+    "dev": "next dev -p 40090",
     "build": "next build",
-    "start": "next start -p 50090",
+    "start": "next start -p 40090",
     "lint": "next lint"
   },
   "dependencies": {
