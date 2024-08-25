@@ -1,20 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface RelatedDocsRelatedDocs extends Schema.Component {
-  collectionName: 'components_related_docs_related_docs';
-  info: {
-    displayName: 'relatedDocs';
-    description: '';
-  };
-  attributes: {
-    document: Attribute.Media<'images' | 'files'> & Attribute.Required;
-    type: Attribute.Enumeration<
-      ['Unterschriftsnachweis', 'Apostille', 'Beglaubigung', 'Zertifizierung']
-    > &
-      Attribute.Required;
-  };
-}
-
 export interface PersonNetworkNetzwerkDerPerson extends Schema.Component {
   collectionName: 'components_person_network_netzwerk_der_people';
   info: {
@@ -46,6 +31,21 @@ export interface PersonNetworkNetzwerkDerPerson extends Schema.Component {
       'oneToOne',
       'api::hr-public.hr-public'
     >;
+  };
+}
+
+export interface RelatedDocsRelatedDocs extends Schema.Component {
+  collectionName: 'components_related_docs_related_docs';
+  info: {
+    displayName: 'relatedDocs';
+    description: '';
+  };
+  attributes: {
+    document: Attribute.Media<'images' | 'files'> & Attribute.Required;
+    type: Attribute.Enumeration<
+      ['Unterschriftsnachweis', 'Apostille', 'Beglaubigung', 'Zertifizierung']
+    > &
+      Attribute.Required;
   };
 }
 
@@ -122,6 +122,17 @@ export interface LeiHistoryLeiHistory extends Schema.Component {
   };
 }
 
+export interface CompaniesFurtherNamesVorherigeNamen extends Schema.Component {
+  collectionName: 'components_companies_further_names_vorherige_namen';
+  info: {
+    displayName: 'Vorherige Namen';
+  };
+  attributes: {
+    further_cname: Attribute.String & Attribute.Required;
+    name_upto: Attribute.Date;
+  };
+}
+
 export interface ExternalsExternals extends Schema.Component {
   collectionName: 'components_externals_externals';
   info: {
@@ -143,27 +154,16 @@ export interface ExternalsExternals extends Schema.Component {
   };
 }
 
-export interface CompaniesFurtherNamesVorherigeNamen extends Schema.Component {
-  collectionName: 'components_companies_further_names_vorherige_namen';
-  info: {
-    displayName: 'Vorherige Namen';
-  };
-  attributes: {
-    further_cname: Attribute.String & Attribute.Required;
-    name_upto: Attribute.Date;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'related-docs.related-docs': RelatedDocsRelatedDocs;
       'person-network.netzwerk-der-person': PersonNetworkNetzwerkDerPerson;
+      'related-docs.related-docs': RelatedDocsRelatedDocs;
       'network-persons.verbundene-personen': NetworkPersonsVerbundenePersonen;
       'network-companies.verbundene-unternehmen': NetworkCompaniesVerbundeneUnternehmen;
       'lei-history.lei-history': LeiHistoryLeiHistory;
-      'externals.externals': ExternalsExternals;
       'companies-further-names.vorherige-namen': CompaniesFurtherNamesVorherigeNamen;
+      'externals.externals': ExternalsExternals;
     }
   }
 }
