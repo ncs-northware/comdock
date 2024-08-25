@@ -1,202 +1,348 @@
-import { germanDate } from '@/helpers/helpScripts';
-import style from '@/layout/ContentLists.module.sass';
-import { faBuilding, faBuildingCircleArrowRight, faBuildingColumns, faIndustry, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Link from 'next/link';
-import { useState } from 'react';
-import Alert from '../basics/Alert';
+import { germanDate } from "@/helpers/helpScripts";
+import style from "@/layout/ContentLists.module.sass";
+import {
+  faBuilding,
+  faBuildingCircleArrowRight,
+  faBuildingColumns,
+  faIndustry,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import { useState } from "react";
+import Alert from "../basics/Alert";
 
+export default function Network({ networkInfo }) {
+  // PARENT = Partner ist dieser Firma übergeordnet
+  const parents = networkInfo.attributes.networkParents.data.sort(
+    (newest, oldest) =>
+      oldest.attributes.since.localeCompare(newest.attributes.since)
+  );
+  const activeParents = parents.filter((item) => item.attributes.upto === null);
+  const deletedParents = parents.filter(
+    (item) => item.attributes.upto !== null
+  );
 
-export default function Network({networkInfo}) {
+  const children = networkInfo.attributes.networkChildren.data.sort(
+    (newest, oldest) =>
+      oldest.attributes.since.localeCompare(newest.attributes.since)
+  );
+  const activeChildren = children.filter(
+    (item) => item.attributes.upto === null
+  );
+  const deletedChildren = children.filter(
+    (item) => item.attributes.upto !== null
+  );
 
-    // PARENT = Partner ist dieser Firma übergeordnet
-    const parents = networkInfo.attributes.networkParents.data.sort((newest, oldest) => oldest.attributes.since.localeCompare(newest.attributes.since));
-    const activeParents = parents.filter(item => item.attributes.upto === null);
-    const deletedParents = parents.filter(item => item.attributes.upto !== null);
+  const [ShowFullNetwork, setShowFullNetwork] = useState(false);
+  const initalNum = 4;
+  const numToShow = ShowFullNetwork ? activeParents.length : initalNum;
 
-    const children = networkInfo.attributes.networkChildren.data.sort((newest, oldest) => oldest.attributes.since.localeCompare(newest.attributes.since));
-    const activeChildren = children.filter(item => item.attributes.upto === null);
-    const deletedChildren = children.filter(item => item.attributes.upto !== null);
+  return (
+    <>
+      <div className={`${style.networkItem} ${style.headItem} mb-5 rounded-lg`}>
+        <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+          <FontAwesomeIcon icon={faBuilding} size="lg" />
+        </div>
+        <div className={`${style.listContent} flex-auto`}>
+          <p className={`${style.summary}`}>
+            {networkInfo.attributes.company_name}
+          </p>
+        </div>
+      </div>
 
-    const [ShowFullNetwork, setShowFullNetwork] = useState(false)
-    const initalNum = 4
-    const numToShow = ShowFullNetwork ? activeParents.length : initalNum;
-
-    return(
-        <>
-            <div className={`${style.networkItem} ${style.headItem} mb-5 rounded-lg`}>
-                <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                    <FontAwesomeIcon icon={faBuilding} size='lg' />
-                </div>
-                <div className={`${style.listContent} flex-auto`}>
-                    <p className={`${style.summary}`}>{networkInfo.attributes.company_name}</p>
-                </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 mb-5">
-                
-                {activeParents.slice(0, numToShow).map((parent) => {
-                    if (parent.attributes.parentCompany.data !== null) {
-                        return (
-                            <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.pageslug} >
-                                <div className={`${style.networkItem} rounded-lg`} key={parent.id}>
-                                        <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                            <FontAwesomeIcon icon={faBuilding} size='lg' />
-                                        </div>
-                                        <div className={`${style.listContent} flex-auto`}>
-                                                <p className={`${style.summary}`}>{parent.attributes.parentCompany.data.attributes.company_name}</p>
-                                                <p className={`${style.meta}`}>{parent.attributes.type}</p>
-                                        </div>
-                                </div>
-                            </Link>
-                        )
-
-                    } else if (parent.attributes.parentExternal.data !== null) {
-                        return (
-                            <Link href={parent.attributes.parentExternal.data.attributes.url} target='_blank' >
-                                <div className={`${style.networkItem} rounded-lg`} key={parent.id}>
-                                    <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                        {parent.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
-                                            <FontAwesomeIcon icon={faBuildingColumns} size='lg' />
-                                        ) : (
-                                            <FontAwesomeIcon icon={faIndustry} size='lg' />
-                                        )}
-                                    </div>
-                                    <div className={`${style.listContent} flex-auto`}>
-                                            <p className={`${style.summary}`}>{parent.attributes.parentExternal.data.attributes.company_name}</p>
-                                            <p className={`${style.meta}`}>{parent.attributes.type}</p>
-                                    </div>
-                                </div>
-                            </Link>
-                        )
-
-                    } else if (parent.attributes.parentPerson.data !== null) {
-                        return (
-                            <Link href={'/persons/'+parent.attributes.parentPerson.data.id} >
-                                <div className={`${style.networkItem} rounded-lg`} key={parent.id}>
-                                    <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                        <FontAwesomeIcon icon={faUser} size='lg' />
-                                    </div>
-                                    <div className={`${style.listContent} flex-auto`}>
-                                        <p className={`${style.summary}`}>{parent.attributes.parentPerson.data.attributes.first_name} {parent.attributes.parentPerson.data.attributes.sir_name}</p>
-                                        <p className={`${style.meta}`}>{parent.attributes.type}</p>
-                                    </div>
-                                </div>
-                            </Link>
-                        )
-                    }
-                })}
-
-                {ShowFullNetwork && activeChildren.map((child) => {
-                    return (
-                        <Link href={'/companies/'+child.attributes.childCompany.data.attributes.pageslug} >
-                            <div className={`${style.networkItem} rounded-lg`} key={child.id}>
-                                <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <FontAwesomeIcon icon={faBuildingCircleArrowRight} size='lg'  />
-                                </div>
-                                <div className={`${style.listContent} flex-auto`}>
-                                    <p className={`${style.summary}`}>{child.attributes.childCompany.data.attributes.company_name}</p>
-                                    <p className={`${style.meta}`}>{child.attributes.type}</p>
-                                </div>
-                            </div>
-                        </Link>
-                    )
-                })}
-
-
-                {ShowFullNetwork && deletedParents.map((parent) => {
-                    if (parent.attributes.parentCompany.data !== null) {
-                        return (
-                            <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.pageslug} >
-                                <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={parent.id}>
-                                    <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                        <FontAwesomeIcon icon={faBuilding} size='lg' />
-                                    </div>
-                                    <div className={`${style.listContent} flex-auto`}>
-                                        <p className={`${style.summary}`}>{parent.attributes.parentCompany.data.attributes.company_name}</p>
-                                        <p className={`${style.meta}`}>
-                                            {parent.attributes.type} ({germanDate(parent.attributes.since)} bis {germanDate(parent.attributes.upto)})
-                                        </p>
-                                    </div>
-                                </div>
-                            </Link>
-                        )
-
-                    } else if (parent.attributes.parentExternal.data !== null) {
-                        return (
-                            <Link href={parent.attributes.parentExternal.data.attributes.url} target='_blank' >
-                                <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={parent.id}>
-                                    <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                        {parent.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
-                                            <FontAwesomeIcon icon={faBuildingColumns} size='lg' />
-                                        ) : (
-                                            <FontAwesomeIcon icon={faIndustry} size='lg' />
-                                        )}
-                                    </div>
-                                    <div className={`${style.listContent} flex-auto`}>
-                                        <p className={`${style.summary}`}>{parent.attributes.parentExternal.data.attributes.company_name}</p>
-                                        <p className={`${style.meta}`}>
-                                            {parent.attributes.type} ({germanDate(parent.attributes.since)} bis {germanDate(parent.attributes.upto)})
-                                        </p>
-                                    </div>
-                                </div>
-                            </Link>
-                        )
-
-                    } else if (parent.attributes.parentPerson.data !== null) {
-                        return (
-                            <Link href={'/persons/'+parent.attributes.parentPerson.data.id} >
-                                <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={parent.id}>
-                                    <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                        <FontAwesomeIcon icon={faUser} size='lg' />
-                                    </div>
-                                    <div className={`${style.listContent} flex-auto`}>
-                                        <p className={`${style.summary}`}>{parent.attributes.parentPerson.data.attributes.first_name} {parent.attributes.parentPerson.data.attributes.sir_name}</p>
-                                        <p className={`${style.meta}`}>
-                                            {parent.attributes.type} ({germanDate(parent.attributes.since)} bis {germanDate(parent.attributes.upto)})
-                                        </p>
-                                    </div>
-                                </div>
-                            </Link>
-                        )
-                    }
-                })}
-
-                {ShowFullNetwork && deletedChildren.map((child) => {
-                    return (
-                        <Link href={'/companies/'+child.attributes.childCompany.data.attributes.pageslug} >
-                            <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={child.id}>
-                                <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <FontAwesomeIcon icon={faBuildingCircleArrowRight} size='lg' />
-                                </div>
-                                <div className={`${style.listContent} flex-auto`}>
-                                    <p className={`${style.summary}`}>{child.attributes.childCompany.data.attributes.company_name}</p>
-                                    <p className={`${style.meta}`}>
-                                        {child.attributes.type} ({germanDate(child.attributes.since)+' bis '+germanDate(child.attributes.upto)})
-                                    </p>
-                                </div>
-                            </div>
-                        </Link>
-                    )
-                })}
-
-            </div>
-            {!ShowFullNetwork && activeParents.length === 0 && (deletedParents.length > 0 || activeChildren.length > 0 || deletedChildren.length > 0) ? (
-                <Alert theme='info'>
-                    <p className="text-sm">
-                        Es gibt ausgeblendete Einträge.
+      <div className="grid grid-cols-2 gap-4 mb-5">
+        {activeParents.slice(0, numToShow).map((parent) => {
+          if (parent.attributes.parentCompany.data !== null) {
+            return (
+              <Link
+                href={
+                  "/companies/" +
+                  parent.attributes.parentCompany.data.attributes.pageslug
+                }
+              >
+                <div
+                  className={`${style.networkItem} rounded-lg`}
+                  key={parent.id}
+                >
+                  <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                    <FontAwesomeIcon icon={faBuilding} size="lg" />
+                  </div>
+                  <div className={`${style.listContent} flex-auto`}>
+                    <p className={`${style.summary}`}>
+                      {
+                        parent.attributes.parentCompany.data.attributes
+                          .company_name
+                      }
                     </p>
-                </Alert>
-            ) : ''}
-            
-            {(activeParents.length > initalNum || deletedParents.length > 0 || activeChildren.length > 0 || deletedChildren.length > 0) && (
-                <button className={`${style.LenghtToggleButton} ${style.network} rounded`} onClick={() => setShowFullNetwork(!ShowFullNetwork)}>
-                    {ShowFullNetwork ? "Netzwerk einklappen" : "Netzwerk ausklappen"}
-                </button>
-            )}
-            
+                    <p className={`${style.meta}`}>{parent.attributes.type}</p>
+                  </div>
+                </div>
+              </Link>
+            );
+          } else if (parent.attributes.parentExternal.data !== null) {
+            return (
+              <Link
+                href={
+                  parent.attributes.parentExternal.data.attributes.url || "#"
+                }
+                target="_blank"
+              >
+                <div
+                  className={`${style.networkItem} rounded-lg`}
+                  key={parent.id}
+                >
+                  <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                    {parent.attributes.parentExternal.data.attributes
+                      .reg_dept == "Behörde" ? (
+                      <FontAwesomeIcon icon={faBuildingColumns} size="lg" />
+                    ) : (
+                      <FontAwesomeIcon icon={faIndustry} size="lg" />
+                    )}
+                  </div>
+                  <div className={`${style.listContent} flex-auto`}>
+                    <p className={`${style.summary}`}>
+                      {
+                        parent.attributes.parentExternal.data.attributes
+                          .company_name
+                      }
+                    </p>
+                    <p className={`${style.meta}`}>{parent.attributes.type}</p>
+                  </div>
+                </div>
+              </Link>
+            );
+          } else if (parent.attributes.parentPerson.data !== null) {
+            return (
+              <Link href={"/persons/" + parent.attributes.parentPerson.data.id}>
+                <div
+                  className={`${style.networkItem} rounded-lg`}
+                  key={parent.id}
+                >
+                  <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                    <FontAwesomeIcon icon={faUser} size="lg" />
+                  </div>
+                  <div className={`${style.listContent} flex-auto`}>
+                    <p className={`${style.summary}`}>
+                      {
+                        parent.attributes.parentPerson.data.attributes
+                          .first_name
+                      }{" "}
+                      {parent.attributes.parentPerson.data.attributes.sir_name}
+                    </p>
+                    <p className={`${style.meta}`}>{parent.attributes.type}</p>
+                  </div>
+                </div>
+              </Link>
+            );
+          }
+        })}
 
-    
-        </>
-    )
+        {ShowFullNetwork &&
+          activeChildren.map((child) => {
+            return (
+              <Link
+                href={
+                  "/companies/" +
+                  child.attributes.childCompany.data.attributes.pageslug
+                }
+              >
+                <div
+                  className={`${style.networkItem} rounded-lg`}
+                  key={child.id}
+                >
+                  <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                    <FontAwesomeIcon
+                      icon={faBuildingCircleArrowRight}
+                      size="lg"
+                    />
+                  </div>
+                  <div className={`${style.listContent} flex-auto`}>
+                    <p className={`${style.summary}`}>
+                      {
+                        child.attributes.childCompany.data.attributes
+                          .company_name
+                      }
+                    </p>
+                    <p className={`${style.meta}`}>{child.attributes.type}</p>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+
+        {ShowFullNetwork &&
+          deletedParents.map((parent) => {
+            if (parent.attributes.parentCompany.data !== null) {
+              return (
+                <Link
+                  href={
+                    "/companies/" +
+                    parent.attributes.parentCompany.data.attributes.pageslug
+                  }
+                >
+                  <div
+                    className={`${style.networkItem} ${style.deleted} rounded-lg`}
+                    key={parent.id}
+                  >
+                    <div
+                      className={` ${style.listIcon} flex-none rounded-l-lg`}
+                    >
+                      <FontAwesomeIcon icon={faBuilding} size="lg" />
+                    </div>
+                    <div className={`${style.listContent} flex-auto`}>
+                      <p className={`${style.summary}`}>
+                        {
+                          parent.attributes.parentCompany.data.attributes
+                            .company_name
+                        }
+                      </p>
+                      <p className={`${style.meta}`}>
+                        {parent.attributes.type} (
+                        {germanDate(parent.attributes.since)} bis{" "}
+                        {germanDate(parent.attributes.upto)})
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              );
+            } else if (parent.attributes.parentExternal.data !== null) {
+              return (
+                <Link
+                  href={
+                    parent.attributes.parentExternal.data.attributes.url || "#"
+                  }
+                  target="_blank"
+                >
+                  <div
+                    className={`${style.networkItem} ${style.deleted} rounded-lg`}
+                    key={parent.id}
+                  >
+                    <div
+                      className={` ${style.listIcon} flex-none rounded-l-lg`}
+                    >
+                      {parent.attributes.parentExternal.data.attributes
+                        .reg_dept == "Behörde" ? (
+                        <FontAwesomeIcon icon={faBuildingColumns} size="lg" />
+                      ) : (
+                        <FontAwesomeIcon icon={faIndustry} size="lg" />
+                      )}
+                    </div>
+                    <div className={`${style.listContent} flex-auto`}>
+                      <p className={`${style.summary}`}>
+                        {
+                          parent.attributes.parentExternal.data.attributes
+                            .company_name
+                        }
+                      </p>
+                      <p className={`${style.meta}`}>
+                        {parent.attributes.type} (
+                        {germanDate(parent.attributes.since)} bis{" "}
+                        {germanDate(parent.attributes.upto)})
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              );
+            } else if (parent.attributes.parentPerson.data !== null) {
+              return (
+                <Link
+                  href={"/persons/" + parent.attributes.parentPerson.data.id}
+                >
+                  <div
+                    className={`${style.networkItem} ${style.deleted} rounded-lg`}
+                    key={parent.id}
+                  >
+                    <div
+                      className={` ${style.listIcon} flex-none rounded-l-lg`}
+                    >
+                      <FontAwesomeIcon icon={faUser} size="lg" />
+                    </div>
+                    <div className={`${style.listContent} flex-auto`}>
+                      <p className={`${style.summary}`}>
+                        {
+                          parent.attributes.parentPerson.data.attributes
+                            .first_name
+                        }{" "}
+                        {
+                          parent.attributes.parentPerson.data.attributes
+                            .sir_name
+                        }
+                      </p>
+                      <p className={`${style.meta}`}>
+                        {parent.attributes.type} (
+                        {germanDate(parent.attributes.since)} bis{" "}
+                        {germanDate(parent.attributes.upto)})
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              );
+            }
+          })}
+
+        {ShowFullNetwork &&
+          deletedChildren.map((child) => {
+            return (
+              <Link
+                href={
+                  "/companies/" +
+                  child.attributes.childCompany.data.attributes.pageslug
+                }
+              >
+                <div
+                  className={`${style.networkItem} ${style.deleted} rounded-lg`}
+                  key={child.id}
+                >
+                  <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                    <FontAwesomeIcon
+                      icon={faBuildingCircleArrowRight}
+                      size="lg"
+                    />
+                  </div>
+                  <div className={`${style.listContent} flex-auto`}>
+                    <p className={`${style.summary}`}>
+                      {
+                        child.attributes.childCompany.data.attributes
+                          .company_name
+                      }
+                    </p>
+                    <p className={`${style.meta}`}>
+                      {child.attributes.type} (
+                      {germanDate(child.attributes.since) +
+                        " bis " +
+                        germanDate(child.attributes.upto)}
+                      )
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+      </div>
+      {!ShowFullNetwork &&
+      activeParents.length === 0 &&
+      (deletedParents.length > 0 ||
+        activeChildren.length > 0 ||
+        deletedChildren.length > 0) ? (
+        <Alert theme="info">
+          <p className="text-sm">Es gibt ausgeblendete Einträge.</p>
+        </Alert>
+      ) : (
+        ""
+      )}
+
+      {(activeParents.length > initalNum ||
+        deletedParents.length > 0 ||
+        activeChildren.length > 0 ||
+        deletedChildren.length > 0) && (
+        <button
+          className={`${style.LenghtToggleButton} ${style.network} rounded`}
+          onClick={() => setShowFullNetwork(!ShowFullNetwork)}
+        >
+          {ShowFullNetwork ? "Netzwerk einklappen" : "Netzwerk ausklappen"}
+        </button>
+      )}
+    </>
+  );
 }
