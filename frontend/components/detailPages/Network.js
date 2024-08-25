@@ -209,7 +209,9 @@ export default function Network({ networkInfo }) {
             } else if (parent.attributes.parentExternal.data !== null) {
               return (
                 <Link
-                  href={parent.attributes.parentExternal.data.attributes.url}
+                  href={
+                    parent.attributes.parentExternal.data.attributes.url || "#"
+                  }
                   target="_blank"
                 >
                   <div
