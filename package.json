@@ -22,6 +22,6 @@
     "depupdate": "concurrently -n ROOT,FRONT,BACK -c auto,auto,auto \"npm i\" \"cd frontend && npm i\" \"cd backend && npm i\""
   },
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^9.0.1"
   }
 }
