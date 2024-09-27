@@ -49,6 +49,33 @@ export interface PersonNetworkNetzwerkDerPerson extends Schema.Component {
   };
 }
 
+export interface NetworkCompaniesVerbundeneUnternehmen
+  extends Schema.Component {
+  collectionName: 'components_network_companies_verbundene_unternehmen';
+  info: {
+    displayName: 'Verbundene Unternehmen';
+    description: '';
+  };
+  attributes: {
+    connected_company: Attribute.Relation<
+      'network-companies.verbundene-unternehmen',
+      'oneToOne',
+      'api::company.company'
+    >;
+    connection_type: Attribute.Enumeration<
+      ['Beteiligung', 'Komplement\u00E4r']
+    > &
+      Attribute.Required;
+    since: Attribute.Date;
+    upto: Attribute.Date;
+    hr_public: Attribute.Relation<
+      'network-companies.verbundene-unternehmen',
+      'oneToOne',
+      'api::hr-public.hr-public'
+    >;
+  };
+}
+
 export interface NetworkPersonsVerbundenePersonen extends Schema.Component {
   collectionName: 'components_network_persons_verbundene_personens';
   info: {
@@ -78,33 +105,6 @@ export interface NetworkPersonsVerbundenePersonen extends Schema.Component {
     upto: Attribute.Date;
     hr_public: Attribute.Relation<
       'network-persons.verbundene-personen',
-      'oneToOne',
-      'api::hr-public.hr-public'
-    >;
-  };
-}
-
-export interface NetworkCompaniesVerbundeneUnternehmen
-  extends Schema.Component {
-  collectionName: 'components_network_companies_verbundene_unternehmen';
-  info: {
-    displayName: 'Verbundene Unternehmen';
-    description: '';
-  };
-  attributes: {
-    connected_company: Attribute.Relation<
-      'network-companies.verbundene-unternehmen',
-      'oneToOne',
-      'api::company.company'
-    >;
-    connection_type: Attribute.Enumeration<
-      ['Beteiligung', 'Komplement\u00E4r']
-    > &
-      Attribute.Required;
-    since: Attribute.Date;
-    upto: Attribute.Date;
-    hr_public: Attribute.Relation<
-      'network-companies.verbundene-unternehmen',
       'oneToOne',
       'api::hr-public.hr-public'
     >;
@@ -159,8 +159,8 @@ declare module '@strapi/types' {
     export interface Components {
       'related-docs.related-docs': RelatedDocsRelatedDocs;
       'person-network.netzwerk-der-person': PersonNetworkNetzwerkDerPerson;
-      'network-persons.verbundene-personen': NetworkPersonsVerbundenePersonen;
       'network-companies.verbundene-unternehmen': NetworkCompaniesVerbundeneUnternehmen;
+      'network-persons.verbundene-personen': NetworkPersonsVerbundenePersonen;
       'lei-history.lei-history': LeiHistoryLeiHistory;
       'externals.externals': ExternalsExternals;
       'companies-further-names.vorherige-namen': CompaniesFurtherNamesVorherigeNamen;
