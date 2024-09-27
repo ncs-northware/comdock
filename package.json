@@ -15,14 +15,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently -n FRONT,BACK -c auto,auto \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
-    "start": "concurrently -n FRONT,BACK -c auto,auto \"cd frontend && npm run start\" \"cd backend && npm run start:win\"",
-    "build": "concurrently -n FRONT,BACK -c auto,auto \"cd frontend && npm run build\" \"cd backend && npm run build\"",
-    "build:win": "concurrently -n FRONT,BACK -c auto,auto \"cd frontend && npm run build\" \"cd backend && npm run build:win\"",
-    "depupdate": "concurrently -n ROOT,FRONT,BACK -c auto,auto,auto \"npm i\" \"cd frontend && npm i\" \"cd backend && npm i\""
-  },
-  "dependencies": {
-    "concurrently": "^9.0.1"
+    "dev": "turbo dev",
+    "start": "turbo start",
+    "build": "turbo build"
   },
   "devDependencies": {
     "turbo": "^2.1.2"

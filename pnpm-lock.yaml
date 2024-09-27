@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      concurrently:
-        specifier: ^9.0.1
-        version: 9.0.1
     devDependencies:
       turbo:
         specifier: ^2.1.2
@@ -2555,11 +2551,6 @@ packages:
   concurrently@8.2.2:
     resolution: {integrity: sha512-1dP4gpXFhei8IOtlXRE/T/4H88ElHgTiUzh71YUmtjTEHMSRS2Z/fgOxHSxxusGHogsRfxNq1vyAwxSC+EVyDg==}
     engines: {node: ^14.13.0 || >=16.0.0}
-    hasBin: true
-
-  concurrently@9.0.1:
-    resolution: {integrity: sha512-wYKvCd/f54sTXJMSfV6Ln/B8UrfLBKOYa+lzc6CHay3Qek+LorVSBdMVfyewFhRbH0Rbabsk4D+3PL/VjQ5gzg==}
-    engines: {node: '>=18'}
     hasBin: true
 
   config-chain@1.1.13:
@@ -9474,16 +9465,6 @@ snapshots:
       rxjs: 7.8.1
       shell-quote: 1.8.1
       spawn-command: 0.0.2
-      supports-color: 8.1.1
-      tree-kill: 1.2.2
-      yargs: 17.7.2
-
-  concurrently@9.0.1:
-    dependencies:
-      chalk: 4.1.2
-      lodash: 4.17.21
-      rxjs: 7.8.1
-      shell-quote: 1.8.1
       supports-color: 8.1.1
       tree-kill: 1.2.2
       yargs: 17.7.2
