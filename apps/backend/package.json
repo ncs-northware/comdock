@@ -4,11 +4,9 @@
   "description": "Backend für die Unternehmensdatenbank COMDOCK. Diese WebApp wurde nur zu Übungszwecken erstellt. Jeglicher Daten-Inhalt ist frei erfunden!",
   "scripts": {
     "dev": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build",
-    "build:win": "cross-env NODE_ENV=production npm run build",
-    "strapi": "strapi",
-    "start:win": "cross-env NODE_ENV=production npm start"
+    "build": "cross-env NODE_ENV=production strapi build",
+    "start": "cross-env NODE_ENV=production strapi start",
+    "strapi": "strapi"
   },
   "dependencies": {
     "@strapi/plugin-i18n": "4.25.11",
