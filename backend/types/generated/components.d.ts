@@ -1,20 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface RelatedDocsRelatedDocs extends Schema.Component {
-  collectionName: 'components_related_docs_related_docs';
-  info: {
-    displayName: 'relatedDocs';
-    description: '';
-  };
-  attributes: {
-    document: Attribute.Media<'images' | 'files'> & Attribute.Required;
-    type: Attribute.Enumeration<
-      ['Unterschriftsnachweis', 'Apostille', 'Beglaubigung', 'Zertifizierung']
-    > &
-      Attribute.Required;
-  };
-}
-
 export interface PersonNetworkNetzwerkDerPerson extends Schema.Component {
   collectionName: 'components_person_network_netzwerk_der_people';
   info: {
@@ -46,6 +31,21 @@ export interface PersonNetworkNetzwerkDerPerson extends Schema.Component {
       'oneToOne',
       'api::hr-public.hr-public'
     >;
+  };
+}
+
+export interface RelatedDocsRelatedDocs extends Schema.Component {
+  collectionName: 'components_related_docs_related_docs';
+  info: {
+    displayName: 'relatedDocs';
+    description: '';
+  };
+  attributes: {
+    document: Attribute.Media<'images' | 'files'> & Attribute.Required;
+    type: Attribute.Enumeration<
+      ['Unterschriftsnachweis', 'Apostille', 'Beglaubigung', 'Zertifizierung']
+    > &
+      Attribute.Required;
   };
 }
 
@@ -157,8 +157,8 @@ export interface CompaniesFurtherNamesVorherigeNamen extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'related-docs.related-docs': RelatedDocsRelatedDocs;
       'person-network.netzwerk-der-person': PersonNetworkNetzwerkDerPerson;
+      'related-docs.related-docs': RelatedDocsRelatedDocs;
       'network-persons.verbundene-personen': NetworkPersonsVerbundenePersonen;
       'network-companies.verbundene-unternehmen': NetworkCompaniesVerbundeneUnternehmen;
       'lei-history.lei-history': LeiHistoryLeiHistory;
