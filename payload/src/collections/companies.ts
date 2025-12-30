@@ -27,8 +27,17 @@ export const Companies: CollectionConfig = {
       label: "HR Nummer",
     },
     { name: "hr_court", type: "text", required: true, label: "Amtsgericht" },
-    // main_branch
-    // branches
+    {
+      name: "branches",
+      type: "array",
+      label: "Niederlassungen",
+      fields: [
+        { name: "street", type: "text", label: "Straße", required: true },
+        { name: "city", type: "text", label: "PLZ und Ort", required: true },
+        { name: "main_branch", type: "checkbox", label: "Hauptniederlassung" },
+      ],
+      minRows: 1,
+    },
     { name: "corp_object", type: "richText", label: "Unternehmensgegenstand" },
     { name: "capital", type: "number", label: "Stammkapital" },
     {
@@ -37,7 +46,20 @@ export const Companies: CollectionConfig = {
       label: "Allgemeine Vertretungsregelung",
     },
     { name: "legal_form", type: "text", label: "Vollständige Rechtsform" },
-    // furtherNames
+    {
+      name: "prev_names",
+      type: "array",
+      label: "Vorherige Namen",
+      fields: [
+        {
+          name: "prev_name",
+          type: "text",
+          label: "Vorheriger Firmenname",
+          required: true,
+        },
+        { name: "name_upto", type: "date", label: "Name bis", required: true },
+      ],
+    },
     // networkChildren
     // networkParents
     // hr_pubs
