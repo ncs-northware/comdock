@@ -1,0 +1,72 @@
+{
+  "name": "comdock",
+  "version": "2.0.0",
+  "private": true,
+  "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
+  "license": "MIT",
+  "homepage": "https://github.com/ncs-northware/comdock",
+  "bugs": "https://github.com/ncs-northware/comdock/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ncs-northware/comdock.git"
+  },
+  "author": "NCS Northware (https://github.com/ncs-northware)",
+  "contributors": [
+    "onissen (https://github.com/onissen)"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
+    "check": "ultracite check",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "fix": "ultracite fix",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "test": "pnpm run test:int && pnpm run test:e2e",
+    "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test",
+    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
+  },
+  "dependencies": {
+    "@payloadcms/db-sqlite": "3.69.0",
+    "@payloadcms/next": "3.69.0",
+    "@payloadcms/richtext-lexical": "3.69.0",
+    "@payloadcms/translations": "^3.69.0",
+    "@payloadcms/ui": "3.69.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "16.4.7",
+    "graphql": "^16.8.1",
+    "next": "15.4.10",
+    "payload": "3.69.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "sharp": "0.34.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.10",
+    "@playwright/test": "1.56.1",
+    "@testing-library/react": "16.3.0",
+    "@types/node": "^22.5.4",
+    "@types/react": "19.2.1",
+    "@types/react-dom": "19.2.1",
+    "@vitejs/plugin-react": "4.5.2",
+    "jsdom": "26.1.0",
+    "playwright": "1.56.1",
+    "playwright-core": "1.56.1",
+    "typescript": "5.7.3",
+    "ultracite": "6.5.0",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.2.3"
+  },
+  "engines": {
+    "node": "^18.20.2 || >=20.9.0",
+    "pnpm": "^9 || ^10"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "unrs-resolver"
+    ]
+  }
+}
