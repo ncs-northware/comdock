@@ -30,7 +30,10 @@ export const Companies: CollectionConfig = {
     {
       name: "branches",
       type: "array",
-      label: "Niederlassungen",
+      labels: {
+        singular: "Niederlassung",
+        plural: "Niederlassungen",
+      },
       fields: [
         { name: "street", type: "text", label: "Straße", required: true },
         { name: "city", type: "text", label: "PLZ und Ort", required: true },
@@ -57,7 +60,13 @@ export const Companies: CollectionConfig = {
           label: "Vorheriger Firmenname",
           required: true,
         },
-        { name: "name_upto", type: "date", label: "Name bis", required: true },
+        {
+          name: "name_upto",
+          type: "date",
+          label: "Name bis",
+          required: true,
+          admin: { date: { displayFormat: "dd.MM.YYYY" } },
+        },
       ],
     },
     // networkChildren
@@ -65,7 +74,6 @@ export const Companies: CollectionConfig = {
     // hr_pubs
     // docs
     // pubsMentioned
-    // lei
   ],
   admin: {
     useAsTitle: "company_name",
