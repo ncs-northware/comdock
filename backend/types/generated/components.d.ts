@@ -49,6 +49,33 @@ export interface RelatedDocsRelatedDocs extends Schema.Component {
   };
 }
 
+export interface NetworkCompaniesVerbundeneUnternehmen
+  extends Schema.Component {
+  collectionName: 'components_network_companies_verbundene_unternehmen';
+  info: {
+    displayName: 'Verbundene Unternehmen';
+    description: '';
+  };
+  attributes: {
+    connected_company: Attribute.Relation<
+      'network-companies.verbundene-unternehmen',
+      'oneToOne',
+      'api::company.company'
+    >;
+    connection_type: Attribute.Enumeration<
+      ['Beteiligung', 'Komplement\u00E4r']
+    > &
+      Attribute.Required;
+    since: Attribute.Date;
+    upto: Attribute.Date;
+    hr_public: Attribute.Relation<
+      'network-companies.verbundene-unternehmen',
+      'oneToOne',
+      'api::hr-public.hr-public'
+    >;
+  };
+}
+
 export interface NetworkPersonsVerbundenePersonen extends Schema.Component {
   collectionName: 'components_network_persons_verbundene_personens';
   info: {
@@ -84,33 +111,6 @@ export interface NetworkPersonsVerbundenePersonen extends Schema.Component {
   };
 }
 
-export interface NetworkCompaniesVerbundeneUnternehmen
-  extends Schema.Component {
-  collectionName: 'components_network_companies_verbundene_unternehmen';
-  info: {
-    displayName: 'Verbundene Unternehmen';
-    description: '';
-  };
-  attributes: {
-    connected_company: Attribute.Relation<
-      'network-companies.verbundene-unternehmen',
-      'oneToOne',
-      'api::company.company'
-    >;
-    connection_type: Attribute.Enumeration<
-      ['Beteiligung', 'Komplement\u00E4r']
-    > &
-      Attribute.Required;
-    since: Attribute.Date;
-    upto: Attribute.Date;
-    hr_public: Attribute.Relation<
-      'network-companies.verbundene-unternehmen',
-      'oneToOne',
-      'api::hr-public.hr-public'
-    >;
-  };
-}
-
 export interface LeiHistoryLeiHistory extends Schema.Component {
   collectionName: 'components_lei_history_lei_histories';
   info: {
@@ -119,6 +119,17 @@ export interface LeiHistoryLeiHistory extends Schema.Component {
   attributes: {
     date: Attribute.Date;
     details: Attribute.RichText & Attribute.Required;
+  };
+}
+
+export interface CompaniesFurtherNamesVorherigeNamen extends Schema.Component {
+  collectionName: 'components_companies_further_names_vorherige_namen';
+  info: {
+    displayName: 'Vorherige Namen';
+  };
+  attributes: {
+    further_cname: Attribute.String & Attribute.Required;
+    name_upto: Attribute.Date;
   };
 }
 
@@ -143,27 +154,16 @@ export interface ExternalsExternals extends Schema.Component {
   };
 }
 
-export interface CompaniesFurtherNamesVorherigeNamen extends Schema.Component {
-  collectionName: 'components_companies_further_names_vorherige_namen';
-  info: {
-    displayName: 'Vorherige Namen';
-  };
-  attributes: {
-    further_cname: Attribute.String & Attribute.Required;
-    name_upto: Attribute.Date;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'person-network.netzwerk-der-person': PersonNetworkNetzwerkDerPerson;
       'related-docs.related-docs': RelatedDocsRelatedDocs;
-      'network-persons.verbundene-personen': NetworkPersonsVerbundenePersonen;
       'network-companies.verbundene-unternehmen': NetworkCompaniesVerbundeneUnternehmen;
+      'network-persons.verbundene-personen': NetworkPersonsVerbundenePersonen;
       'lei-history.lei-history': LeiHistoryLeiHistory;
-      'externals.externals': ExternalsExternals;
       'companies-further-names.vorherige-namen': CompaniesFurtherNamesVorherigeNamen;
+      'externals.externals': ExternalsExternals;
     }
   }
 }
