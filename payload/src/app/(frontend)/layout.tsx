@@ -1,18 +1,31 @@
 import type { ReactNode } from "react";
-import "./styles.css";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
+import { ThemeProvider } from "next-themes";
 
 export const metadata = {
-  description: "A blank template using Payload in a Next.js app.",
-  title: "Payload Blank Template",
+  title: "COMDOCK",
 };
 
-export default async function RootLayout(props: { children: ReactNode }) {
-  const { children } = props;
-
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
-    <html lang="en">
+    <html lang="de">
       <body>
-        <main>{children}</main>
+        <ThemeProvider attribute="class">
+          <Theme
+            accentColor="teal"
+            grayColor="gray"
+            panelBackground="translucent"
+            radius="medium"
+            scaling="100%"
+          >
+            <main>{children}</main>
+          </Theme>
+        </ThemeProvider>
       </body>
     </html>
   );
