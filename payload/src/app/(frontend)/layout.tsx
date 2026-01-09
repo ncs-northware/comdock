@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import "@radix-ui/themes/styles.css";
-import { Theme } from "@radix-ui/themes";
 import { ThemeProvider } from "next-themes";
 
 export const metadata = {
@@ -16,15 +15,7 @@ export default async function RootLayout({
     <html lang="de">
       <body>
         <ThemeProvider attribute="class">
-          <Theme
-            accentColor="teal"
-            grayColor="gray"
-            panelBackground="translucent"
-            radius="medium"
-            scaling="100%"
-          >
-            <main>{children}</main>
-          </Theme>
+          <main>{children}</main>
         </ThemeProvider>
       </body>
     </html>

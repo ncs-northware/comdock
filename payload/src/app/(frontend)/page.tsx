@@ -1,3 +1,7 @@
 export default async function HomePage() {
-  return <h1>COMDOCK</h1>;
+  return (
+    <div>
+      <h1>Herzlich willkommen</h1>
+    </div>
+  );
 }
