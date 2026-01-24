@@ -28,7 +28,7 @@ export default async function RootLayout({
           enableSystem
         >
           <Header />
-          <main className="px-40 py-10">{children}</main>
+          <main className="px-10 py-10 lg:px-20 xl:px-40">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

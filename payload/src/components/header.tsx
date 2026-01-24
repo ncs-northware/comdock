@@ -10,7 +10,7 @@ import Logo from "./logo";
 
 export function Header() {
   return (
-    <header className="flex items-center justify-between bg-primary p-3 px-40 text-primary-foreground">
+    <header className="flex items-center justify-between bg-primary px-10 py-3 text-primary-foreground lg:px-20 xl:px-40">
       <Branding />
       <Navigation />
       <ThemeToggle />
