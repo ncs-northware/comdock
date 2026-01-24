@@ -1,12 +1,12 @@
 import { Headline } from "@/components/typography";
-import { CompaniesList } from "./companies-list";
+import { CompaniesList, PersonsList } from "./lists";
 
 export default async function HomePage() {
   return (
     <div>
       <div>
         <Headline level="h1">Herzlich willkommen</Headline>
-        <p className="leading-7">
+        <p className="text-justify leading-7">
           COMDOCK ist eine Plattform, die Ihnen Zugang zu Informationen über die
           Unternehmen der NCS Group bietet. Sie können die Unternehmensdaten,
           das Unternehmensnetzwerk und offizielle Bekanntmachungen und Dokumente
@@ -15,9 +15,17 @@ export default async function HomePage() {
           Patent- und Markenamtes und in einigen anderen Registern.
         </p>
       </div>
-      <div>
-        <CompaniesList />
+      <div className="grid gap-4 py-8 md:grid-cols-2">
+        <div>
+          <Headline level="h2">Firmen</Headline>
+          <CompaniesList />
+        </div>
+        <div>
+          <Headline level="h2">Personen</Headline>
+          <PersonsList />
+        </div>
       </div>
+      <div />
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import { BuildingIcon } from "lucide-react";
 import Link from "next/link";
+import type { JSX } from "react";
 import {
   Item,
   ItemContent,
@@ -12,29 +12,35 @@ export function ListItem({
   title,
   description,
   href,
+  icon,
 }: {
   title: string;
   description: string;
   href: string;
+  icon?: JSX.Element;
 }) {
   return (
     <Item
       asChild
-      className="hover:bg-primary [a]:hover:bg-primary"
+      className="my-5 hover:bg-primary [a]:hover:bg-primary"
       variant="muted"
     >
       <Link href={href}>
-        <ItemMedia
-          className="group-hover/item:border-teal-700 group-hover/item:bg-teal-800 group-hover/item:text-primary-foreground"
-          variant="icon"
-        >
-          <BuildingIcon />
-        </ItemMedia>
-        <ItemContent>
-          <ItemTitle className="group-hover/item:text-primary-foreground">
+        {icon ? (
+          <ItemMedia
+            className="group-hover/item:border-teal-700 group-hover/item:bg-teal-800 group-hover/item:text-primary-foreground"
+            variant="icon"
+          >
+            {icon}
+          </ItemMedia>
+        ) : (
+          ""
+        )}
+        <ItemContent className="truncate">
+          <ItemTitle className="flow-root w-full truncate text-nowrap group-hover/item:text-primary-foreground">
             {title}
           </ItemTitle>
-          <ItemDescription className="group-hover/item:text-primary-foreground/85">
+          <ItemDescription className="truncate text-nowrap group-hover/item:text-primary-foreground/85">
             {description}
           </ItemDescription>
         </ItemContent>
