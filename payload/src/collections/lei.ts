@@ -1,11 +1,11 @@
-import { authenticated, authenticatedOrPublished } from "@/access/roles";
 import type { CollectionConfig } from "payload";
+import { authenticated, authenticatedOrPublished } from "@/access/roles";
 
 export const LEI: CollectionConfig = {
   slug: "lei",
   fields: [
     {
-      name: "identifier",
+      name: "id",
       type: "text",
       required: true,
       unique: true,
@@ -49,7 +49,7 @@ export const LEI: CollectionConfig = {
       admin: {
         date: {
           pickerAppearance: "dayAndTime",
-          displayFormat: "dd.MM.YYYY hh:mm",
+          displayFormat: "dd.MM.yyyy hh:mm",
         },
       },
       label: "Erstvergabe",
@@ -82,7 +82,7 @@ export const LEI: CollectionConfig = {
       admin: {
         date: {
           pickerAppearance: "dayAndTime",
-          displayFormat: "dd.MM.YYYY hh:mm",
+          displayFormat: "dd.MM.yyyy hh:mm",
         },
         description:
           "Nur bei Einträgen ohne automatische Verlängerung angeben.",
@@ -96,7 +96,9 @@ export const LEI: CollectionConfig = {
         {
           name: "date",
           type: "date",
-          admin: { date: { pickerAppearance: "dayOnly" } },
+          admin: {
+            date: { pickerAppearance: "dayOnly", displayFormat: "dd.MM.yyyy" },
+          },
           required: true,
           label: "Datum",
         },
@@ -113,16 +115,12 @@ export const LEI: CollectionConfig = {
     singular: "Legal Entity Identifier",
     plural: "Legal Entity Identifiers",
   },
-  admin: { useAsTitle: "identifier" },
+  admin: { useAsTitle: "id" },
   access: {
     create: authenticated,
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  defaultSort: "identifier",
-  versions: {
-    drafts: { autosave: true, schedulePublish: true },
-    maxPerDoc: 50,
-  },
+  defaultSort: "id",
 };

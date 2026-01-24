@@ -8,8 +8,12 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Media } from "@/collections/media";
 import { Users } from "@/collections/users";
-import { Companies } from "@/collections/companies";
-import { LEI } from "@/collections/lei";
+import { Companies } from "./collections/companies";
+import { ExternalShareholders } from "./collections/external-shareholders";
+import { HRPublications } from "./collections/hr-publications";
+import { LEI } from "./collections/lei";
+import { Network } from "./collections/network";
+import { Persons } from "./collections/persons";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -21,7 +25,16 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Companies, LEI],
+  collections: [
+    Media,
+    Users,
+    Companies,
+    ExternalShareholders,
+    LEI,
+    Persons,
+    HRPublications,
+    Network,
+  ],
   editor: lexicalEditor(),
   i18n: {
     fallbackLanguage: "de",

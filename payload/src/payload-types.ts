@@ -67,24 +67,30 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
     media: Media;
+    users: User;
     companies: Company;
+    'external-shareholders': ExternalShareholder;
     lei: Lei;
+    persons: Person;
+    hr_publications: HrPublication;
+    network: Network;
     'payload-kv': PayloadKv;
-    'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     companies: CompaniesSelect<false> | CompaniesSelect<true>;
+    'external-shareholders': ExternalShareholdersSelect<false> | ExternalShareholdersSelect<true>;
     lei: LeiSelect<false> | LeiSelect<true>;
+    persons: PersonsSelect<false> | PersonsSelect<true>;
+    hr_publications: HrPublicationsSelect<false> | HrPublicationsSelect<true>;
+    network: NetworkSelect<false> | NetworkSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
-    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -100,13 +106,7 @@ export interface Config {
     collection: 'users';
   };
   jobs: {
-    tasks: {
-      schedulePublish: TaskSchedulePublish;
-      inline: {
-        input: unknown;
-        output: unknown;
-      };
-    };
+    tasks: unknown;
     workflows: unknown;
   };
 }
@@ -127,6 +127,102 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  title?: string | null;
+  type?:
+    | (
+        | 'Gesellschaftsvertrag'
+        | 'Liste der Gesellschafter'
+        | 'Aufsichtsratsliste'
+        | 'Jahresabschluss / Bilanz'
+        | 'Anmeldung HRA'
+        | 'Eintragungsanzeige'
+        | 'Weitere Unterlagen'
+      )
+    | null;
+  company?: (string | null) | Company;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "companies".
+ */
+export interface Company {
+  id: string;
+  company_name: string;
+  hr_status?: ('aktiv' | 'gelöscht' | 'Liquidation' | 'Gesellschaft verlassen') | null;
+  hr_dept: 'HRA' | 'HRB';
+  hr_number: string;
+  hr_court: string;
+  headquarter: {
+    street: string;
+    zipcode: string;
+    city: string;
+  };
+  branches?:
+    | {
+        street: string;
+        zipcode: string;
+        city: string;
+        id?: string | null;
+      }[]
+    | null;
+  corp_object?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  capital?: number | null;
+  represent_rules?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  prev_names?:
+    | {
+        prev_name: string;
+        name_upto?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -154,79 +250,25 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "external-shareholders".
  */
-export interface Media {
-  id: number;
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "companies".
- */
-export interface Company {
+export interface ExternalShareholder {
   id: number;
   company_name: string;
-  status?: ('aktiv' | 'gelöscht' | 'Liquidation' | 'Gesellschaft verlassen') | null;
-  hr_dept: 'HRA' | 'HRB';
-  hr_number: string;
-  hr_court: string;
-  branches?:
-    | {
-        street: string;
-        city: string;
-        main_branch?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  corp_object?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  capital?: number | null;
-  represent_rules?: string | null;
-  legal_form?: string | null;
-  prev_names?:
-    | {
-        prev_name: string;
-        name_upto: string;
-        id?: string | null;
-      }[]
-    | null;
+  registry: 'HRA' | 'HRB' | 'GnR' | 'Behörde' | 'ANDERE';
+  registry_number: string;
+  registry_court?: string | null;
+  url?: string | null;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "lei".
  */
 export interface Lei {
-  id: number;
-  identifier: string;
-  company: number | Company;
+  id: string;
+  company: string | Company;
   lou?:
     | (
         | 'Bloomberg Finance LP (5493001KJTIIGC8Y1R12)'
@@ -267,7 +309,125 @@ export interface Lei {
     | null;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "persons".
+ */
+export interface Person {
+  id: number;
+  first_name: string;
+  sir_name: string;
+  city: string;
+  birthday?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hr_publications".
+ */
+export interface HrPublication {
+  id: number;
+  company?: (string | null) | Company;
+  title: string;
+  summary?: string | null;
+  publication_date: string;
+  publication_data?:
+    | {
+        row:
+          | '2a) Firma'
+          | '2b) Sitz, Niederlassung, Zweigniederlassung'
+          | '2c) Gegenstand des Unternehmens'
+          | '3) Grund- oder Stammkapital'
+          | '4a) Allgemeine Vertretungsregelung'
+          | '4b.1) Inhaber, persönlich haftende Gesellschafter'
+          | '4b.2) Geschäftsführer, Vorstand, Leitungsorgan'
+          | '4b.3) sonstige Vertretungsberechtigte'
+          | '5) Prokura'
+          | '6a.1) Rechtsform'
+          | '6a.2) Beginn, Satzung, Gesellschaftsvertrag'
+          | '6b) Sonstige Rechtsverhältnisse'
+          | '6c) Kommanditisten, Mitglieder';
+        value: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        outdated_publication?: (number | HrPublication)[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  media?: (number | Media)[] | null;
+  mentioned_companies?: (string | Company)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "network".
+ */
+export interface Network {
+  id: number;
+  child_company?: (string | null) | Company;
+  leiParent?: boolean | null;
+  type:
+    | 'Beteiligung'
+    | 'Komplementär VH'
+    | 'Kommanditist TH'
+    | 'Gesellschafter'
+    | 'Geschäftsführer'
+    | 'CEO'
+    | 'COO'
+    | 'Einzelprokura'
+    | 'Gesamtprokura'
+    | 'Filialprokura'
+    | 'Andere Vertretungsbefugnis';
+  since: string;
+  upto?: string | null;
+  /**
+   * Verbindung zu einer anderen Firma, einer Person oder einem anderen Gesellschafter als Muttergesellschaft
+   */
+  relation?:
+    | ({
+        relationTo: 'companies';
+        value: string | Company;
+      } | null)
+    | ({
+        relationTo: 'external-shareholders';
+        value: number | ExternalShareholder;
+      } | null)
+    | ({
+        relationTo: 'persons';
+        value: number | Person;
+      } | null);
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -288,118 +448,42 @@ export interface PayloadKv {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-jobs".
- */
-export interface PayloadJob {
-  id: number;
-  /**
-   * Input data provided to the job
-   */
-  input?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  taskStatus?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  completedAt?: string | null;
-  totalTried?: number | null;
-  /**
-   * If hasError is true this job will not be retried
-   */
-  hasError?: boolean | null;
-  /**
-   * If hasError is true, this is the error that caused it
-   */
-  error?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  /**
-   * Task execution log
-   */
-  log?:
-    | {
-        executedAt: string;
-        completedAt: string;
-        taskSlug: 'inline' | 'schedulePublish';
-        taskID: string;
-        input?:
-          | {
-              [k: string]: unknown;
-            }
-          | unknown[]
-          | string
-          | number
-          | boolean
-          | null;
-        output?:
-          | {
-              [k: string]: unknown;
-            }
-          | unknown[]
-          | string
-          | number
-          | boolean
-          | null;
-        state: 'failed' | 'succeeded';
-        error?:
-          | {
-              [k: string]: unknown;
-            }
-          | unknown[]
-          | string
-          | number
-          | boolean
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  taskSlug?: ('inline' | 'schedulePublish') | null;
-  queue?: string | null;
-  waitUntil?: string | null;
-  processing?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null)
-    | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null)
+    | ({
         relationTo: 'companies';
-        value: number | Company;
+        value: string | Company;
+      } | null)
+    | ({
+        relationTo: 'external-shareholders';
+        value: number | ExternalShareholder;
       } | null)
     | ({
         relationTo: 'lei';
-        value: number | Lei;
+        value: string | Lei;
+      } | null)
+    | ({
+        relationTo: 'persons';
+        value: number | Person;
+      } | null)
+    | ({
+        relationTo: 'hr_publications';
+        value: number | HrPublication;
+      } | null)
+    | ({
+        relationTo: 'network';
+        value: number | Network;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -445,6 +529,26 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  title?: T;
+  type?: T;
+  company?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -467,44 +571,33 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "companies_select".
  */
 export interface CompaniesSelect<T extends boolean = true> {
+  id?: T;
   company_name?: T;
-  status?: T;
+  hr_status?: T;
   hr_dept?: T;
   hr_number?: T;
   hr_court?: T;
+  headquarter?:
+    | T
+    | {
+        street?: T;
+        zipcode?: T;
+        city?: T;
+      };
   branches?:
     | T
     | {
         street?: T;
+        zipcode?: T;
         city?: T;
-        main_branch?: T;
         id?: T;
       };
   corp_object?: T;
   capital?: T;
   represent_rules?: T;
-  legal_form?: T;
   prev_names?:
     | T
     | {
@@ -514,14 +607,26 @@ export interface CompaniesSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
-  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "external-shareholders_select".
+ */
+export interface ExternalShareholdersSelect<T extends boolean = true> {
+  company_name?: T;
+  registry?: T;
+  registry_number?: T;
+  registry_court?: T;
+  url?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "lei_select".
  */
 export interface LeiSelect<T extends boolean = true> {
-  identifier?: T;
+  id?: T;
   company?: T;
   lou?: T;
   lei_status?: T;
@@ -537,7 +642,55 @@ export interface LeiSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
-  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "persons_select".
+ */
+export interface PersonsSelect<T extends boolean = true> {
+  first_name?: T;
+  sir_name?: T;
+  city?: T;
+  birthday?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hr_publications_select".
+ */
+export interface HrPublicationsSelect<T extends boolean = true> {
+  company?: T;
+  title?: T;
+  summary?: T;
+  publication_date?: T;
+  publication_data?:
+    | T
+    | {
+        row?: T;
+        value?: T;
+        outdated_publication?: T;
+        id?: T;
+      };
+  description?: T;
+  media?: T;
+  mentioned_companies?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "network_select".
+ */
+export interface NetworkSelect<T extends boolean = true> {
+  child_company?: T;
+  leiParent?: T;
+  type?: T;
+  since?: T;
+  upto?: T;
+  relation?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -546,37 +699,6 @@ export interface LeiSelect<T extends boolean = true> {
 export interface PayloadKvSelect<T extends boolean = true> {
   key?: T;
   data?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-jobs_select".
- */
-export interface PayloadJobsSelect<T extends boolean = true> {
-  input?: T;
-  taskStatus?: T;
-  completedAt?: T;
-  totalTried?: T;
-  hasError?: T;
-  error?: T;
-  log?:
-    | T
-    | {
-        executedAt?: T;
-        completedAt?: T;
-        taskSlug?: T;
-        taskID?: T;
-        input?: T;
-        output?: T;
-        state?: T;
-        error?: T;
-        id?: T;
-      };
-  taskSlug?: T;
-  queue?: T;
-  waitUntil?: T;
-  processing?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -609,28 +731,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TaskSchedulePublish".
- */
-export interface TaskSchedulePublish {
-  input: {
-    type?: ('publish' | 'unpublish') | null;
-    locale?: string | null;
-    doc?:
-      | ({
-          relationTo: 'companies';
-          value: number | Company;
-        } | null)
-      | ({
-          relationTo: 'lei';
-          value: number | Lei;
-        } | null);
-    global?: string | null;
-    user?: (number | null) | User;
-  };
-  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -15,9 +15,29 @@ export const Media: CollectionConfig = {
   },
   fields: [
     {
-      name: "alt",
+      name: "title",
       type: "text",
-      label: "Alternativtext",
+      label: "Titel",
+    },
+    {
+      name: "type",
+      type: "select",
+      options: [
+        "Gesellschaftsvertrag",
+        "Liste der Gesellschafter",
+        "Aufsichtsratsliste",
+        "Jahresabschluss / Bilanz",
+        "Anmeldung HRA",
+        "Eintragungsanzeige",
+        "Weitere Unterlagen",
+      ],
+      label: "Typ",
+    },
+    {
+      name: "company",
+      type: "relationship",
+      relationTo: "companies",
+      label: "Firma",
     },
   ],
   upload: {
