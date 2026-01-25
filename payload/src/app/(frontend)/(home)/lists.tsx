@@ -25,7 +25,10 @@ export async function CompaniesList() {
     <div>
       {companies.totalDocs === 0 ? (
         <Alert className="my-5">
-          <AlertDescription>Es wurden keine Firmen gefunden.</AlertDescription>
+          <AlertDescription>
+            Es gibt keine Einträge, die in dieser Ansicht gezeigt werden
+            könnten.
+          </AlertDescription>
         </Alert>
       ) : (
         <div>
@@ -68,7 +71,8 @@ export async function PersonsList() {
       {persons.totalDocs === 0 ? (
         <Alert className="my-5">
           <AlertDescription>
-            Es wurden keine Personen gefunden.
+            Es gibt keine Einträge, die in dieser Ansicht gezeigt werden
+            könnten.
           </AlertDescription>
         </Alert>
       ) : (
