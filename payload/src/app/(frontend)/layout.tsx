@@ -1,12 +1,16 @@
 import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
 import "./styles.css";
+import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
-export const metadata = {
-  title: "COMDOCK",
+export const metadata: Metadata = {
+  title: {
+    template: "%s | COMDOCK",
+    default: "COMDOCK",
+  },
 };
 
 const geist = Geist({
