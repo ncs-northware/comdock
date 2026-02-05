@@ -6,6 +6,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ItemGroup } from "@/components/ui/item";
 import { payload } from "@/lib/api";
 
+export const metadata = { title: "Entfernte Firmen" };
+
 export default async function Page() {
   const companies = await payload.find({
     collection: "companies",
