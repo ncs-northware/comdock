@@ -3,8 +3,10 @@ import Link from "next/link";
 import { RichText } from "@/components/richtext";
 import { Headline } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { payload } from "@/lib/api";
 import { CompanyNetwork } from "./network";
+import { HRPublications } from "./publications";
 
 export async function generateMetadata({
   params,
@@ -67,6 +69,23 @@ export default async function Page({
       child_company: { equals: companyID },
     },
     sort: ["upto", "since"],
+  });
+
+  const hr = await payload.find({
+    collection: "hr_publications",
+    select: {
+      company: true,
+      title: true,
+      summary: true,
+      publication_date: true,
+    },
+    where: {
+      or: [
+        { company: { equals: companyID } },
+        { mentioned_companies: { in: [companyID] } },
+      ],
+    },
+    sort: "-publication_date",
   });
 
   return (
@@ -146,6 +165,16 @@ export default async function Page({
       )}
       <div className="mb-8">
         <Headline level="h3">Veröffentlichungen</Headline>
+        <Tabs className="w-full" defaultValue="hr">
+          <TabsList className="w-full">
+            <TabsTrigger value="hr">Handelsregister</TabsTrigger>
+            <TabsTrigger value="docs">Dokumente</TabsTrigger>
+          </TabsList>
+          <TabsContent value="hr">
+            <HRPublications companyID={companyID} publications={hr} />
+          </TabsContent>
+          <TabsContent value="docs">Dokumente</TabsContent>
+        </Tabs>
       </div>
     </article>
   );
