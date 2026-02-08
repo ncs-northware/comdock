@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { JSX } from "react";
+import type { JSX, ReactNode } from "react";
 import {
   Item,
   ItemContent,
@@ -24,7 +24,7 @@ export function ListItem({
   return (
     <Item
       asChild
-      className="my-5 hover:bg-primary [a]:hover:bg-primary"
+      className="hover:bg-primary [a]:hover:bg-primary"
       variant="muted"
     >
       <Link href={href}>
@@ -46,9 +46,9 @@ export function ListItem({
             {title}
           </ItemTitle>
           {description && (
-          <ItemDescription className="truncate text-nowrap group-hover/item:text-primary-foreground/85">
-            {description}
-          </ItemDescription>
+            <ItemDescription className="truncate text-nowrap group-hover/item:text-primary-foreground/85">
+              {description}
+            </ItemDescription>
           )}
         </ItemContent>
       </Link>

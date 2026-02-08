@@ -29,14 +29,14 @@ export function CompanyNetwork({
           variant="parent"
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="my-4 grid grid-cols-2 gap-4">
           {/** biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Network is complex */}
           {network.docs.slice(0, numToShow).map((item) => {
             if (item.relation?.relationTo === "companies") {
               return (
                 <NetworkItem
                   description={`${item.type} ${item.upto !== null ? ` | ${germanDate(item.since)} bis ${germanDate(item.upto || "")}` : ""}`}
-                  href={`companies/${
+                  href={`/companies/${
                     typeof item.relation?.value === "object"
                       ? (item.relation?.value?.id ?? "")
                       : (item.relation?.value ?? "")

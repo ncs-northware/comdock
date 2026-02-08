@@ -24,7 +24,7 @@ export async function CompaniesList() {
   return (
     <div>
       {companies.totalDocs === 0 ? (
-        <Alert className="my-5">
+        <Alert className="my-4">
           <AlertDescription>
             Es gibt keine Einträge, die in dieser Ansicht gezeigt werden
             könnten.
@@ -32,7 +32,7 @@ export async function CompaniesList() {
         </Alert>
       ) : (
         <div>
-          <ItemGroup>
+          <ItemGroup className="my-4 gap-4">
             {companies.docs.map((company) => (
               <ListItem
                 description={`${company.hr_court} | ${company.hr_dept} ${company.hr_number}`}
@@ -69,7 +69,7 @@ export async function PersonsList() {
   return (
     <div>
       {persons.totalDocs === 0 ? (
-        <Alert className="my-5">
+        <Alert className="my-4">
           <AlertDescription>
             Es gibt keine Einträge, die in dieser Ansicht gezeigt werden
             könnten.
@@ -77,7 +77,7 @@ export async function PersonsList() {
         </Alert>
       ) : (
         <div>
-          <ItemGroup>
+          <ItemGroup className="my-4 gap-4">
             {persons.docs.map((person) => (
               <ListItem
                 description={person.city}

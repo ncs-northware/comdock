@@ -26,7 +26,7 @@ export function NetworkItem({
     <Item
       asChild
       className={cn(
-        "my-5 hover:bg-primary [a]:hover:bg-primary",
+        "hover:bg-primary [a]:hover:bg-primary",
         variant === "parent" && "bg-primary",
         variant === "former" && "hover:bg-muted/50 [a]:hover:bg-muted/50"
       )}

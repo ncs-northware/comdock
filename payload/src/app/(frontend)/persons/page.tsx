@@ -21,14 +21,14 @@ export default async function Page() {
     <div>
       <Headline level="h1">Personen</Headline>
       {persons.totalDocs === 0 ? (
-        <Alert className="my-5">
+        <Alert className="my-4">
           <AlertDescription>
             Es gibt keine Einträge, die in dieser Ansicht gezeigt werden
             könnten.
           </AlertDescription>
         </Alert>
       ) : (
-        <ItemGroup>
+        <ItemGroup className="my-4 gap-4">
           {persons.docs.map((person) => (
             <ListItem
               description={person.city}

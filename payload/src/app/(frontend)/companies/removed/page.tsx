@@ -39,14 +39,14 @@ export default async function Page() {
         </AlertDescription>
       </Alert>
       {companies.totalDocs === 0 ? (
-        <Alert className="my-5">
+        <Alert className="my-4">
           <AlertDescription>
             Es gibt keine Einträge, die in dieser Ansicht gezeigt werden
             könnten.
           </AlertDescription>
         </Alert>
       ) : (
-        <ItemGroup>
+        <ItemGroup className="my-4 gap-4">
           {companies.docs.map((company) => (
             <ListItem
               description={`${company.hr_court} | ${company.hr_dept} ${company.hr_number}`}
