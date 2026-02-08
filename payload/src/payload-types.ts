@@ -331,6 +331,9 @@ export interface HrPublication {
   id: number;
   company?: (string | null) | Company;
   title: string;
+  /**
+   * Wenn dieses Feld leer ist, wird es automatisch befüllt. Für automatische Änderung Feld leeren.
+   */
   summary?: string | null;
   publication_date: string;
   publication_data?:

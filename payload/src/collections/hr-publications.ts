@@ -11,7 +11,15 @@ export const HRPublications: CollectionConfig = {
       label: "Firma",
     },
     { name: "title", type: "text", required: true, label: "Titel" },
-    { name: "summary", type: "text", label: "Zusammenfassung" },
+    {
+      name: "summary",
+      type: "text",
+      label: "Zusammenfassung",
+      admin: {
+        description:
+          "Wenn dieses Feld leer ist, wird es automatisch befüllt. Für automatische Änderung Feld leeren.",
+      },
+    },
     {
       name: "publication_date",
       type: "date",
@@ -88,5 +96,93 @@ export const HRPublications: CollectionConfig = {
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
+  },
+  hooks: {
+    beforeChange: [
+      ({ data }) => {
+        const MAX = 150;
+        if (typeof data.summary === "string" && data.summary.trim()) {
+          return data;
+        }
+
+        const truncate = (s: string) => {
+          if (s.length <= MAX) {
+            return `${s}...`;
+          }
+          return `${s.slice(0, MAX - 3)}...`;
+        };
+
+        // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: its a complex task
+        // biome-ignore lint/suspicious/noExplicitAny: The type of node is too complex
+        const walkNode = (node: any, parts: string[]): void => {
+          if (node == null) {
+            return;
+          }
+          if (typeof node === "string") {
+            parts.push(node);
+            return;
+          }
+          if (Array.isArray(node)) {
+            for (const child of node) {
+              walkNode(child, parts);
+            }
+            return;
+          }
+          if (typeof node === "object") {
+            if (typeof node.text === "string") {
+              parts.push(node.text);
+              return;
+            }
+            if (Array.isArray(node.children) && node.children.length) {
+              walkNode(node.children, parts);
+              return;
+            }
+            if (node.root && Array.isArray(node.root.children)) {
+              walkNode(node.root.children, parts);
+              return;
+            }
+            for (const child of Object.values(node)) {
+              walkNode(child, parts);
+            }
+          }
+        };
+
+        const extractTextFromRichText = (val: string): string => {
+          if (val == null) {
+            return "";
+          }
+          if (typeof val === "string") {
+            return val.replace(/\s+/g, " ").trim();
+          }
+          const parts: string[] = [];
+          walkNode(val, parts);
+          return parts.join(" ").replace(/\s+/g, " ").trim();
+        };
+
+        if (
+          Array.isArray(data.publication_data) &&
+          data.publication_data.length > 0
+        ) {
+          const used = data.publication_data
+            // biome-ignore lint/suspicious/noExplicitAny: unclear type of property r
+            .map((r: any) => r?.row)
+            .filter(Boolean)
+            .map((opt: string) => {
+              const idx = opt.indexOf(") ");
+              return idx !== -1 ? opt.slice(idx + 2).trim() : opt.trim();
+            });
+          const unique = Array.from(new Set(used));
+          data.summary = truncate(unique.join(", "));
+          return data;
+        }
+
+        const descText = extractTextFromRichText(data.description);
+        if (descText) {
+          data.summary = truncate(descText);
+        }
+
+        return data;
+      },
+    ],
   },
 };
