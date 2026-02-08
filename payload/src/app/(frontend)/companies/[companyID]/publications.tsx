@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { RssIcon } from "lucide-react";
 import type { PaginatedDocs } from "payload";
 import type { ReactNode } from "react";
 import { ListItem } from "@/components/list-item";
@@ -36,13 +36,7 @@ export function HRPublications({
 
     return (
       <span>
-        {germanDate(date)} über{" "}
-        <Link
-          className="underline-offset-2 hover:underline"
-          href={`/companies/${company?.id}`}
-        >
-          {company?.company_name}
-        </Link>
+        {germanDate(date)} über {company?.company_name}
       </span>
     );
   }
@@ -60,6 +54,7 @@ export function HRPublications({
           {publications.docs.map((item) => (
             <ListItem
               href={`/hr/${item.id}`}
+              icon={<RssIcon />}
               key={item.id}
               title={`${item.title}: ${item.summary}`}
               topline={generateTopline(item.publication_date, item.company)}
