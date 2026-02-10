@@ -149,7 +149,7 @@ export default async function Page({
       {company.corp_object ? (
         <div className="mb-8">
           <Headline level="h3">Unternehmensgegenstand</Headline>
-          <RichText className="my-2" data={company.corp_object} />
+          <RichText className="my-2 font-mono" data={company.corp_object} />
         </div>
       ) : (
         ""
