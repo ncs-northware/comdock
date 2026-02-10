@@ -7,7 +7,10 @@ export function Footer() {
       <p>
         Dies ist eine ausdrücklich nicht-amtliche Webseite zu Übungszwecken.
         Jegliche Daten sind frei erfunden.{" "}
-        <Link href="https://github.com/ncs-northware/comdock/blob/main/README.md">
+        <Link
+          className="hover:underline"
+          href="https://github.com/ncs-northware/comdock/blob/main/README.md"
+        >
           Mehr Infos in der README-Datei
         </Link>
       </p>

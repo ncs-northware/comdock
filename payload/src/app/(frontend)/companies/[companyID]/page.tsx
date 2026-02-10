@@ -1,7 +1,6 @@
 import { ArrowLeftRightIcon } from "lucide-react";
-import Link from "next/link";
 import { RichText } from "@/components/richtext";
-import { Headline } from "@/components/typography";
+import { Headline, Link } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { payload } from "@/lib/api";
@@ -123,12 +122,7 @@ export default async function Page({
           lei.docs.map((identifier) => (
             <p className="my-2" key={identifier.id}>
               <Badge className="me-2">LEI</Badge>
-              <Link
-                className="font-medium text-primary underline-offset-2 hover:underline"
-                href={`/lei/${identifier.id}`}
-              >
-                {identifier.id}
-              </Link>
+              <Link href={`/lei/${identifier.id}`}>{identifier.id}</Link>
             </p>
           ))}
       </div>

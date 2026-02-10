@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority";
+import NextLink, { type LinkProps } from "next/link";
 import { createElement, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -33,5 +34,25 @@ export function Headline({
       ...props,
     },
     children
+  );
+}
+
+export function Link({
+  href,
+  children,
+  className,
+  ...props
+}: LinkProps & { children?: ReactNode; className?: string }) {
+  return (
+    <NextLink
+      className={cn(
+        "font-medium text-primary underline-offset-4 hover:underline",
+        className
+      )}
+      href={href}
+      {...props}
+    >
+      {children}
+    </NextLink>
   );
 }

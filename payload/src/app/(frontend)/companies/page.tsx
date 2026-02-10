@@ -1,7 +1,6 @@
 import { BuildingIcon } from "lucide-react";
-import Link from "next/link";
 import { ListItem } from "@/components/list-item";
-import { Headline } from "@/components/typography";
+import { Headline, Link } from "@/components/typography";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ItemGroup } from "@/components/ui/item";
 import { payload } from "@/lib/api";
@@ -49,16 +48,10 @@ export default async function Page() {
           <p>
             In dieser Ansicht werden nur aktive Firmen angezeigt.
             <br />
-            Unter{" "}
-            <Link
-              className="font-medium text-primary"
-              href="/companies/removed"
-            >
-              Entfernte Firmen
-            </Link>{" "}
-            finden Sie Firmen, die vormals mit einem Unternehmen des NCS
-            Verbunds verbunden waren, sich in Liquidation befinden oder bereits
-            gelöscht wurden.
+            Unter <Link href="/companies/removed">Entfernte Firmen</Link> finden
+            Sie Firmen, die vormals mit einem Unternehmen des NCS Verbunds
+            verbunden waren, sich in Liquidation befinden oder bereits gelöscht
+            wurden.
           </p>
         </AlertDescription>
       </Alert>
