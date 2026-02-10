@@ -2,16 +2,16 @@ import type {
   DefaultNodeTypes,
   SerializedHeadingNode,
   SerializedLinkNode,
+  SerializedListNode,
 } from "@payloadcms/richtext-lexical";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import {
   type JSXConverters,
   type JSXConvertersFunction,
-  LinkJSXConverter,
   RichText as RichTextConverter,
 } from "@payloadcms/richtext-lexical/react";
 import type { HTMLAttributes } from "react";
-import { Headline } from "@/components/typography";
+import { Headline, Link } from "@/components/typography";
 
 const headingConverter: JSXConverters<SerializedHeadingNode> = {
   heading: ({ node, nodesToJSX }) => {
@@ -26,15 +26,51 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   if (typeof value !== "object") {
     throw new Error("Expected Value to be an object");
   }
-  return `${relationTo}/${value.id}`;
+  return `/${relationTo}/${value.id}`;
+};
+
+const linkConverter: JSXConverters<SerializedLinkNode> = {
+  link: ({ node, nodesToJSX }) => {
+    const text = nodesToJSX({ nodes: node.children }).join("");
+
+    // Internal doc link
+    if (node.fields.doc?.value) {
+      return <Link href={internalDocToHref({ linkNode: node })}>{text}</Link>;
+    }
+
+    // External link
+    if (node.fields.url) {
+      return (
+        <Link href={node.fields.url} target="_blank">
+          {text}
+        </Link>
+      );
+    }
+
+    return <span>{text}</span>;
+  },
+};
+
+const listConverter: JSXConverters<SerializedListNode> = {
+  list: ({ node, nodesToJSX }) => {
+    const text = nodesToJSX({ nodes: node.children });
+    if (node.listType === "bullet") {
+      return <ul className="list-inside list-disc">{text}</ul>;
+    }
+    if (node.listType === "number") {
+      return <ol className="list-inside list-decimal">{text}</ol>;
+    }
+    return <ul>{text}</ul>;
+  },
 };
 
 const jsxConverter: JSXConvertersFunction<DefaultNodeTypes> = ({
   defaultConverters,
 }) => ({
   ...defaultConverters,
-  ...LinkJSXConverter({ internalDocToHref }),
   ...headingConverter,
+  ...linkConverter,
+  ...listConverter,
 });
 
 type Props = {

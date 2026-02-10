@@ -41,8 +41,10 @@ export function Link({
   href,
   children,
   className,
+  target,
   ...props
-}: LinkProps & { children?: ReactNode; className?: string }) {
+}: HTMLAttributes<HTMLAnchorElement> &
+  LinkProps & { children?: ReactNode; className?: string; target?: string }) {
   return (
     <NextLink
       className={cn(
@@ -50,6 +52,7 @@ export function Link({
         className
       )}
       href={href}
+      target={target}
       {...props}
     >
       {children}
