@@ -123,4 +123,8 @@ export const LEI: CollectionConfig = {
     update: authenticated,
   },
   defaultSort: "id",
+  defaultPopulate: {
+    id: true,
+    company: true,
+  },
 };

@@ -43,4 +43,10 @@ export const Media: CollectionConfig = {
   upload: {
     staticDir: "media",
   },
+  defaultPopulate: {
+    type: true,
+    company: true,
+    updatedAt: true,
+    createdAt: true,
+  },
 };

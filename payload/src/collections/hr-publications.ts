@@ -51,6 +51,7 @@ export const HRPublications: CollectionConfig = {
             "6b) Sonstige Rechtsverhältnisse",
             "6c) Kommanditisten, Mitglieder",
           ],
+          // TODO: Ordnungszahlen entfernen
           label: "Spalte",
           required: true,
         },
@@ -61,6 +62,7 @@ export const HRPublications: CollectionConfig = {
           relationTo: "hr_publications",
           label: "Aufgehobene Publikationen",
           hasMany: true,
+          // TODO: Hier wird künftig eine Publikation aus der Zukunft angegeben, die diese Information überschreibt. Es ist dann outdated_by, aufgehoben durch und hasMany: false
           filterOptions: {
             id: { not_equals: "{ID}" },
           },
@@ -96,6 +98,13 @@ export const HRPublications: CollectionConfig = {
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
+  },
+  defaultPopulate: {
+    id: true,
+    title: true,
+    summary: true,
+    publication_date: true,
+    company: true,
   },
   hooks: {
     beforeChange: [
@@ -159,6 +168,7 @@ export const HRPublications: CollectionConfig = {
           return parts.join(" ").replace(/\s+/g, " ").trim();
         };
 
+        // TODO: Ordnungszahl-Entfernung löschen, damit automatische Description wieder läuft
         if (
           Array.isArray(data.publication_data) &&
           data.publication_data.length > 0
