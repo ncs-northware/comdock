@@ -37,32 +37,30 @@ export const HRPublications: CollectionConfig = {
           name: "row",
           type: "select",
           options: [
-            "2a) Firma",
-            "2b) Sitz, Niederlassung, Zweigniederlassung",
-            "2c) Gegenstand des Unternehmens",
-            "3) Grund- oder Stammkapital",
-            "4a) Allgemeine Vertretungsregelung",
-            "4b.1) Inhaber, persönlich haftende Gesellschafter",
-            "4b.2) Geschäftsführer, Vorstand, Leitungsorgan",
-            "4b.3) sonstige Vertretungsberechtigte",
-            "5) Prokura",
-            "6a.1) Rechtsform",
-            "6a.2) Beginn, Satzung, Gesellschaftsvertrag",
-            "6b) Sonstige Rechtsverhältnisse",
-            "6c) Kommanditisten, Mitglieder",
+            "Firma",
+            "Sitz, Niederlassung, Zweigniederlassung",
+            "Gegenstand des Unternehmens",
+            "Grund- oder Stammkapital",
+            "Allgemeine Vertretungsregelung",
+            "Inhaber, persönlich haftende Gesellschafter",
+            "Geschäftsführer, Vorstand, Leitungsorgan",
+            "sonstige Vertretungsberechtigte",
+            "Prokura",
+            "Rechtsform",
+            "Beginn, Satzung, Gesellschaftsvertrag",
+            "Sonstige Rechtsverhältnisse",
+            "Kommanditisten, Mitglieder",
           ],
-          // TODO: Ordnungszahlen entfernen
           label: "Spalte",
           required: true,
         },
         { name: "value", type: "richText", required: true, label: "Inhalt" },
         {
-          name: "outdated_publication",
+          name: "outdated_by",
           type: "relationship",
           relationTo: "hr_publications",
-          label: "Aufgehobene Publikationen",
-          hasMany: true,
-          // TODO: Hier wird künftig eine Publikation aus der Zukunft angegeben, die diese Information überschreibt. Es ist dann outdated_by, aufgehoben durch und hasMany: false
+          label: "Aufgehoben durch",
+          hasMany: false,
           filterOptions: {
             id: { not_equals: "{ID}" },
           },
@@ -87,12 +85,18 @@ export const HRPublications: CollectionConfig = {
       label: "Erwähnte Firmen",
       hasMany: true,
     },
+    {
+      name: "mentioned_persons",
+      type: "relationship",
+      relationTo: "persons",
+      label: "Erwähnte Personen",
+      hasMany: true,
+    },
   ],
   labels: {
     singular: "HR Veröffentlichung",
     plural: "HR Veröffentlichungen",
   },
-  admin: { useAsTitle: "title" },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -109,6 +113,7 @@ export const HRPublications: CollectionConfig = {
   hooks: {
     beforeChange: [
       ({ data }) => {
+        /*** Set Summary ****************************************/
         const MAX = 150;
         if (typeof data.summary === "string" && data.summary.trim()) {
           return data;
@@ -168,7 +173,6 @@ export const HRPublications: CollectionConfig = {
           return parts.join(" ").replace(/\s+/g, " ").trim();
         };
 
-        // TODO: Ordnungszahl-Entfernung löschen, damit automatische Description wieder läuft
         if (
           Array.isArray(data.publication_data) &&
           data.publication_data.length > 0
@@ -176,14 +180,9 @@ export const HRPublications: CollectionConfig = {
           const used = data.publication_data
             // biome-ignore lint/suspicious/noExplicitAny: unclear type of property r
             .map((r: any) => r?.row)
-            .filter(Boolean)
-            .map((opt: string) => {
-              const idx = opt.indexOf(") ");
-              return idx !== -1 ? opt.slice(idx + 2).trim() : opt.trim();
-            });
+            .filter(Boolean);
           const unique = Array.from(new Set(used));
           data.summary = truncate(unique.join(", "));
-          return data;
         }
 
         const descText = extractTextFromRichText(data.description);

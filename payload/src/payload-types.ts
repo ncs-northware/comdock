@@ -339,19 +339,19 @@ export interface HrPublication {
   publication_data?:
     | {
         row:
-          | '2a) Firma'
-          | '2b) Sitz, Niederlassung, Zweigniederlassung'
-          | '2c) Gegenstand des Unternehmens'
-          | '3) Grund- oder Stammkapital'
-          | '4a) Allgemeine Vertretungsregelung'
-          | '4b.1) Inhaber, persönlich haftende Gesellschafter'
-          | '4b.2) Geschäftsführer, Vorstand, Leitungsorgan'
-          | '4b.3) sonstige Vertretungsberechtigte'
-          | '5) Prokura'
-          | '6a.1) Rechtsform'
-          | '6a.2) Beginn, Satzung, Gesellschaftsvertrag'
-          | '6b) Sonstige Rechtsverhältnisse'
-          | '6c) Kommanditisten, Mitglieder';
+          | 'Firma'
+          | 'Sitz, Niederlassung, Zweigniederlassung'
+          | 'Gegenstand des Unternehmens'
+          | 'Grund- oder Stammkapital'
+          | 'Allgemeine Vertretungsregelung'
+          | 'Inhaber, persönlich haftende Gesellschafter'
+          | 'Geschäftsführer, Vorstand, Leitungsorgan'
+          | 'sonstige Vertretungsberechtigte'
+          | 'Prokura'
+          | 'Rechtsform'
+          | 'Beginn, Satzung, Gesellschaftsvertrag'
+          | 'Sonstige Rechtsverhältnisse'
+          | 'Kommanditisten, Mitglieder';
         value: {
           root: {
             type: string;
@@ -367,7 +367,7 @@ export interface HrPublication {
           };
           [k: string]: unknown;
         };
-        outdated_publication?: (number | HrPublication)[] | null;
+        outdated_by?: (number | null) | HrPublication;
         id?: string | null;
       }[]
     | null;
@@ -388,6 +388,7 @@ export interface HrPublication {
   } | null;
   media?: (number | Media)[] | null;
   mentioned_companies?: (string | Company)[] | null;
+  mentioned_persons?: (number | Person)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -672,12 +673,13 @@ export interface HrPublicationsSelect<T extends boolean = true> {
     | {
         row?: T;
         value?: T;
-        outdated_publication?: T;
+        outdated_by?: T;
         id?: T;
       };
   description?: T;
   media?: T;
   mentioned_companies?: T;
+  mentioned_persons?: T;
   updatedAt?: T;
   createdAt?: T;
 }
