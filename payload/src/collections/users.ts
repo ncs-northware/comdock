@@ -4,7 +4,9 @@ export const Users: CollectionConfig = {
   slug: "users",
   admin: {
     useAsTitle: "email",
+    enableRichTextLink: false,
   },
+  labels: { singular: "Benutzer", plural: "Benutzer" },
   auth: true,
   fields: [
     // TODO: Add more complex user management with name field and roles enum that controll access through predefined functions

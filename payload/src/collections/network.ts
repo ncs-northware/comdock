@@ -58,7 +58,7 @@ export const Network: CollectionConfig = {
       },
     },
   ],
-  admin: { useAsTitle: "type" },
+  admin: { useAsTitle: "type", enableRichTextLink: false },
   access: {
     create: authenticated,
     read: authenticatedOrPublished,

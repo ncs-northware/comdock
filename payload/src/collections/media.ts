@@ -49,4 +49,5 @@ export const Media: CollectionConfig = {
     updatedAt: true,
     createdAt: true,
   },
+  admin: { enableRichTextLink: false },
 };
