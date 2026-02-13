@@ -8,6 +8,7 @@ import {
 import { ListItem } from "@/components/list-item";
 import { RichText } from "@/components/richtext";
 import { Headline, Link } from "@/components/typography";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ItemGroup } from "@/components/ui/item";
 import { payload } from "@/lib/api";
 import { germanDate } from "@/lib/utils";
@@ -88,12 +89,39 @@ export default async function Page({
                 className="md:grid md:grid-cols-2"
                 key={data.id}
               >
-                <DescriptionTerm>
-                  <span>{data.row}</span>
-                  {/* TODO: If outdated: Badge-Link zu ändernder Publikation und Styling in rot mit strike thorugh für den ganzen Item */}
+                <DescriptionTerm
+                  className={
+                    data.outdated_by !== null
+                      ? "text-destructive line-through"
+                      : ""
+                  }
+                >
+                  {data.row}
                 </DescriptionTerm>
                 <DescriptionElement>
-                  <RichText data={data.value} />
+                  <RichText
+                    className={
+                      data.outdated_by !== null
+                        ? "text-destructive line-through"
+                        : ""
+                    }
+                    data={data.value}
+                  />
+                  {data.outdated_by !== null &&
+                    typeof data.outdated_by === "object" && (
+                      <Alert variant="destructive">
+                        <AlertDescription className="inline-block">
+                          Diese Information wurde duch die{" "}
+                          <Link
+                            className="text-destructive underline hover:no-underline"
+                            href={`/hr_publications/${data.outdated_by.id}`}
+                          >
+                            Eintragung #{data.outdated_by.id}
+                          </Link>{" "}
+                          geändert.
+                        </AlertDescription>
+                      </Alert>
+                    )}
                 </DescriptionElement>
               </DescriptionListRow>
             ))}
