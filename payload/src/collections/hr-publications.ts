@@ -72,9 +72,9 @@ export const HRPublications: CollectionConfig = {
     },
     { name: "description", type: "richText", label: "Beschreibung" },
     {
-      name: "media",
+      name: "docs",
       type: "upload",
-      relationTo: "media",
+      relationTo: "docs",
       label: "Verbundene Dokumente",
       hasMany: true,
     },

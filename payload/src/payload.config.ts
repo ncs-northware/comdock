@@ -9,14 +9,14 @@ import { de } from "@payloadcms/translations/languages/de";
 import { en } from "@payloadcms/translations/languages/en";
 import { buildConfig } from "payload";
 import sharp from "sharp";
-import { Media } from "@/collections/media";
+import { Companies } from "@/collections/companies";
+import { ExternalShareholders } from "@/collections/external-shareholders";
+import { HRPublications } from "@/collections/hr-publications";
+import { LEI } from "@/collections/lei";
+import { Network } from "@/collections/network";
+import { Persons } from "@/collections/persons";
 import { Users } from "@/collections/users";
-import { Companies } from "./collections/companies";
-import { ExternalShareholders } from "./collections/external-shareholders";
-import { HRPublications } from "./collections/hr-publications";
-import { LEI } from "./collections/lei";
-import { Network } from "./collections/network";
-import { Persons } from "./collections/persons";
+import { Docs } from "./collections/docs";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -29,7 +29,7 @@ export default buildConfig({
     },
   },
   collections: [
-    Media,
+    Docs,
     Users,
     Companies,
     ExternalShareholders,

@@ -67,7 +67,7 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    media: Media;
+    docs: Doc;
     users: User;
     companies: Company;
     'external-shareholders': ExternalShareholder;
@@ -82,7 +82,7 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    media: MediaSelect<false> | MediaSelect<true>;
+    docs: DocsSelect<false> | DocsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     companies: CompaniesSelect<false> | CompaniesSelect<true>;
     'external-shareholders': ExternalShareholdersSelect<false> | ExternalShareholdersSelect<true>;
@@ -130,9 +130,9 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "docs".
  */
-export interface Media {
+export interface Doc {
   id: number;
   title?: string | null;
   type?:
@@ -386,7 +386,7 @@ export interface HrPublication {
     };
     [k: string]: unknown;
   } | null;
-  media?: (number | Media)[] | null;
+  docs?: (number | Doc)[] | null;
   mentioned_companies?: (string | Company)[] | null;
   mentioned_persons?: (number | Person)[] | null;
   updatedAt: string;
@@ -458,8 +458,8 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'media';
-        value: number | Media;
+        relationTo: 'docs';
+        value: number | Doc;
       } | null)
     | ({
         relationTo: 'users';
@@ -533,9 +533,9 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
+ * via the `definition` "docs_select".
  */
-export interface MediaSelect<T extends boolean = true> {
+export interface DocsSelect<T extends boolean = true> {
   title?: T;
   type?: T;
   company?: T;
@@ -677,7 +677,7 @@ export interface HrPublicationsSelect<T extends boolean = true> {
         id?: T;
       };
   description?: T;
-  media?: T;
+  docs?: T;
   mentioned_companies?: T;
   mentioned_persons?: T;
   updatedAt?: T;

@@ -1,11 +1,11 @@
 import type { CollectionConfig } from "payload";
 import { anyone, authenticated } from "@/access/roles";
 
-export const Media: CollectionConfig = {
-  slug: "media",
+export const Docs: CollectionConfig = {
+  slug: "docs",
   labels: {
-    plural: "Medien",
-    singular: "Datei",
+    plural: "Dokumente",
+    singular: "Dokument",
   },
   access: {
     create: authenticated,
@@ -41,7 +41,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    staticDir: "media",
+    staticDir: "uploads/docs",
   },
   defaultPopulate: {
     type: true,

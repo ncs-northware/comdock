@@ -47,11 +47,11 @@ export default async function Page({
       publication_date: true,
       publication_data: true,
       description: true,
-      media: true,
+      docs: true,
     },
     depth: 1,
     populate: {
-      media: {
+      docs: {
         type: true,
         url: true,
         updatedAt: true,
@@ -134,19 +134,19 @@ export default async function Page({
           <RichText className="my-6 font-mono" data={item.description} />
         </div>
       )}
-      {item.media && item.media.length > 0 && (
+      {item.docs && item.docs.length > 0 && (
         <div>
           <Headline level="h2">Dateien zu diesem Eintrag</Headline>
           <ItemGroup className="my-4">
-            {item.media?.map((media) => {
-              if (typeof media === "object") {
+            {item.docs?.map((docs) => {
+              if (typeof docs === "object") {
                 return (
                   <ListItem
-                    description={`Anlage zuletzt geändert am ${germanDate(media.updatedAt)}`}
-                    href={media.url || "#"}
+                    description={`Anlage zuletzt geändert am ${germanDate(docs.updatedAt)}`}
+                    href={docs.url || "#"}
                     icon={<FileIcon />}
-                    key={media.id}
-                    title={media.type || "Unbenannte Datei"}
+                    key={docs.id}
+                    title={docs.type || "Unbenannte Datei"}
                   />
                 );
               }
