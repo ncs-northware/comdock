@@ -53,7 +53,7 @@ export function HRPublications({
         <ItemGroup className="gap-4">
           {publications.docs.map((item) => (
             <ListItem
-              href={`/hr/${item.id}`}
+              href={`/hr_publications/${item.id}`}
               icon={<RssIcon />}
               key={item.id}
               title={`${item.title}: ${item.summary}`}
