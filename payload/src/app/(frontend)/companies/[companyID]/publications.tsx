@@ -68,8 +68,10 @@ export function HRPublications({
 
 type CompanyDocs = PaginatedDocs<{
   id: number;
+  title?: string | null;
   type?: string | null;
-  updatedAt: string;
+  document_createdAt?: string | null;
+  createdAt: string;
   url?: string | null;
 }>;
 
@@ -87,11 +89,15 @@ export function CompanyDocs({ docs }: { docs: CompanyDocs }) {
         <ItemGroup>
           {docs.docs.map((document) => (
             <ListItem
-              description={`Anlage zuletzt geändert am ${germanDate(document.updatedAt)}`}
+              description={
+                typeof document.document_createdAt === "string"
+                  ? `Erstellt am ${germanDate(document.document_createdAt)}`
+                  : `Hochgeladen am ${germanDate(document.createdAt)}`
+              }
               href={document.url || "#"}
               icon={<FileIcon />}
               key={document.id}
-              title={document.type || "Unbenannte Datei"}
+              title={document.title || document.type || "Unbenannte Datei"}
             />
           ))}
         </ItemGroup>

@@ -147,6 +147,7 @@ export interface Doc {
       )
     | null;
   company?: (string | null) | Company;
+  document_createdAt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -539,6 +540,7 @@ export interface DocsSelect<T extends boolean = true> {
   title?: T;
   type?: T;
   company?: T;
+  document_createdAt?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

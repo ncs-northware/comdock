@@ -39,6 +39,14 @@ export const Docs: CollectionConfig = {
       relationTo: "companies",
       label: "Firma",
     },
+    {
+      name: "document_createdAt",
+      type: "date",
+      label: "Dokument erstellt am",
+      admin: {
+        date: { pickerAppearance: "dayOnly", displayFormat: "dd.MM.yyyy" },
+      },
+    },
   ],
   upload: {
     staticDir: "uploads/docs",

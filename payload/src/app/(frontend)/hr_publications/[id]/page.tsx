@@ -52,9 +52,11 @@ export default async function Page({
     depth: 1,
     populate: {
       docs: {
+        title: true,
         type: true,
+        document_createdAt: true,
+        createdAt: true,
         url: true,
-        updatedAt: true,
         filename: true,
       },
     },
@@ -139,15 +141,21 @@ export default async function Page({
         <div>
           <Headline level="h2">Dateien zu diesem Eintrag</Headline>
           <ItemGroup className="my-4">
-            {item.docs?.map((docs) => {
-              if (typeof docs === "object") {
+            {item.docs?.map((document) => {
+              if (typeof document === "object") {
                 return (
                   <ListItem
-                    description={`Anlage zuletzt geändert am ${germanDate(docs.updatedAt)}`}
-                    href={docs.url || "#"}
+                    description={
+                      typeof document.document_createdAt === "string"
+                        ? `Erstellt am ${germanDate(document.document_createdAt)}`
+                        : `Hochgeladen am ${document.createdAt}`
+                    }
+                    href={document.url || "#"}
                     icon={<FileIcon />}
-                    key={docs.id}
-                    title={docs.type || "Unbenannte Datei"}
+                    key={document.id}
+                    title={
+                      document.title || document.type || "Unbenannte Datei"
+                    }
                   />
                 );
               }

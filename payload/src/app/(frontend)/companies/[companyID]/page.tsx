@@ -90,10 +90,15 @@ export default async function Page({
   const docs = await payload.find({
     collection: "docs",
     where: { company: { equals: companyID } },
-    select: { type: true, updatedAt: true, filename: true, url: true },
+    select: {
+      title: true,
+      type: true,
+      createdAt: true,
+      document_createdAt: true,
+      filename: true,
+      url: true,
+    },
   });
-
-  console.log(docs);
 
   return (
     <article>
