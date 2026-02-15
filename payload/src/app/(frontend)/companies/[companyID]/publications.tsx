@@ -1,4 +1,4 @@
-import { RssIcon } from "lucide-react";
+import { FileIcon, RssIcon } from "lucide-react";
 import type { PaginatedDocs } from "payload";
 import type { ReactNode } from "react";
 import { ListItem } from "@/components/list-item";
@@ -58,6 +58,40 @@ export function HRPublications({
               key={item.id}
               title={`${item.title}: ${item.summary}`}
               topline={generateTopline(item.publication_date, item.company)}
+            />
+          ))}
+        </ItemGroup>
+      )}
+    </div>
+  );
+}
+
+type CompanyDocs = PaginatedDocs<{
+  id: number;
+  type?: string | null;
+  updatedAt: string;
+  url?: string | null;
+}>;
+
+export function CompanyDocs({ docs }: { docs: CompanyDocs }) {
+  return (
+    <div>
+      {docs.totalDocs === 0 ? (
+        <Alert>
+          <AlertDescription>
+            Es gibt keine Einträge, die in dieser Ansicht gezeigt werden
+            könnten.
+          </AlertDescription>
+        </Alert>
+      ) : (
+        <ItemGroup>
+          {docs.docs.map((document) => (
+            <ListItem
+              description={`Anlage zuletzt geändert am ${germanDate(document.updatedAt)}`}
+              href={document.url || "#"}
+              icon={<FileIcon />}
+              key={document.id}
+              title={document.type || "Unbenannte Datei"}
             />
           ))}
         </ItemGroup>

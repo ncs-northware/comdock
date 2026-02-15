@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { payload } from "@/lib/api";
 import { CompanyNetwork } from "./network";
-import { HRPublications } from "./publications";
+import { CompanyDocs, HRPublications } from "./publications";
 
 export async function generateMetadata({
   params,
@@ -87,6 +87,14 @@ export default async function Page({
     sort: "-publication_date",
   });
 
+  const docs = await payload.find({
+    collection: "docs",
+    where: { company: { equals: companyID } },
+    select: { type: true, updatedAt: true, filename: true, url: true },
+  });
+
+  console.log(docs);
+
   return (
     <article>
       <div className="mb-8">
@@ -167,7 +175,9 @@ export default async function Page({
           <TabsContent value="hr">
             <HRPublications companyID={companyID} publications={hr} />
           </TabsContent>
-          <TabsContent value="docs">Dokumente</TabsContent>
+          <TabsContent value="docs">
+            <CompanyDocs docs={docs} />
+          </TabsContent>
         </Tabs>
       </div>
     </article>

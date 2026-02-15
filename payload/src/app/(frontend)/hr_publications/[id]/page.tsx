@@ -55,6 +55,7 @@ export default async function Page({
         type: true,
         url: true,
         updatedAt: true,
+        filename: true,
       },
     },
   });

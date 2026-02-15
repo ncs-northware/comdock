@@ -45,6 +45,8 @@ export const Docs: CollectionConfig = {
   },
   defaultPopulate: {
     type: true,
+    url: true,
+    filename: true,
     company: true,
     updatedAt: true,
     createdAt: true,
