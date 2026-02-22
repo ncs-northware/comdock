@@ -56,7 +56,7 @@ export function CompanyNetwork({
               return (
                 <NetworkItem
                   description={`${item.type} ${item.upto !== null ? ` | ${germanDate(item.since)} bis ${germanDate(item.upto || "")}` : ""}`}
-                  href={`persons/${
+                  href={`/persons/${
                     typeof item.relation?.value === "object"
                       ? (item.relation?.value?.id ?? "")
                       : (item.relation?.value ?? "")
