@@ -85,7 +85,7 @@ export default async function Page({
       </div>
       {item.publication_data && item.publication_data.length > 0 && (
         <div>
-          <Headline level="h2">Gegliederte Informationen</Headline>
+          <Headline level="h3">Gegliederte Informationen</Headline>
           <DescriptionList className="font-mono">
             {item.publication_data.map((data) => (
               <DescriptionListRow
@@ -133,14 +133,14 @@ export default async function Page({
       )}
       {item.description && (
         <div className="mt-4 mb-6">
-          <Headline level="h2">Weitere Informationen</Headline>
+          <Headline level="h3">Weitere Informationen</Headline>
           <RichText className="my-6 font-mono" data={item.description} />
         </div>
       )}
       {item.docs && item.docs.length > 0 && (
         <div>
-          <Headline level="h2">Dateien zu diesem Eintrag</Headline>
-          <ItemGroup className="my-4">
+          <Headline level="h3">Dateien zu diesem Eintrag</Headline>
+          <ItemGroup className="my-4 gap-4">
             {item.docs?.map((document) => {
               if (typeof document === "object") {
                 return (
