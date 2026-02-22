@@ -7,6 +7,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
+import { cn } from "@/lib/utils";
 
 export function ListItem({
   title,
@@ -14,18 +15,23 @@ export function ListItem({
   description,
   href,
   icon,
+  variant = "muted",
 }: {
   title: string;
   topline?: ReactNode;
   description?: string;
   href: string;
   icon?: JSX.Element;
+  variant?: "muted" | "outline";
 }) {
   return (
     <Item
       asChild
-      className="hover:bg-primary [a]:hover:bg-primary"
-      variant="muted"
+      className={cn(
+        "hover:bg-primary [a]:hover:bg-primary",
+        variant === "outline" && "hover:bg-muted/50 [a]:hover:bg-muted/50"
+      )}
+      variant={variant}
     >
       <Link href={href}>
         {icon && (
