@@ -16,9 +16,11 @@ export async function generateMetadata({
   const companyMetadata = await payload.findByID({
     collection: "companies",
     id: companyID,
-    select: { company_name: true },
+    select: { company_name: true, headquarter: { city: true } },
   });
-  return { title: companyMetadata.company_name };
+  return {
+    title: `${companyMetadata.company_name}, ${companyMetadata.headquarter.city}`,
+  };
 }
 
 export default async function Page({
