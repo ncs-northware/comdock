@@ -1,6 +1,7 @@
 import { BuildingIcon, RssIcon } from "lucide-react";
 import { ListItem } from "@/components/list-item";
 import { Headline } from "@/components/typography";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ItemGroup } from "@/components/ui/item";
 import { payload } from "@/lib/api";
 import { germanDate } from "@/lib/utils";
@@ -78,46 +79,57 @@ export default async function Page({
           {person.first_name} {person.sir_name}, {person.city}
         </Headline>
       </div>
-      <div className="mb-8">
-        <Headline level="h3">Positionen</Headline>
-        <ItemGroup className="my-4 gap-4">
-          {network.docs.map(
-            (item) =>
-              typeof item.child_company === "object" && (
-                <ListItem
-                  description={`${item.type} ${item.upto !== null ? `(${germanDate(item.since)} bis ${germanDate(item.upto || "")})` : ""}`}
-                  href={`/companies/${item.child_company?.id ?? "#"}`}
-                  icon={<BuildingIcon />}
-                  key={item.id}
-                  title={item.child_company?.company_name || "Firma"}
-                  variant={item.upto !== null ? "outline" : "muted"}
-                />
-              )
-          )}
-        </ItemGroup>
-      </div>
-      <div className="mb-8">
-        <Headline level="h3">Erwähnungen</Headline>
-        <ItemGroup className="my-4 gap-4">
-          {publications.docs.map(
-            (item) =>
-              typeof item.company === "object" && (
-                <ListItem
-                  href={`/hr/${item.id}`}
-                  icon={<RssIcon />}
-                  key={item.id}
-                  title={`${item.title}: ${item.summary}`}
-                  topline={
-                    <span>
-                      {germanDate(item.publication_date)} über{" "}
-                      {item.company?.company_name}
-                    </span>
-                  }
-                />
-              )
-          )}
-        </ItemGroup>
-      </div>
+      {network.totalDocs === 0 && publications.totalDocs === 0 && (
+        <Alert>
+          <AlertDescription>
+            Zu dieser Person wurden keine Daten gefunden.
+          </AlertDescription>
+        </Alert>
+      )}
+      {network.totalDocs > 0 && (
+        <div className="mb-8">
+          <Headline level="h3">Positionen</Headline>
+          <ItemGroup className="my-4 gap-4">
+            {network.docs.map(
+              (item) =>
+                typeof item.child_company === "object" && (
+                  <ListItem
+                    description={`${item.type} ${item.upto !== null ? `(${germanDate(item.since)} bis ${germanDate(item.upto || "")})` : ""}`}
+                    href={`/companies/${item.child_company?.id ?? "#"}`}
+                    icon={<BuildingIcon />}
+                    key={item.id}
+                    title={item.child_company?.company_name || "Firma"}
+                    variant={item.upto !== null ? "outline" : "muted"}
+                  />
+                )
+            )}
+          </ItemGroup>
+        </div>
+      )}
+      {publications.totalDocs > 0 && (
+        <div className="mb-8">
+          <Headline level="h3">Erwähnungen</Headline>
+          <ItemGroup className="my-4 gap-4">
+            {publications.docs.map(
+              (item) =>
+                typeof item.company === "object" && (
+                  <ListItem
+                    href={`/hr/${item.id}`}
+                    icon={<RssIcon />}
+                    key={item.id}
+                    title={`${item.title}: ${item.summary}`}
+                    topline={
+                      <span>
+                        {germanDate(item.publication_date)} über{" "}
+                        {item.company?.company_name}
+                      </span>
+                    }
+                  />
+                )
+            )}
+          </ItemGroup>
+        </div>
+      )}
     </article>
   );
 }
