@@ -278,7 +278,7 @@ export interface Lei {
       )
     | null;
   lei_status: 'ISSUED (ausgegeben)' | 'LAPSED (abgelaufen)' | 'INACTIVE' | 'PLANNED';
-  first_registration?: string | null;
+  first_registration: string;
   /**
    * Die letzte und nächste Verlängerung werden automatisch errechnet.
    */
@@ -287,27 +287,6 @@ export interface Lei {
    * Nur bei Einträgen ohne automatische Verlängerung angeben.
    */
   last_renewal?: string | null;
-  lei_history?:
-    | {
-        date: string;
-        details: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -639,13 +618,6 @@ export interface LeiSelect<T extends boolean = true> {
   first_registration?: T;
   auto_renew?: T;
   last_renewal?: T;
-  lei_history?:
-    | T
-    | {
-        date?: T;
-        details?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
 }

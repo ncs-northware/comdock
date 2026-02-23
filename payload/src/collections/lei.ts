@@ -46,6 +46,7 @@ export const LEI: CollectionConfig = {
     {
       name: "first_registration",
       type: "date",
+      required: true,
       admin: {
         date: {
           pickerAppearance: "dayAndTime",
@@ -87,28 +88,6 @@ export const LEI: CollectionConfig = {
         description:
           "Nur bei Einträgen ohne automatische Verlängerung angeben.",
       },
-    },
-    {
-      name: "lei_history",
-      type: "array",
-      label: "LEI Geschichte",
-      fields: [
-        {
-          name: "date",
-          type: "date",
-          admin: {
-            date: { pickerAppearance: "dayOnly", displayFormat: "dd.MM.yyyy" },
-          },
-          required: true,
-          label: "Datum",
-        },
-        {
-          name: "details",
-          type: "richText",
-          required: true,
-          label: "Beschreibung",
-        },
-      ],
     },
   ],
   labels: {
