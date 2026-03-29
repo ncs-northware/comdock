@@ -75,6 +75,7 @@ export interface Config {
     persons: Person;
     hr_publications: HrPublication;
     network: Network;
+    'trademarks-designs': TrademarksDesign;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,6 +91,7 @@ export interface Config {
     persons: PersonsSelect<false> | PersonsSelect<true>;
     hr_publications: HrPublicationsSelect<false> | HrPublicationsSelect<true>;
     network: NetworkSelect<false> | NetworkSelect<true>;
+    'trademarks-designs': TrademarksDesignsSelect<false> | TrademarksDesignsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -415,6 +417,69 @@ export interface Network {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trademarks-designs".
+ */
+export interface TrademarksDesign {
+  id: number;
+  type: 'Wortmarke' | 'Wort-/Bildmarke' | 'Bildmarke' | 'Sonstige Marke' | 'Gebrauchsmuster' | 'Patent';
+  'wordmark-title': string;
+  company: string | Company;
+  item_status?: ('Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen') | null;
+  submission_date: string;
+  registration_date: string;
+  /**
+   * Die Eintragung wird automatisch verlängert
+   */
+  auto_renew?: boolean | null;
+  /**
+   * Nur bei Einträgen ohne automatische Verlängerung angeben.
+   */
+  expiry_date?: string | null;
+  colors?: string[] | null;
+  vienna_class?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  nice_class?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -468,6 +533,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'network';
         value: number | Network;
+      } | null)
+    | ({
+        relationTo: 'trademarks-designs';
+        value: number | TrademarksDesign;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -670,6 +739,34 @@ export interface NetworkSelect<T extends boolean = true> {
   relation?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trademarks-designs_select".
+ */
+export interface TrademarksDesignsSelect<T extends boolean = true> {
+  type?: T;
+  'wordmark-title'?: T;
+  company?: T;
+  item_status?: T;
+  submission_date?: T;
+  registration_date?: T;
+  auto_renew?: T;
+  expiry_date?: T;
+  colors?: T;
+  vienna_class?: T;
+  nice_class?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

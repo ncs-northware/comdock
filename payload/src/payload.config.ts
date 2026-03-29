@@ -17,6 +17,7 @@ import { Network } from "@/collections/network";
 import { Persons } from "@/collections/persons";
 import { Users } from "@/collections/users";
 import { Docs } from "./collections/docs";
+import { TrademarksAndDesigns } from "./collections/trademarks-designs";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -37,6 +38,7 @@ export default buildConfig({
     Persons,
     HRPublications,
     Network,
+    TrademarksAndDesigns,
   ],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
