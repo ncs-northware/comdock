@@ -10,13 +10,13 @@ import { en } from "@payloadcms/translations/languages/en";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Companies } from "@/collections/companies";
+import { Designs } from "@/collections/designs";
 import { Docs } from "@/collections/docs";
 import { ExternalShareholders } from "@/collections/external-shareholders";
 import { HRPublications } from "@/collections/hr-publications";
 import { LEI } from "@/collections/lei";
 import { Network } from "@/collections/network";
 import { Persons } from "@/collections/persons";
-import { TrademarksAndDesigns } from "@/collections/trademarks-designs";
 import { Users } from "@/collections/users";
 
 const filename = fileURLToPath(import.meta.url);
@@ -38,7 +38,7 @@ export default buildConfig({
     Persons,
     HRPublications,
     Network,
-    TrademarksAndDesigns,
+    Designs,
   ],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [

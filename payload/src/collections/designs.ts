@@ -1,8 +1,8 @@
 import type { CollectionConfig } from "payload";
 import { authenticated, authenticatedOrPublished } from "@/access/roles";
 
-export const TrademarksAndDesigns: CollectionConfig = {
-  slug: "trademarks-designs",
+export const Designs: CollectionConfig = {
+  slug: "designs",
   labels: {
     plural: "Marken und Geschmacksmuster",
     singular: "Marke/Geschmacksmuster",
@@ -33,7 +33,7 @@ export const TrademarksAndDesigns: CollectionConfig = {
       label: "Typ",
     },
     {
-      name: "wordmark-title",
+      name: "wordmark_title",
       type: "text",
       label: "Wortmarke/Titel",
       required: true,
@@ -78,7 +78,7 @@ export const TrademarksAndDesigns: CollectionConfig = {
       label: "Nizza Klassifikation",
     },
   ],
-  admin: { useAsTitle: "wordmark-title" },
+  admin: { useAsTitle: "wordmark_title" },
   // defaultSort
   // defaultPopulate
 };

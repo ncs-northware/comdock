@@ -75,7 +75,7 @@ export interface Config {
     persons: Person;
     hr_publications: HrPublication;
     network: Network;
-    'trademarks-designs': TrademarksDesign;
+    designs: Design;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -91,7 +91,7 @@ export interface Config {
     persons: PersonsSelect<false> | PersonsSelect<true>;
     hr_publications: HrPublicationsSelect<false> | HrPublicationsSelect<true>;
     network: NetworkSelect<false> | NetworkSelect<true>;
-    'trademarks-designs': TrademarksDesignsSelect<false> | TrademarksDesignsSelect<true>;
+    designs: DesignsSelect<false> | DesignsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -417,12 +417,12 @@ export interface Network {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "trademarks-designs".
+ * via the `definition` "designs".
  */
-export interface TrademarksDesign {
+export interface Design {
   id: number;
   type: 'Wortmarke' | 'Wort-/Bildmarke' | 'Bildmarke' | 'Sonstige Marke' | 'Gebrauchsmuster' | 'Patent';
-  'wordmark-title': string;
+  wordmark_title: string;
   company: string | Company;
   item_status?: ('Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen') | null;
   registration_date: string;
@@ -526,8 +526,8 @@ export interface PayloadLockedDocument {
         value: number | Network;
       } | null)
     | ({
-        relationTo: 'trademarks-designs';
-        value: number | TrademarksDesign;
+        relationTo: 'designs';
+        value: number | Design;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -733,11 +733,11 @@ export interface NetworkSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "trademarks-designs_select".
+ * via the `definition` "designs_select".
  */
-export interface TrademarksDesignsSelect<T extends boolean = true> {
+export interface DesignsSelect<T extends boolean = true> {
   type?: T;
-  'wordmark-title'?: T;
+  wordmark_title?: T;
   company?: T;
   item_status?: T;
   registration_date?: T;
