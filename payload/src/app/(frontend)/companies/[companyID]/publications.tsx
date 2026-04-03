@@ -1,4 +1,4 @@
-import { FileIcon, RssIcon } from "lucide-react";
+import { FileIcon, RssIcon, TagIcon } from "lucide-react";
 import type { PaginatedDocs } from "payload";
 import type { ReactNode } from "react";
 import { ListItem } from "@/components/list-item";
@@ -98,6 +98,40 @@ export function CompanyDocs({ docs }: { docs: CompanyDocs }) {
               icon={<FileIcon />}
               key={document.id}
               title={document.title || document.type || "Unbenannte Datei"}
+            />
+          ))}
+        </ItemGroup>
+      )}
+    </div>
+  );
+}
+
+type DesignsList = PaginatedDocs<{
+  id: number;
+  type: string;
+  wordmark_title: string;
+  registration_date: string;
+}>;
+
+export function DesignsList({ designs }: { designs: DesignsList }) {
+  return (
+    <div>
+      {designs.totalDocs === 0 ? (
+        <Alert>
+          <AlertDescription>
+            Es gibt keine Einträge, die in dieser Ansicht gezeigt werden
+            könnten.
+          </AlertDescription>
+        </Alert>
+      ) : (
+        <ItemGroup>
+          {designs.docs.map((design) => (
+            <ListItem
+              href={`/designs/${design.id}`}
+              icon={<TagIcon />}
+              key={design.id}
+              title={`${design.type}: ${design.wordmark_title}`}
+              topline={`${germanDate(design.registration_date)}`}
             />
           ))}
         </ItemGroup>
