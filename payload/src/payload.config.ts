@@ -10,14 +10,14 @@ import { en } from "@payloadcms/translations/languages/en";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Companies } from "@/collections/companies";
+import { Docs } from "@/collections/docs";
 import { ExternalShareholders } from "@/collections/external-shareholders";
 import { HRPublications } from "@/collections/hr-publications";
 import { LEI } from "@/collections/lei";
 import { Network } from "@/collections/network";
 import { Persons } from "@/collections/persons";
+import { TrademarksAndDesigns } from "@/collections/trademarks-designs";
 import { Users } from "@/collections/users";
-import { Docs } from "./collections/docs";
-import { TrademarksAndDesigns } from "./collections/trademarks-designs";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

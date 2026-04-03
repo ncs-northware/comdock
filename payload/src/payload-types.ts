@@ -425,16 +425,7 @@ export interface TrademarksDesign {
   'wordmark-title': string;
   company: string | Company;
   item_status?: ('Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen') | null;
-  submission_date: string;
   registration_date: string;
-  /**
-   * Die Eintragung wird automatisch verlängert
-   */
-  auto_renew?: boolean | null;
-  /**
-   * Nur bei Einträgen ohne automatische Verlängerung angeben.
-   */
-  expiry_date?: string | null;
   colors?: string[] | null;
   vienna_class?: {
     root: {
@@ -749,10 +740,7 @@ export interface TrademarksDesignsSelect<T extends boolean = true> {
   'wordmark-title'?: T;
   company?: T;
   item_status?: T;
-  submission_date?: T;
   registration_date?: T;
-  auto_renew?: T;
-  expiry_date?: T;
   colors?: T;
   vienna_class?: T;
   nice_class?: T;
