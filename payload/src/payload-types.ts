@@ -424,7 +424,7 @@ export interface Design {
   type: 'Wortmarke' | 'Wort-/Bildmarke' | 'Bildmarke' | 'Sonstige Marke' | 'Gebrauchsmuster' | 'Patent';
   wordmark_title: string;
   company: string | Company;
-  item_status?: ('Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen') | null;
+  item_status: 'Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen';
   registration_date: string;
   colors?: string[] | null;
   vienna_class?: {

@@ -1,5 +1,5 @@
 import type { CollectionConfig } from "payload";
-import { authenticated, authenticatedOrPublished } from "@/access/roles";
+import { anyone, authenticated } from "@/access/roles";
 
 export const Designs: CollectionConfig = {
   slug: "designs",
@@ -10,12 +10,13 @@ export const Designs: CollectionConfig = {
   access: {
     create: authenticated,
     delete: authenticated,
-    read: authenticatedOrPublished,
+    read: anyone,
     update: authenticated,
   },
   upload: {
     staticDir: "uploads/images",
     filesRequiredOnCreate: false,
+    mimeTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
   },
   fields: [
     {
@@ -56,6 +57,7 @@ export const Designs: CollectionConfig = {
       ],
       label: "Status der Eintragung",
       defaultValue: "Eingetragen und veröffentlicht",
+      required: true,
     },
     {
       name: "registration_date",
@@ -79,6 +81,4 @@ export const Designs: CollectionConfig = {
     },
   ],
   admin: { useAsTitle: "wordmark_title" },
-  // defaultSort
-  // defaultPopulate
 };
