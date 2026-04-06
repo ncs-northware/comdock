@@ -1,0 +1,120 @@
+import type { CollectionConfig } from "payload";
+import { authenticated, authenticatedOrPublished } from "@/access/roles";
+
+export const LEI: CollectionConfig = {
+  slug: "lei",
+  fields: [
+    {
+      name: "id",
+      type: "text",
+      required: true,
+      unique: true,
+      label: "Legal Entity Identifier",
+      access: {
+        create: () => true,
+        read: () => true,
+        update: () => false,
+      },
+    },
+    {
+      name: "company",
+      type: "relationship",
+      relationTo: "companies",
+      hasMany: false,
+      required: true,
+      label: "Firma",
+    },
+    {
+      name: "lou",
+      type: "select",
+      options: [
+        "Bloomberg Finance LP (5493001KJTIIGC8Y1R12)",
+        "Bundesanzeiger Verlag GmbH (39120001KULK7200U106)",
+        "WM Datenservice (5299000J2N45DDNE4Y28)",
+      ],
+      defaultValue: "WM Datenservice (5299000J2N45DDNE4Y28)",
+      label: "Vergabestelle (LOU)",
+    },
+    {
+      name: "lei_status",
+      type: "select",
+      options: [
+        "ISSUED (ausgegeben)",
+        "LAPSED (abgelaufen)",
+        "INACTIVE",
+        "PLANNED",
+      ],
+      defaultValue: "ISSUED (ausgegeben)",
+      required: true,
+      label: "LEI Status",
+    },
+    {
+      name: "first_registration",
+      type: "date",
+      required: true,
+      admin: {
+        date: {
+          pickerAppearance: "dayAndTime",
+          displayFormat: "dd.MM.yyyy hh:mm",
+        },
+      },
+      label: "Erstvergabe",
+      hooks: {
+        beforeChange: [
+          ({ operation, value }) => {
+            if (operation === "create") {
+              return new Date();
+            }
+            return value;
+          },
+        ],
+      },
+    },
+    {
+      name: "auto_renew",
+      type: "checkbox",
+      defaultValue: true,
+      required: true,
+      label: "Automatische Verlängerung",
+      admin: {
+        description:
+          "Die letzte und nächste Verlängerung werden automatisch errechnet.",
+      },
+    },
+    {
+      name: "last_renewal",
+      type: "date",
+      label: "Letzte Aktualisierung",
+      admin: {
+        date: {
+          pickerAppearance: "dayAndTime",
+          displayFormat: "dd.MM.yyyy hh:mm",
+        },
+        description:
+          "Nur bei Einträgen ohne automatische Verlängerung angeben.",
+        condition: (data) => {
+          if (data.auto_renew === false) {
+            return true;
+          }
+          return false;
+        },
+      },
+    },
+  ],
+  labels: {
+    singular: "Legal Entity Identifier",
+    plural: "Legal Entity Identifiers",
+  },
+  admin: { useAsTitle: "id" },
+  access: {
+    create: authenticated,
+    delete: authenticated,
+    read: authenticatedOrPublished,
+    update: authenticated,
+  },
+  defaultSort: "id",
+  defaultPopulate: {
+    id: true,
+    company: true,
+  },
+};

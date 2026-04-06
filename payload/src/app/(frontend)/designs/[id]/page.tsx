@@ -1,0 +1,133 @@
+import Image from "next/image";
+import {
+  DescriptionElement,
+  DescriptionList,
+  DescriptionListRow,
+  DescriptionTerm,
+} from "@/components/description-list";
+import { RichText } from "@/components/richtext";
+import { Headline, Link } from "@/components/typography";
+import { payload } from "@/lib/api";
+import { germanDate } from "@/lib/utils";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: number }>;
+}) {
+  const { id } = await params;
+  const designMetadata = await payload.findByID({
+    collection: "designs",
+    // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internals
+    id: id,
+    select: { type: true, wordmark_title: true },
+  });
+
+  return { title: `${designMetadata.type}: ${designMetadata.wordmark_title}` };
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: number }>;
+}) {
+  const { id } = await params;
+  const design = await payload.findByID({
+    collection: "designs",
+    // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internals
+    id: id,
+    select: {
+      type: true,
+      wordmark_title: true,
+      url: true,
+      filename: true,
+      height: true,
+      width: true,
+      item_status: true,
+      nice_class: true,
+      vienna_class: true,
+      colors: true,
+      company: true,
+      registration_date: true,
+    },
+  });
+
+  console.log(design);
+
+  return (
+    <article>
+      <Headline className="truncate" level="h1">
+        {design.type}: {design.wordmark_title}
+      </Headline>
+      <div className="my-8">
+        {typeof design.url === "string" && (
+          <Image
+            alt={`Grafik ${design.wordmark_title}`}
+            className="mx-auto rounded-lg bg-muted object-cover"
+            height={Math.min(300, design.height || 0)}
+            src={design.url}
+            width={design.width || 0}
+          />
+        )}
+      </div>
+      <DescriptionList>
+        <DescriptionListRow className="md:grid md:grid-cols-2">
+          <DescriptionTerm>Art</DescriptionTerm>
+          <DescriptionElement>{design.type}</DescriptionElement>
+        </DescriptionListRow>
+        <DescriptionListRow className="md:grid md:grid-cols-2">
+          <DescriptionTerm>Wortmarke/Titel</DescriptionTerm>
+          <DescriptionElement>{design.wordmark_title}</DescriptionElement>
+        </DescriptionListRow>
+        {typeof design.company === "object" && (
+          <DescriptionListRow className="md:grid md:grid-cols-2">
+            <DescriptionTerm>Inhaber</DescriptionTerm>
+            <DescriptionElement>
+              <Link href={`/companies/${design.company.id}`}>
+                {design.company.company_name}
+              </Link>
+            </DescriptionElement>
+          </DescriptionListRow>
+        )}
+        <DescriptionListRow className="md:grid md:grid-cols-2">
+          <DescriptionTerm>Datum der Eintragung</DescriptionTerm>
+          <DescriptionElement>
+            {germanDate(design.registration_date)}
+          </DescriptionElement>
+        </DescriptionListRow>
+        <DescriptionListRow className="md:grid md:grid-cols-2">
+          <DescriptionTerm>Status der Marke</DescriptionTerm>
+          <DescriptionElement>{design.item_status}</DescriptionElement>
+        </DescriptionListRow>
+        {design.nice_class && (
+          <DescriptionListRow className="md:grid md:grid-cols-2">
+            <DescriptionTerm>Nizza-Klassifikation</DescriptionTerm>
+            <DescriptionElement>
+              <RichText data={design.nice_class} />
+            </DescriptionElement>
+          </DescriptionListRow>
+        )}
+        {design.vienna_class && (
+          <DescriptionListRow className="md:grid md:grid-cols-2">
+            <DescriptionTerm>Wiener Klassifikation</DescriptionTerm>
+            <DescriptionElement>
+              <RichText data={design.vienna_class} />
+            </DescriptionElement>
+          </DescriptionListRow>
+        )}
+        {design.colors && design.colors.length > 0 && (
+          <DescriptionListRow className="md:grid md:grid-cols-2">
+            <DescriptionTerm>Farben</DescriptionTerm>
+            <DescriptionElement>
+              <ul className="list-inside list-disc">
+                {design.colors?.map((color) => (
+                  <li key={color}>{color}</li>
+                ))}
+              </ul>
+            </DescriptionElement>
+          </DescriptionListRow>
+        )}
+      </DescriptionList>
+    </article>
+  );
+}
