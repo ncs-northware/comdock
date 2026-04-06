@@ -10,6 +10,11 @@ export const LEI: CollectionConfig = {
       required: true,
       unique: true,
       label: "Legal Entity Identifier",
+      access: {
+        create: () => true,
+        read: () => true,
+        update: () => false,
+      },
     },
     {
       name: "company",
@@ -87,6 +92,12 @@ export const LEI: CollectionConfig = {
         },
         description:
           "Nur bei Einträgen ohne automatische Verlängerung angeben.",
+        condition: (data) => {
+          if (data.auto_renew === false) {
+            return true;
+          }
+          return false;
+        },
       },
     },
   ],

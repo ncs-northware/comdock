@@ -26,6 +26,11 @@ export const Companies: CollectionConfig = {
       required: true,
       unique: true,
       label: "HR Nummer",
+      access: {
+        create: () => true,
+        update: () => false,
+        read: () => true,
+      },
     },
     { name: "hr_court", type: "text", required: true, label: "Amtsgericht" },
     {
@@ -103,12 +108,8 @@ export const Companies: CollectionConfig = {
         // Use the new hr_number if provided, otherwise initialize as empty
         const hr = (data?.hr_number ?? "") as string;
 
-        // Normalize: remove whitespace, lowercase and keep only a-z and 0-9
-        const sanitized = hr
-          .toString()
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .replace(/[^a-z0-9]/g, "");
+        // Extract only numeric digits from hr_number
+        const sanitized = hr.toString().replace(/\D/g, "");
 
         if (sanitized && data) {
           data.id = sanitized;
