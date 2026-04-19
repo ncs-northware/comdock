@@ -34,7 +34,7 @@ export const Designs: CollectionConfig = {
       label: "Typ",
     },
     {
-      name: "wordmark_title",
+      name: "wordmarkTitle",
       type: "text",
       label: "Wortmarke/Titel",
       required: true,
@@ -48,7 +48,7 @@ export const Designs: CollectionConfig = {
       label: "Firma",
     },
     {
-      name: "item_status",
+      name: "itemStatus",
       type: "select",
       options: [
         "Eingetragen und veröffentlicht",
@@ -60,7 +60,7 @@ export const Designs: CollectionConfig = {
       required: true,
     },
     {
-      name: "registration_date",
+      name: "registrationDate",
       type: "date",
       label: "Eingetragen am",
       required: true,
@@ -70,15 +70,15 @@ export const Designs: CollectionConfig = {
     },
     { name: "colors", type: "text", label: "Farben", hasMany: true },
     {
-      name: "vienna_class",
+      name: "viennaClass",
       type: "richText",
       label: "Wiener Klassifikation",
     },
     {
-      name: "nice_class",
+      name: "niceClass",
       type: "richText",
       label: "Nizza Klassifikation",
     },
   ],
-  admin: { useAsTitle: "wordmark_title" },
+  admin: { useAsTitle: "wordmarkTitle" },
 };

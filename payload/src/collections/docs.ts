@@ -40,7 +40,7 @@ export const Docs: CollectionConfig = {
       label: "Firma",
     },
     {
-      name: "document_createdAt",
+      name: "documentCreatedAt",
       type: "date",
       label: "Dokument erstellt am",
       admin: {

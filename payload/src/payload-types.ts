@@ -163,7 +163,7 @@ export interface Doc {
       )
     | null;
   company?: (number | null) | Company;
-  document_createdAt?: string | null;
+  documentCreatedAt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -332,8 +332,8 @@ export interface HrPublication {
    * Wenn dieses Feld leer ist, wird es automatisch befüllt. Für automatische Änderung Feld leeren.
    */
   summary?: string | null;
-  publication_date: string;
-  publication_data?:
+  publicationDate: string;
+  publicationData?:
     | {
         row:
           | 'Firma'
@@ -364,7 +364,7 @@ export interface HrPublication {
           };
           [k: string]: unknown;
         };
-        outdated_by?: (number | null) | HrPublication;
+        outdatedBy?: (number | null) | HrPublication;
         id?: string | null;
       }[]
     | null;
@@ -384,8 +384,8 @@ export interface HrPublication {
     [k: string]: unknown;
   } | null;
   docs?: (number | Doc)[] | null;
-  mentioned_companies?: (number | Company)[] | null;
-  mentioned_persons?: (number | Person)[] | null;
+  mentionedCompanies?: (number | Company)[] | null;
+  mentionedPersons?: (number | Person)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -437,12 +437,12 @@ export interface Network {
 export interface Design {
   id: number;
   type: 'Wortmarke' | 'Wort-/Bildmarke' | 'Bildmarke' | 'Sonstige Marke' | 'Gebrauchsmuster' | 'Patent';
-  wordmark_title: string;
+  wordmarkTitle: string;
   company: number | Company;
-  item_status: 'Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen';
-  registration_date: string;
+  itemStatus: 'Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen';
+  registrationDate: string;
   colors?: string[] | null;
-  vienna_class?: {
+  viennaClass?: {
     root: {
       type: string;
       children: {
@@ -457,7 +457,7 @@ export interface Design {
     };
     [k: string]: unknown;
   } | null;
-  nice_class?: {
+  niceClass?: {
     root: {
       type: string;
       children: {
@@ -760,7 +760,7 @@ export interface DocsSelect<T extends boolean = true> {
   title?: T;
   type?: T;
   company?: T;
-  document_createdAt?: T;
+  documentCreatedAt?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -882,19 +882,19 @@ export interface HrPublicationsSelect<T extends boolean = true> {
   company?: T;
   title?: T;
   summary?: T;
-  publication_date?: T;
-  publication_data?:
+  publicationDate?: T;
+  publicationData?:
     | T
     | {
         row?: T;
         value?: T;
-        outdated_by?: T;
+        outdatedBy?: T;
         id?: T;
       };
   description?: T;
   docs?: T;
-  mentioned_companies?: T;
-  mentioned_persons?: T;
+  mentionedCompanies?: T;
+  mentionedPersons?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -918,13 +918,13 @@ export interface NetworkSelect<T extends boolean = true> {
  */
 export interface DesignsSelect<T extends boolean = true> {
   type?: T;
-  wordmark_title?: T;
+  wordmarkTitle?: T;
   company?: T;
-  item_status?: T;
-  registration_date?: T;
+  itemStatus?: T;
+  registrationDate?: T;
   colors?: T;
-  vienna_class?: T;
-  nice_class?: T;
+  viennaClass?: T;
+  niceClass?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

@@ -21,7 +21,7 @@ export const HRPublications: CollectionConfig = {
       },
     },
     {
-      name: "publication_date",
+      name: "publicationDate",
       type: "date",
       label: "Veröffentlichungsdatum",
       admin: {
@@ -30,7 +30,7 @@ export const HRPublications: CollectionConfig = {
       required: true,
     },
     {
-      name: "publication_data",
+      name: "publicationData",
       type: "array",
       fields: [
         {
@@ -56,7 +56,7 @@ export const HRPublications: CollectionConfig = {
         },
         { name: "value", type: "richText", required: true, label: "Inhalt" },
         {
-          name: "outdated_by",
+          name: "outdatedBy",
           type: "relationship",
           relationTo: "hr_publications",
           label: "Aufgehoben durch",
@@ -79,14 +79,14 @@ export const HRPublications: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: "mentioned_companies",
+      name: "mentionedCompanies",
       type: "relationship",
       relationTo: "companies",
       label: "Erwähnte Firmen",
       hasMany: true,
     },
     {
-      name: "mentioned_persons",
+      name: "mentionedPersons",
       type: "relationship",
       relationTo: "persons",
       label: "Erwähnte Personen",
