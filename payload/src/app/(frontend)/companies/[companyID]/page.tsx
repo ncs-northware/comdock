@@ -10,7 +10,7 @@ import { CompanyDocs, DesignsList, HRPublications } from "./publications";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ companyID: number }>;
+  params: Promise<{ companyID: string }>;
 }) {
   const { companyID } = await params;
   const companyMetadata = await payload.findByID({
@@ -26,13 +26,13 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ companyID: number }>;
+  params: Promise<{ companyID: string }>;
 }) {
   const { companyID } = await params;
-
+  const companyIDNum = Number.parseInt(companyID, 10);
   const company = await payload.findByID({
     collection: "companies",
-    id: companyID,
+    id: companyIDNum,
     select: {
       companyName: true,
       hrDept: true,
@@ -189,7 +189,7 @@ export default async function Page({
             </TabsTrigger>
           </TabsList>
           <TabsContent value="hr">
-            <HRPublications companyID={companyID} publications={hr} />
+            <HRPublications companyID={companyIDNum} publications={hr} />
           </TabsContent>
           <TabsContent value="docs">
             <CompanyDocs docs={docs} />
