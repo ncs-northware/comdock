@@ -163,7 +163,7 @@ export interface Doc {
       )
     | null;
   company?: (number | null) | Company;
-  document_createdAt?: string | null;
+  documentCreatedAt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -437,12 +437,12 @@ export interface Network {
 export interface Design {
   id: number;
   type: 'Wortmarke' | 'Wort-/Bildmarke' | 'Bildmarke' | 'Sonstige Marke' | 'Gebrauchsmuster' | 'Patent';
-  wordmark_title: string;
+  wordmarkTitle: string;
   company: number | Company;
-  item_status: 'Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen';
-  registration_date: string;
+  itemStatus: 'Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen';
+  registrationDate: string;
   colors?: string[] | null;
-  vienna_class?: {
+  viennaClass?: {
     root: {
       type: string;
       children: {
@@ -457,7 +457,7 @@ export interface Design {
     };
     [k: string]: unknown;
   } | null;
-  nice_class?: {
+  niceClass?: {
     root: {
       type: string;
       children: {
@@ -760,7 +760,7 @@ export interface DocsSelect<T extends boolean = true> {
   title?: T;
   type?: T;
   company?: T;
-  document_createdAt?: T;
+  documentCreatedAt?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -918,13 +918,13 @@ export interface NetworkSelect<T extends boolean = true> {
  */
 export interface DesignsSelect<T extends boolean = true> {
   type?: T;
-  wordmark_title?: T;
+  wordmarkTitle?: T;
   company?: T;
-  item_status?: T;
-  registration_date?: T;
+  itemStatus?: T;
+  registrationDate?: T;
   colors?: T;
-  vienna_class?: T;
-  nice_class?: T;
+  viennaClass?: T;
+  niceClass?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

@@ -5,7 +5,7 @@ export const Network: CollectionConfig = {
   slug: "network",
   fields: [
     {
-      name: "child_company",
+      name: "childCompany",
       type: "relationship",
       relationTo: "companies",
       label: "Firma",

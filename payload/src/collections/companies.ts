@@ -4,24 +4,24 @@ import { authenticated, authenticatedOrPublished } from "@/access/roles";
 export const Companies: CollectionConfig = {
   slug: "companies",
   fields: [
-    { name: "id", type: "text", label: "ID", admin: { hidden: true } },
-    { name: "company_name", type: "text", required: true, label: "Firmenname" },
+    { name: "id", type: "number", label: "ID", admin: { hidden: true } },
+    { name: "companyName", type: "text", required: true, label: "Firmenname" },
     {
-      name: "hr_status",
+      name: "hrStatus",
       type: "select",
       options: ["aktiv", "gelöscht", "Liquidation", "Gesellschaft verlassen"],
       label: "Status",
       defaultValue: "aktiv",
     },
     {
-      name: "hr_dept",
+      name: "hrDept",
       type: "select",
       options: ["HRA", "HRB"],
       label: "HR Abteilung",
       required: true,
     },
     {
-      name: "hr_number",
+      name: "hrNumber",
       type: "text",
       required: true,
       unique: true,
@@ -32,7 +32,7 @@ export const Companies: CollectionConfig = {
         read: () => true,
       },
     },
-    { name: "hr_court", type: "text", required: true, label: "Amtsgericht" },
+    { name: "hrCourt", type: "text", required: true, label: "Amtsgericht" },
     {
       name: "headquarter",
       type: "group",
@@ -66,26 +66,26 @@ export const Companies: CollectionConfig = {
         { name: "city", type: "text", label: "Ort", required: true },
       ],
     },
-    { name: "corp_object", type: "richText", label: "Unternehmensgegenstand" },
+    { name: "corpObject", type: "richText", label: "Unternehmensgegenstand" },
     { name: "capital", type: "number", label: "Stammkapital" },
     {
-      name: "represent_rules",
+      name: "representRules",
       type: "richText",
       label: "Allgemeine Vertretungsregelung",
     },
     {
-      name: "prev_names",
+      name: "prevNames",
       type: "array",
       label: "Vorherige Namen",
       fields: [
         {
-          name: "prev_name",
+          name: "prevName",
           type: "text",
           label: "Vorheriger Firmenname",
           required: true,
         },
         {
-          name: "name_upto",
+          name: "nameUpto",
           type: "date",
           label: "Name bis",
           admin: { date: { displayFormat: "dd.MM.yyyy" } },
@@ -94,7 +94,7 @@ export const Companies: CollectionConfig = {
     },
   ],
   admin: {
-    useAsTitle: "company_name",
+    useAsTitle: "companyName",
   },
   access: {
     create: authenticated,
@@ -106,7 +106,7 @@ export const Companies: CollectionConfig = {
     beforeValidate: [
       ({ data }) => {
         // Use the new hr_number if provided, otherwise initialize as empty
-        const hr = (data?.hr_number ?? "") as string;
+        const hr = (data?.hrNumber ?? "") as string;
 
         // Extract only numeric digits from hr_number
         const sanitized = hr.toString().replace(/\D/g, "");
@@ -123,10 +123,10 @@ export const Companies: CollectionConfig = {
     plural: "Firmen",
     singular: "Firma",
   },
-  defaultSort: "company_name",
+  defaultSort: "companyName",
   defaultPopulate: {
-    company_name: true,
-    hr_dept: true,
-    hr_number: true,
+    companyName: true,
+    hrDept: true,
+    hrNumber: true,
   },
 };

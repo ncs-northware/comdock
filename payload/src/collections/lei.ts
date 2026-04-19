@@ -36,7 +36,7 @@ export const LEI: CollectionConfig = {
       label: "Vergabestelle (LOU)",
     },
     {
-      name: "lei_status",
+      name: "leiStatus",
       type: "select",
       options: [
         "ISSUED (ausgegeben)",
@@ -49,7 +49,7 @@ export const LEI: CollectionConfig = {
       label: "LEI Status",
     },
     {
-      name: "first_registration",
+      name: "firstRegistration",
       type: "date",
       required: true,
       admin: {
@@ -71,7 +71,7 @@ export const LEI: CollectionConfig = {
       },
     },
     {
-      name: "auto_renew",
+      name: "autoRenew",
       type: "checkbox",
       defaultValue: true,
       required: true,
@@ -82,7 +82,7 @@ export const LEI: CollectionConfig = {
       },
     },
     {
-      name: "last_renewal",
+      name: "lastRenewal",
       type: "date",
       label: "Letzte Aktualisierung",
       admin: {

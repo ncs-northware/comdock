@@ -4,8 +4,8 @@ import { authenticated, authenticatedOrPublished } from "@/access/roles";
 export const Persons: CollectionConfig = {
   slug: "persons",
   fields: [
-    { name: "first_name", type: "text", required: true, label: "Vorname" },
-    { name: "sir_name", type: "text", required: true, label: "Nachname" },
+    { name: "firstName", type: "text", required: true, label: "Vorname" },
+    { name: "sirName", type: "text", required: true, label: "Nachname" },
     { name: "city", type: "text", required: true, label: "Wohnort" },
     {
       name: "birthday",
@@ -16,7 +16,7 @@ export const Persons: CollectionConfig = {
       },
     },
   ],
-  admin: { useAsTitle: "first_name" },
+  admin: { useAsTitle: "firstName" },
   access: {
     create: authenticated,
     delete: authenticated,
