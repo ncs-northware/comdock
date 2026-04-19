@@ -39,19 +39,19 @@ export default async function Page({
     id: id,
     select: {
       company: true,
-      first_registration: true,
-      lei_status: true,
+      firstRegistration: true,
+      leiStatus: true,
       lou: true,
-      auto_renew: true,
-      last_renewal: true,
+      autoRenew: true,
+      lastRenewal: true,
     },
     populate: {
       companies: {
-        company_name: true,
-        hr_court: true,
-        hr_dept: true,
-        hr_number: true,
-        hr_status: true,
+        companyName: true,
+        hrCourt: true,
+        hrDept: true,
+        hrNumber: true,
+        hrStatus: true,
         headquarter: true,
       },
     },
@@ -61,13 +61,13 @@ export default async function Page({
     const companyId = lei.company.id;
     const leiNetwork = await payload.find({
       collection: "network",
-      select: { child_company: true, relation: true, type: true },
-      populate: { companies: { company_name: true, id: true } },
+      select: { childCompany: true, relation: true, type: true },
+      populate: { companies: { companyName: true, id: true } },
       where: {
         and: [
           {
             or: [
-              { child_company: { equals: companyId } },
+              { childCompany: { equals: companyId } },
               { "relation.value": { equals: companyId } },
             ],
           },
@@ -77,9 +77,9 @@ export default async function Page({
     });
 
     const year = new Date().getFullYear();
-    const auto_last_renewal = new Date(lei.first_registration);
+    const auto_last_renewal = new Date(lei.firstRegistration);
     auto_last_renewal.setFullYear(year);
-    const auto_next_renewal = new Date(lei.first_registration);
+    const auto_next_renewal = new Date(lei.firstRegistration);
     auto_next_renewal.setFullYear(year + 1);
 
     return (
@@ -94,7 +94,7 @@ export default async function Page({
             </DescriptionListRow>
             <DescriptionListRow className="md:grid md:grid-cols-2">
               <DescriptionTerm>LEI Status</DescriptionTerm>
-              <DescriptionElement>{lei.lei_status}</DescriptionElement>
+              <DescriptionElement>{lei.leiStatus}</DescriptionElement>
             </DescriptionListRow>
             <DescriptionListRow className="md:grid md:grid-cols-2">
               <DescriptionTerm>LEI-Vergabestelle (LOU)</DescriptionTerm>
@@ -103,10 +103,10 @@ export default async function Page({
             <DescriptionListRow className="md:grid md:grid-cols-2">
               <DescriptionTerm>Erstvergabe</DescriptionTerm>
               <DescriptionElement>
-                {germanDate(lei.first_registration)}
+                {germanDate(lei.firstRegistration)}
               </DescriptionElement>
             </DescriptionListRow>
-            {lei.auto_renew === true && (
+            {lei.autoRenew === true && (
               <DescriptionListRow className="md:grid md:grid-cols-2">
                 <DescriptionTerm>Letzte Verlängerung</DescriptionTerm>
                 <DescriptionElement>
@@ -114,15 +114,15 @@ export default async function Page({
                 </DescriptionElement>
               </DescriptionListRow>
             )}
-            {lei.auto_renew !== true && lei.last_renewal !== null && (
+            {lei.autoRenew !== true && lei.lastRenewal !== null && (
               <DescriptionListRow className="md:grid md:grid-cols-2">
                 <DescriptionTerm>Letzte Verlängerung</DescriptionTerm>
                 <DescriptionElement>
-                  {germanDate(lei.last_renewal || "")}
+                  {germanDate(lei.lastRenewal || "")}
                 </DescriptionElement>
               </DescriptionListRow>
             )}
-            {lei.auto_renew === true && (
+            {lei.autoRenew === true && (
               <DescriptionListRow className="md:grid md:grid-cols-2">
                 <DescriptionTerm>Nächste Verlängerung</DescriptionTerm>
                 <DescriptionElement>
@@ -139,23 +139,23 @@ export default async function Page({
               <DescriptionTerm>Firmenname</DescriptionTerm>
               <DescriptionElement>
                 <Link href={`/companies/${lei.company.id}`}>
-                  {lei.company.company_name}
+                  {lei.company.companyName}
                 </Link>
               </DescriptionElement>
             </DescriptionListRow>
             <DescriptionListRow className="md:grid md:grid-cols-2">
               <DescriptionTerm>Registergericht</DescriptionTerm>
-              <DescriptionElement>{lei.company.hr_court}</DescriptionElement>
+              <DescriptionElement>{lei.company.hrCourt}</DescriptionElement>
             </DescriptionListRow>
             <DescriptionListRow className="md:grid md:grid-cols-2">
               <DescriptionTerm>Registernummer</DescriptionTerm>
               <DescriptionElement>
-                {lei.company.hr_dept} {lei.company.hr_number}
+                {lei.company.hrDept} {lei.company.hrNumber}
               </DescriptionElement>
             </DescriptionListRow>
             <DescriptionListRow className="md:grid md:grid-cols-2">
               <DescriptionTerm>Status</DescriptionTerm>
-              <DescriptionElement>{lei.company.hr_status}</DescriptionElement>
+              <DescriptionElement>{lei.company.hrStatus}</DescriptionElement>
             </DescriptionListRow>
             <DescriptionListRow className="md:grid md:grid-cols-2">
               <DescriptionTerm>
@@ -174,10 +174,10 @@ export default async function Page({
             <ItemGroup className="my-4 gap-4">
               {leiNetwork.docs.map((item) => {
                 if (
-                  typeof item.child_company === "object" &&
+                  typeof item.childCompany === "object" &&
                   typeof item.relation?.value === "object" &&
                   item.relation.relationTo === "companies" &&
-                  item.child_company?.id === companyId
+                  item.childCompany?.id === companyId
                 ) {
                   return (
                     <ListItem
@@ -185,13 +185,13 @@ export default async function Page({
                       href={`/companies/${item.relation.value.id}`}
                       icon={<BuildingIcon />}
                       key={item.id}
-                      title={item.relation.value.company_name}
+                      title={item.relation.value.companyName}
                     />
                   );
                 }
                 if (
-                  typeof item.child_company === "object" &&
-                  item.child_company !== null &&
+                  typeof item.childCompany === "object" &&
+                  item.childCompany !== null &&
                   typeof item.relation?.value === "object" &&
                   item.relation.relationTo === "companies" &&
                   item.relation.value.id === companyId
@@ -199,10 +199,10 @@ export default async function Page({
                   return (
                     <ListItem
                       description={`Tochtergesellschaft | ${item.type}`}
-                      href={`/companies/${item.child_company?.id}`}
+                      href={`/companies/${item.childCompany?.id}`}
                       icon={<BuildingIcon />}
                       key={item.id}
-                      title={item.child_company?.company_name}
+                      title={item.childCompany?.companyName}
                     />
                   );
                 }

@@ -1,12 +1,45 @@
 "use client";
 
 import { BuildingIcon, HandshakeIcon, UserRoundIcon } from "lucide-react";
+import type { PaginatedDocs } from "payload";
 import { useState } from "react";
 import { NetworkItem } from "@/components/network-item";
 import { Headline } from "@/components/typography";
 import { Button } from "@/components/ui/button";
-import type { NetworkType } from "@/lib/network-type";
 import { germanDate } from "@/lib/utils";
+import type { Company, ExternalShareholder, Person } from "@/payload-types";
+
+export type NetworkType = PaginatedDocs<{
+  id: number;
+  type:
+    | "Beteiligung"
+    | "Komplement\u00E4r VH"
+    | "Kommanditist TH"
+    | "Gesellschafter"
+    | "Gesch\u00E4ftsf\u00FChrer"
+    | "CEO"
+    | "COO"
+    | "Einzelprokura"
+    | "Gesamtprokura"
+    | "Filialprokura"
+    | "Andere Vertretungsbefugnis";
+  since: string;
+  upto?: string | null | undefined;
+  relation?:
+    | ({
+        relationTo: "companies";
+        value: number | Company;
+      } | null)
+    | ({
+        relationTo: "external-shareholders";
+        value: number | ExternalShareholder;
+      } | null)
+    | ({
+        relationTo: "persons";
+        value: number | Person;
+      } | null)
+    | undefined;
+}>;
 
 export function CompanyNetwork({
   network,
@@ -45,7 +78,7 @@ export function CompanyNetwork({
                   key={item.id}
                   title={
                     typeof item.relation?.value === "object"
-                      ? (item.relation?.value?.company_name ?? "")
+                      ? (item.relation?.value?.companyName ?? "")
                       : (item.relation?.value ?? "")
                   }
                   variant={item.upto === null ? "current" : "former"}
@@ -66,8 +99,8 @@ export function CompanyNetwork({
                   title={
                     typeof item.relation?.value === "object"
                       ? [
-                          item.relation?.value?.first_name,
-                          item.relation?.value?.sir_name,
+                          item.relation?.value?.firstName,
+                          item.relation?.value?.sirName,
                         ]
                           .filter(Boolean)
                           .join(" ")
@@ -89,7 +122,7 @@ export function CompanyNetwork({
                 key={item.id}
                 title={
                   typeof item.relation?.value === "object"
-                    ? (item.relation?.value?.company_name ?? "")
+                    ? (item.relation?.value?.companyName ?? "")
                     : (item.relation?.value.toString() ?? "")
                 }
                 variant={item.upto === null ? "current" : "former"}

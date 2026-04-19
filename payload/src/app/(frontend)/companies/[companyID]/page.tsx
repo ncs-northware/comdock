@@ -16,10 +16,10 @@ export async function generateMetadata({
   const companyMetadata = await payload.findByID({
     collection: "companies",
     id: companyID,
-    select: { company_name: true, headquarter: { city: true } },
+    select: { companyName: true, headquarter: { city: true } },
   });
   return {
-    title: `${companyMetadata.company_name}, ${companyMetadata.headquarter.city}`,
+    title: `${companyMetadata.companyName}, ${companyMetadata.headquarter.city}`,
   };
 }
 
@@ -29,19 +29,19 @@ export default async function Page({
   params: Promise<{ companyID: string }>;
 }) {
   const { companyID } = await params;
-
+  const companyIDNum = Number.parseInt(companyID, 10);
   const company = await payload.findByID({
     collection: "companies",
-    id: companyID,
+    id: companyIDNum,
     select: {
-      company_name: true,
-      hr_dept: true,
-      hr_number: true,
-      hr_court: true,
+      companyName: true,
+      hrDept: true,
+      hrNumber: true,
+      hrCourt: true,
       headquarter: true,
       branches: true,
-      corp_object: true,
-      prev_names: true,
+      corpObject: true,
+      prevNames: true,
     },
   });
 
@@ -67,7 +67,7 @@ export default async function Page({
       relation: true,
     },
     where: {
-      child_company: { equals: companyID },
+      childCompany: { equals: companyID },
     },
     sort: ["upto", "since"],
   });
@@ -78,15 +78,15 @@ export default async function Page({
       company: true,
       title: true,
       summary: true,
-      publication_date: true,
+      publicationDate: true,
     },
     where: {
       or: [
         { company: { equals: companyID } },
-        { mentioned_companies: { in: [companyID] } },
+        { mentionedCompanies: { in: [companyID] } },
       ],
     },
-    sort: "-publication_date",
+    sort: "-publicationDate",
   });
 
   const docs = await payload.find({
@@ -96,7 +96,7 @@ export default async function Page({
       title: true,
       type: true,
       createdAt: true,
-      document_createdAt: true,
+      documentCreatedAt: true,
       filename: true,
       url: true,
     },
@@ -105,25 +105,25 @@ export default async function Page({
   const designs = await payload.find({
     collection: "designs",
     where: { company: { equals: companyID } },
-    select: { type: true, wordmark_title: true, registration_date: true },
+    select: { type: true, wordmarkTitle: true, registrationDate: true },
   });
 
   return (
     <article>
       <div className="mb-8">
         <Headline level="h1">
-          {company.company_name}, {company.headquarter.city}
+          {company.companyName}, {company.headquarter.city}
         </Headline>
       </div>
       <div className="mb-8">
         <Headline level="h3">Firma</Headline>
-        <p className="my-2">{company.company_name}</p>
-        {company.prev_names ? (
+        <p className="my-2">{company.companyName}</p>
+        {company.prevNames ? (
           <div className="my-2 text-muted-foreground">
-            {company.prev_names?.map((name) => (
+            {company.prevNames?.map((name) => (
               <div className="flex" key={name.id}>
                 <ArrowLeftRightIcon className="me-2 w-3" />
-                <span>{name.prev_name}</span>
+                <span>{name.prevName}</span>
               </div>
             ))}
           </div>
@@ -136,7 +136,7 @@ export default async function Page({
         <p className="my-2">
           <Badge className="me-2">HR</Badge>
           <span>
-            {company.hr_court} | {company.hr_dept} {company.hr_number}
+            {company.hrCourt} | {company.hrDept} {company.hrNumber}
           </span>
         </p>
         {lei.totalDocs > 0 &&
@@ -167,16 +167,16 @@ export default async function Page({
           </p>
         ))}
       </div>
-      {company.corp_object ? (
+      {company.corpObject ? (
         <div className="mb-8">
           <Headline level="h3">Unternehmensgegenstand</Headline>
-          <RichText className="my-2 font-mono" data={company.corp_object} />
+          <RichText className="my-2 font-mono" data={company.corpObject} />
         </div>
       ) : (
         ""
       )}
       {network.totalDocs > 0 && (
-        <CompanyNetwork companyName={company.company_name} network={network} />
+        <CompanyNetwork companyName={company.companyName} network={network} />
       )}
       <div className="mb-8">
         <Headline level="h3">Veröffentlichungen</Headline>
@@ -189,7 +189,7 @@ export default async function Page({
             </TabsTrigger>
           </TabsList>
           <TabsContent value="hr">
-            <HRPublications companyID={companyID} publications={hr} />
+            <HRPublications companyID={companyIDNum} publications={hr} />
           </TabsContent>
           <TabsContent value="docs">
             <CompanyDocs docs={docs} />

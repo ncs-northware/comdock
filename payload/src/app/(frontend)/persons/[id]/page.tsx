@@ -16,10 +16,10 @@ export async function generateMetadata({
     collection: "persons",
     // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internal
     id: id,
-    select: { first_name: true, sir_name: true, city: true },
+    select: { firstName: true, sirName: true, city: true },
   });
   return {
-    title: `${personMetadata.first_name} ${personMetadata.sir_name}, ${personMetadata.city}`,
+    title: `${personMetadata.firstName} ${personMetadata.sirName}, ${personMetadata.city}`,
   };
 }
 
@@ -35,8 +35,8 @@ export default async function Page({
     // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internals
     id: id,
     select: {
-      first_name: true,
-      sir_name: true,
+      firstName: true,
+      sirName: true,
       city: true,
     },
   });
@@ -44,7 +44,7 @@ export default async function Page({
   const network = await payload.find({
     collection: "network",
     select: {
-      child_company: true,
+      childCompany: true,
       type: true,
       upto: true,
       since: true,
@@ -56,7 +56,7 @@ export default async function Page({
       ],
     },
     populate: {
-      companies: { company_name: true, id: true },
+      companies: { companyName: true, id: true },
     },
   });
 
@@ -65,18 +65,18 @@ export default async function Page({
     select: {
       title: true,
       summary: true,
-      publication_date: true,
+      publicationDate: true,
       company: true,
     },
-    where: { mentioned_persons: { equals: id } },
-    populate: { companies: { company_name: true } },
+    where: { mentionedPersons: { equals: id } },
+    populate: { companies: { companyName: true } },
   });
 
   return (
     <article>
       <div className="mb-8">
         <Headline level="h1">
-          {person.first_name} {person.sir_name}, {person.city}
+          {person.firstName} {person.sirName}, {person.city}
         </Headline>
       </div>
       {network.totalDocs === 0 && publications.totalDocs === 0 && (
@@ -92,13 +92,13 @@ export default async function Page({
           <ItemGroup className="my-4 gap-4">
             {network.docs.map(
               (item) =>
-                typeof item.child_company === "object" && (
+                typeof item.childCompany === "object" && (
                   <ListItem
                     description={`${item.type} ${item.upto !== null ? `(${germanDate(item.since)} bis ${germanDate(item.upto || "")})` : ""}`}
-                    href={`/companies/${item.child_company?.id ?? "#"}`}
+                    href={`/companies/${item.childCompany?.id ?? "#"}`}
                     icon={<BuildingIcon />}
                     key={item.id}
-                    title={item.child_company?.company_name || "Firma"}
+                    title={item.childCompany?.companyName || "Firma"}
                     variant={item.upto !== null ? "outline" : "muted"}
                   />
                 )
@@ -120,8 +120,8 @@ export default async function Page({
                     title={`${item.title}: ${item.summary}`}
                     topline={
                       <span>
-                        {germanDate(item.publication_date)} über{" "}
-                        {item.company?.company_name}
+                        {germanDate(item.publicationDate)} über{" "}
+                        {item.company?.companyName}
                       </span>
                     }
                   />

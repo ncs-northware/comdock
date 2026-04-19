@@ -4,7 +4,7 @@ import { authenticated, authenticatedOrPublished } from "@/access/roles";
 export const ExternalShareholders: CollectionConfig = {
   slug: "external-shareholders",
   fields: [
-    { name: "company_name", type: "text", required: true, label: "Firmenname" },
+    { name: "companyName", type: "text", required: true, label: "Firmenname" },
     {
       name: "registry",
       type: "select",
@@ -13,16 +13,16 @@ export const ExternalShareholders: CollectionConfig = {
       label: "Register",
     },
     {
-      name: "registry_number",
+      name: "registryNumber",
       type: "text",
       required: true,
       unique: true,
       label: "Registernummer",
     },
-    { name: "registry_court", type: "text", label: "Amtsgericht" },
+    { name: "registryCourt", type: "text", label: "Amtsgericht" },
     { name: "url", type: "text", label: "URL" },
   ],
-  admin: { useAsTitle: "company_name", enableRichTextLink: false },
+  admin: { useAsTitle: "companyName", enableRichTextLink: false },
   access: {
     create: authenticated,
     read: authenticatedOrPublished,

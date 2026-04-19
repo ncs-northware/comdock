@@ -76,7 +76,10 @@ export interface Config {
     hr_publications: HrPublication;
     network: Network;
     designs: Design;
+    exports: Export;
+    imports: Import;
     'payload-kv': PayloadKv;
+    'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -92,7 +95,10 @@ export interface Config {
     hr_publications: HrPublicationsSelect<false> | HrPublicationsSelect<true>;
     network: NetworkSelect<false> | NetworkSelect<true>;
     designs: DesignsSelect<false> | DesignsSelect<true>;
+    exports: ExportsSelect<false> | ExportsSelect<true>;
+    imports: ImportsSelect<false> | ImportsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -104,11 +110,19 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: null;
-  user: User & {
-    collection: 'users';
+  widgets: {
+    collections: CollectionsWidget;
   };
+  user: User;
   jobs: {
-    tasks: unknown;
+    tasks: {
+      createCollectionExport: TaskCreateCollectionExport;
+      createCollectionImport: TaskCreateCollectionImport;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
+    };
     workflows: unknown;
   };
 }
@@ -148,8 +162,8 @@ export interface Doc {
         | 'Weitere Unterlagen'
       )
     | null;
-  company?: (string | null) | Company;
-  document_createdAt?: string | null;
+  company?: (number | null) | Company;
+  documentCreatedAt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -167,12 +181,12 @@ export interface Doc {
  * via the `definition` "companies".
  */
 export interface Company {
-  id: string;
-  company_name: string;
-  hr_status?: ('aktiv' | 'gelöscht' | 'Liquidation' | 'Gesellschaft verlassen') | null;
-  hr_dept: 'HRA' | 'HRB';
-  hr_number: string;
-  hr_court: string;
+  id: number;
+  companyName: string;
+  hrStatus?: ('aktiv' | 'gelöscht' | 'Liquidation' | 'Gesellschaft verlassen') | null;
+  hrDept: 'HRA' | 'HRB';
+  hrNumber: string;
+  hrCourt: string;
   headquarter: {
     street: string;
     zipcode: string;
@@ -186,7 +200,7 @@ export interface Company {
         id?: string | null;
       }[]
     | null;
-  corp_object?: {
+  corpObject?: {
     root: {
       type: string;
       children: {
@@ -202,7 +216,7 @@ export interface Company {
     [k: string]: unknown;
   } | null;
   capital?: number | null;
-  represent_rules?: {
+  representRules?: {
     root: {
       type: string;
       children: {
@@ -217,10 +231,10 @@ export interface Company {
     };
     [k: string]: unknown;
   } | null;
-  prev_names?:
+  prevNames?:
     | {
-        prev_name: string;
-        name_upto?: string | null;
+        prevName: string;
+        nameUpto?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -250,6 +264,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -257,10 +272,10 @@ export interface User {
  */
 export interface ExternalShareholder {
   id: number;
-  company_name: string;
+  companyName: string;
   registry: 'HRA' | 'HRB' | 'GnR' | 'Behörde' | 'ANDERE';
-  registry_number: string;
-  registry_court?: string | null;
+  registryNumber: string;
+  registryCourt?: string | null;
   url?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -271,7 +286,7 @@ export interface ExternalShareholder {
  */
 export interface Lei {
   id: string;
-  company: string | Company;
+  company: number | Company;
   lou?:
     | (
         | 'Bloomberg Finance LP (5493001KJTIIGC8Y1R12)'
@@ -279,16 +294,16 @@ export interface Lei {
         | 'WM Datenservice (5299000J2N45DDNE4Y28)'
       )
     | null;
-  lei_status: 'ISSUED (ausgegeben)' | 'LAPSED (abgelaufen)' | 'INACTIVE' | 'PLANNED';
-  first_registration: string;
+  leiStatus: 'ISSUED (ausgegeben)' | 'LAPSED (abgelaufen)' | 'INACTIVE' | 'PLANNED';
+  firstRegistration: string;
   /**
    * Die letzte und nächste Verlängerung werden automatisch errechnet.
    */
-  auto_renew: boolean;
+  autoRenew: boolean;
   /**
    * Nur bei Einträgen ohne automatische Verlängerung angeben.
    */
-  last_renewal?: string | null;
+  lastRenewal?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -298,8 +313,8 @@ export interface Lei {
  */
 export interface Person {
   id: number;
-  first_name: string;
-  sir_name: string;
+  firstName: string;
+  sirName: string;
   city: string;
   birthday?: string | null;
   updatedAt: string;
@@ -311,14 +326,14 @@ export interface Person {
  */
 export interface HrPublication {
   id: number;
-  company?: (string | null) | Company;
+  company?: (number | null) | Company;
   title: string;
   /**
    * Wenn dieses Feld leer ist, wird es automatisch befüllt. Für automatische Änderung Feld leeren.
    */
   summary?: string | null;
-  publication_date: string;
-  publication_data?:
+  publicationDate: string;
+  publicationData?:
     | {
         row:
           | 'Firma'
@@ -349,7 +364,7 @@ export interface HrPublication {
           };
           [k: string]: unknown;
         };
-        outdated_by?: (number | null) | HrPublication;
+        outdatedBy?: (number | null) | HrPublication;
         id?: string | null;
       }[]
     | null;
@@ -369,8 +384,8 @@ export interface HrPublication {
     [k: string]: unknown;
   } | null;
   docs?: (number | Doc)[] | null;
-  mentioned_companies?: (string | Company)[] | null;
-  mentioned_persons?: (number | Person)[] | null;
+  mentionedCompanies?: (number | Company)[] | null;
+  mentionedPersons?: (number | Person)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -380,7 +395,7 @@ export interface HrPublication {
  */
 export interface Network {
   id: number;
-  child_company?: (string | null) | Company;
+  childCompany?: (number | null) | Company;
   leiParent?: boolean | null;
   type:
     | 'Beteiligung'
@@ -402,7 +417,7 @@ export interface Network {
   relation?:
     | ({
         relationTo: 'companies';
-        value: string | Company;
+        value: number | Company;
       } | null)
     | ({
         relationTo: 'external-shareholders';
@@ -422,12 +437,12 @@ export interface Network {
 export interface Design {
   id: number;
   type: 'Wortmarke' | 'Wort-/Bildmarke' | 'Bildmarke' | 'Sonstige Marke' | 'Gebrauchsmuster' | 'Patent';
-  wordmark_title: string;
-  company: string | Company;
-  item_status: 'Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen';
-  registration_date: string;
+  wordmarkTitle: string;
+  company: number | Company;
+  itemStatus: 'Eingetragen und veröffentlicht' | 'Eintragung gelöscht' | 'Eintragung abgelaufen';
+  registrationDate: string;
   colors?: string[] | null;
-  vienna_class?: {
+  viennaClass?: {
     root: {
       type: string;
       children: {
@@ -442,7 +457,7 @@ export interface Design {
     };
     [k: string]: unknown;
   } | null;
-  nice_class?: {
+  niceClass?: {
     root: {
       type: string;
       children: {
@@ -457,6 +472,80 @@ export interface Design {
     };
     [k: string]: unknown;
   } | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exports".
+ */
+export interface Export {
+  id: number;
+  name?: string | null;
+  format: 'csv' | 'json';
+  limit?: number | null;
+  page?: number | null;
+  sort?: string | null;
+  sortOrder?: ('asc' | 'desc') | null;
+  drafts?: ('yes' | 'no') | null;
+  selectionToUse?: ('currentSelection' | 'currentFilters' | 'all') | null;
+  fields?: string[] | null;
+  collectionSlug: string;
+  where?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imports".
+ */
+export interface Import {
+  id: number;
+  collectionSlug: string;
+  importMode?: ('create' | 'update' | 'upsert') | null;
+  matchField?: string | null;
+  status?: ('pending' | 'completed' | 'partial' | 'failed') | null;
+  summary?: {
+    imported?: number | null;
+    updated?: number | null;
+    total?: number | null;
+    issues?: number | null;
+    issueDetails?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -488,6 +577,98 @@ export interface PayloadKv {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs".
+ */
+export interface PayloadJob {
+  id: number;
+  /**
+   * Input data provided to the job
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  taskStatus?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
+  /**
+   * If hasError is true this job will not be retried
+   */
+  hasError?: boolean | null;
+  /**
+   * If hasError is true, this is the error that caused it
+   */
+  error?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Task execution log
+   */
+  log?:
+    | {
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'createCollectionExport' | 'createCollectionImport';
+        taskID: string;
+        input?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        output?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        state: 'failed' | 'succeeded';
+        error?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  taskSlug?: ('inline' | 'createCollectionExport' | 'createCollectionImport') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -503,7 +684,7 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'companies';
-        value: string | Company;
+        value: number | Company;
       } | null)
     | ({
         relationTo: 'external-shareholders';
@@ -579,7 +760,7 @@ export interface DocsSelect<T extends boolean = true> {
   title?: T;
   type?: T;
   company?: T;
-  document_createdAt?: T;
+  documentCreatedAt?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -620,11 +801,11 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface CompaniesSelect<T extends boolean = true> {
   id?: T;
-  company_name?: T;
-  hr_status?: T;
-  hr_dept?: T;
-  hr_number?: T;
-  hr_court?: T;
+  companyName?: T;
+  hrStatus?: T;
+  hrDept?: T;
+  hrNumber?: T;
+  hrCourt?: T;
   headquarter?:
     | T
     | {
@@ -640,14 +821,14 @@ export interface CompaniesSelect<T extends boolean = true> {
         city?: T;
         id?: T;
       };
-  corp_object?: T;
+  corpObject?: T;
   capital?: T;
-  represent_rules?: T;
-  prev_names?:
+  representRules?: T;
+  prevNames?:
     | T
     | {
-        prev_name?: T;
-        name_upto?: T;
+        prevName?: T;
+        nameUpto?: T;
         id?: T;
       };
   updatedAt?: T;
@@ -658,10 +839,10 @@ export interface CompaniesSelect<T extends boolean = true> {
  * via the `definition` "external-shareholders_select".
  */
 export interface ExternalShareholdersSelect<T extends boolean = true> {
-  company_name?: T;
+  companyName?: T;
   registry?: T;
-  registry_number?: T;
-  registry_court?: T;
+  registryNumber?: T;
+  registryCourt?: T;
   url?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -674,10 +855,10 @@ export interface LeiSelect<T extends boolean = true> {
   id?: T;
   company?: T;
   lou?: T;
-  lei_status?: T;
-  first_registration?: T;
-  auto_renew?: T;
-  last_renewal?: T;
+  leiStatus?: T;
+  firstRegistration?: T;
+  autoRenew?: T;
+  lastRenewal?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -686,8 +867,8 @@ export interface LeiSelect<T extends boolean = true> {
  * via the `definition` "persons_select".
  */
 export interface PersonsSelect<T extends boolean = true> {
-  first_name?: T;
-  sir_name?: T;
+  firstName?: T;
+  sirName?: T;
   city?: T;
   birthday?: T;
   updatedAt?: T;
@@ -701,19 +882,19 @@ export interface HrPublicationsSelect<T extends boolean = true> {
   company?: T;
   title?: T;
   summary?: T;
-  publication_date?: T;
-  publication_data?:
+  publicationDate?: T;
+  publicationData?:
     | T
     | {
         row?: T;
         value?: T;
-        outdated_by?: T;
+        outdatedBy?: T;
         id?: T;
       };
   description?: T;
   docs?: T;
-  mentioned_companies?: T;
-  mentioned_persons?: T;
+  mentionedCompanies?: T;
+  mentionedPersons?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -722,7 +903,7 @@ export interface HrPublicationsSelect<T extends boolean = true> {
  * via the `definition` "network_select".
  */
 export interface NetworkSelect<T extends boolean = true> {
-  child_company?: T;
+  childCompany?: T;
   leiParent?: T;
   type?: T;
   since?: T;
@@ -737,13 +918,71 @@ export interface NetworkSelect<T extends boolean = true> {
  */
 export interface DesignsSelect<T extends boolean = true> {
   type?: T;
-  wordmark_title?: T;
+  wordmarkTitle?: T;
   company?: T;
-  item_status?: T;
-  registration_date?: T;
+  itemStatus?: T;
+  registrationDate?: T;
   colors?: T;
-  vienna_class?: T;
-  nice_class?: T;
+  viennaClass?: T;
+  niceClass?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exports_select".
+ */
+export interface ExportsSelect<T extends boolean = true> {
+  name?: T;
+  format?: T;
+  limit?: T;
+  page?: T;
+  sort?: T;
+  sortOrder?: T;
+  drafts?: T;
+  selectionToUse?: T;
+  fields?: T;
+  collectionSlug?: T;
+  where?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imports_select".
+ */
+export interface ImportsSelect<T extends boolean = true> {
+  collectionSlug?: T;
+  importMode?: T;
+  matchField?: T;
+  status?: T;
+  summary?:
+    | T
+    | {
+        imported?: T;
+        updated?: T;
+        total?: T;
+        issues?: T;
+        issueDetails?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -763,6 +1002,37 @@ export interface DesignsSelect<T extends boolean = true> {
 export interface PayloadKvSelect<T extends boolean = true> {
   key?: T;
   data?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs_select".
+ */
+export interface PayloadJobsSelect<T extends boolean = true> {
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
+  log?:
+    | T
+    | {
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -795,6 +1065,77 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateCollectionExport".
+ */
+export interface TaskCreateCollectionExport {
+  input: {
+    id: string;
+    name: string;
+    batchSize?: number | null;
+    collectionSlug:
+      | 'docs'
+      | 'users'
+      | 'companies'
+      | 'external-shareholders'
+      | 'lei'
+      | 'persons'
+      | 'hr_publications'
+      | 'network'
+      | 'designs'
+      | 'exports'
+      | 'imports';
+    drafts?: ('yes' | 'no') | null;
+    exportCollection: string;
+    fields?: string[] | null;
+    format: 'csv' | 'json';
+    limit?: number | null;
+    locale?: string | null;
+    maxLimit?: number | null;
+    page?: number | null;
+    sort?: string | null;
+    userCollection?: string | null;
+    userID?: string | null;
+    where?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateCollectionImport".
+ */
+export interface TaskCreateCollectionImport {
+  input: {
+    importId: string;
+    importCollection: string;
+    userID?: string | null;
+    userCollection?: string | null;
+    batchSize?: number | null;
+    debug?: boolean | null;
+    defaultVersionStatus?: ('draft' | 'published') | null;
+    maxLimit?: number | null;
+  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
