@@ -9,10 +9,10 @@ import type { Company } from "@/payload-types";
 
 type HRPublications = PaginatedDocs<{
   id: number;
-  company?: ((string | null) | Company) | undefined;
+  company?: ((number | null) | Company) | undefined;
   title: string;
   summary?: string | null | undefined;
-  publication_date: string;
+  publicationDate: string;
 }>;
 
 export function HRPublications({
@@ -20,11 +20,11 @@ export function HRPublications({
   companyID,
 }: {
   publications: HRPublications;
-  companyID: string;
+  companyID: number;
 }) {
   function generateTopline(
     date: string,
-    company?: string | Company | null
+    company?: number | Company | null
   ): ReactNode {
     if (typeof company !== "object") {
       return <span>{germanDate(date)}</span>;
@@ -36,7 +36,7 @@ export function HRPublications({
 
     return (
       <span>
-        {germanDate(date)} über {company?.company_name}
+        {germanDate(date)} über {company?.companyName}
       </span>
     );
   }
@@ -57,7 +57,7 @@ export function HRPublications({
               icon={<RssIcon />}
               key={item.id}
               title={`${item.title}: ${item.summary}`}
-              topline={generateTopline(item.publication_date, item.company)}
+              topline={generateTopline(item.publicationDate, item.company)}
             />
           ))}
         </ItemGroup>
@@ -70,7 +70,7 @@ type CompanyDocs = PaginatedDocs<{
   id: number;
   title?: string | null;
   type?: string | null;
-  document_createdAt?: string | null;
+  documentCreatedAt?: string | null;
   createdAt: string;
   url?: string | null;
 }>;
@@ -90,8 +90,8 @@ export function CompanyDocs({ docs }: { docs: CompanyDocs }) {
           {docs.docs.map((document) => (
             <ListItem
               description={
-                typeof document.document_createdAt === "string"
-                  ? `Erstellt am ${germanDate(document.document_createdAt)}`
+                typeof document.documentCreatedAt === "string"
+                  ? `Erstellt am ${germanDate(document.documentCreatedAt)}`
                   : `Hochgeladen am ${germanDate(document.createdAt)}`
               }
               href={document.url || "#"}
@@ -109,8 +109,8 @@ export function CompanyDocs({ docs }: { docs: CompanyDocs }) {
 type DesignsList = PaginatedDocs<{
   id: number;
   type: string;
-  wordmark_title: string;
-  registration_date: string;
+  wordmarkTitle: string;
+  registrationDate: string;
 }>;
 
 export function DesignsList({ designs }: { designs: DesignsList }) {
@@ -130,8 +130,8 @@ export function DesignsList({ designs }: { designs: DesignsList }) {
               href={`/designs/${design.id}`}
               icon={<TagIcon />}
               key={design.id}
-              title={`${design.type}: ${design.wordmark_title}`}
-              topline={`${germanDate(design.registration_date)}`}
+              title={`${design.type}: ${design.wordmarkTitle}`}
+              topline={`${germanDate(design.registrationDate)}`}
             />
           ))}
         </ItemGroup>

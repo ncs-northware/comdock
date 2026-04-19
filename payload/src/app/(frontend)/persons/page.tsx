@@ -11,11 +11,11 @@ export default async function Page() {
   const persons = await payload.find({
     collection: "persons",
     select: {
-      first_name: true,
-      sir_name: true,
+      firstName: true,
+      sirName: true,
       city: true,
     },
-    sort: ["sir_name", "first_name"],
+    sort: ["sirName", "firstName"],
   });
   return (
     <div>
@@ -35,7 +35,7 @@ export default async function Page() {
               href={`/persons/${person.id}`}
               icon={<UserRoundIcon />}
               key={person.id}
-              title={`${person.first_name} ${person.sir_name}`}
+              title={`${person.firstName} ${person.sirName}`}
             />
           ))}
         </ItemGroup>

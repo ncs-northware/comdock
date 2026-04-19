@@ -17,7 +17,7 @@ export function NetworkItem({
   icon,
 }: {
   variant: "parent" | "current" | "former";
-  title: string;
+  title: string | number;
   description?: string;
   href?: string;
   icon: JSX.Element;

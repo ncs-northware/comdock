@@ -11,14 +11,14 @@ export default async function Page() {
   const companies = await payload.find({
     collection: "companies",
     select: {
-      company_name: true,
+      companyName: true,
       headquarter: { city: true },
-      hr_court: true,
-      hr_dept: true,
-      hr_number: true,
+      hrCourt: true,
+      hrDept: true,
+      hrNumber: true,
     },
-    where: { hr_status: { equals: "aktiv" } },
-    sort: "company_name",
+    where: { hrStatus: { equals: "aktiv" } },
+    sort: "companyName",
   });
   return (
     <div>
@@ -34,11 +34,11 @@ export default async function Page() {
         <ItemGroup className="my-4 gap-4">
           {companies.docs.map((company) => (
             <ListItem
-              description={`${company.hr_court} | ${company.hr_dept} ${company.hr_number}`}
+              description={`${company.hrCourt} | ${company.hrDept} ${company.hrNumber}`}
               href={`/companies/${company.id}`}
               icon={<BuildingIcon />}
               key={company.id}
-              title={`${company.company_name}, ${company.headquarter.city}`}
+              title={`${company.companyName}, ${company.headquarter.city}`}
             />
           ))}
         </ItemGroup>

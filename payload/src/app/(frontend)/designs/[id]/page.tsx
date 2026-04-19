@@ -20,10 +20,10 @@ export async function generateMetadata({
     collection: "designs",
     // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internals
     id: id,
-    select: { type: true, wordmark_title: true },
+    select: { type: true, wordmarkTitle: true },
   });
 
-  return { title: `${designMetadata.type}: ${designMetadata.wordmark_title}` };
+  return { title: `${designMetadata.type}: ${designMetadata.wordmarkTitle}` };
 }
 
 export default async function Page({
@@ -38,31 +38,29 @@ export default async function Page({
     id: id,
     select: {
       type: true,
-      wordmark_title: true,
+      wordmarkTitle: true,
       url: true,
       filename: true,
       height: true,
       width: true,
-      item_status: true,
-      nice_class: true,
-      vienna_class: true,
+      itemStatus: true,
+      niceClass: true,
+      viennaClass: true,
       colors: true,
       company: true,
-      registration_date: true,
+      registrationDate: true,
     },
   });
-
-  console.log(design);
 
   return (
     <article>
       <Headline className="truncate" level="h1">
-        {design.type}: {design.wordmark_title}
+        {design.type}: {design.wordmarkTitle}
       </Headline>
       <div className="my-8">
         {typeof design.url === "string" && (
           <Image
-            alt={`Grafik ${design.wordmark_title}`}
+            alt={`Grafik ${design.wordmarkTitle}`}
             className="mx-auto rounded-lg bg-muted object-cover"
             height={Math.min(300, design.height || 0)}
             src={design.url}
@@ -77,14 +75,14 @@ export default async function Page({
         </DescriptionListRow>
         <DescriptionListRow className="md:grid md:grid-cols-2">
           <DescriptionTerm>Wortmarke/Titel</DescriptionTerm>
-          <DescriptionElement>{design.wordmark_title}</DescriptionElement>
+          <DescriptionElement>{design.wordmarkTitle}</DescriptionElement>
         </DescriptionListRow>
         {typeof design.company === "object" && (
           <DescriptionListRow className="md:grid md:grid-cols-2">
             <DescriptionTerm>Inhaber</DescriptionTerm>
             <DescriptionElement>
               <Link href={`/companies/${design.company.id}`}>
-                {design.company.company_name}
+                {design.company.companyName}
               </Link>
             </DescriptionElement>
           </DescriptionListRow>
@@ -92,26 +90,26 @@ export default async function Page({
         <DescriptionListRow className="md:grid md:grid-cols-2">
           <DescriptionTerm>Datum der Eintragung</DescriptionTerm>
           <DescriptionElement>
-            {germanDate(design.registration_date)}
+            {germanDate(design.registrationDate)}
           </DescriptionElement>
         </DescriptionListRow>
         <DescriptionListRow className="md:grid md:grid-cols-2">
           <DescriptionTerm>Status der Marke</DescriptionTerm>
-          <DescriptionElement>{design.item_status}</DescriptionElement>
+          <DescriptionElement>{design.itemStatus}</DescriptionElement>
         </DescriptionListRow>
-        {design.nice_class && (
+        {design.niceClass && (
           <DescriptionListRow className="md:grid md:grid-cols-2">
             <DescriptionTerm>Nizza-Klassifikation</DescriptionTerm>
             <DescriptionElement>
-              <RichText data={design.nice_class} />
+              <RichText data={design.niceClass} />
             </DescriptionElement>
           </DescriptionListRow>
         )}
-        {design.vienna_class && (
+        {design.viennaClass && (
           <DescriptionListRow className="md:grid md:grid-cols-2">
             <DescriptionTerm>Wiener Klassifikation</DescriptionTerm>
             <DescriptionElement>
-              <RichText data={design.vienna_class} />
+              <RichText data={design.viennaClass} />
             </DescriptionElement>
           </DescriptionListRow>
         )}

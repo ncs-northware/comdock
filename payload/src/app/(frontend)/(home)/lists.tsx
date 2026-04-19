@@ -10,13 +10,13 @@ export async function CompaniesList() {
   const companies = await payload.find({
     collection: "companies",
     select: {
-      company_name: true,
-      hr_court: true,
-      hr_dept: true,
-      hr_number: true,
+      companyName: true,
+      hrCourt: true,
+      hrDept: true,
+      hrNumber: true,
       headquarter: { city: true },
     },
-    where: { hr_status: { equals: "aktiv" } },
+    where: { hrStatus: { equals: "aktiv" } },
     limit: 5,
     sort: "company_name",
   });
@@ -35,11 +35,11 @@ export async function CompaniesList() {
           <ItemGroup className="my-4 gap-4">
             {companies.docs.map((company) => (
               <ListItem
-                description={`${company.hr_court} | ${company.hr_dept} ${company.hr_number}`}
+                description={`${company.hrCourt} | ${company.hrDept} ${company.hrNumber}`}
                 href={`companies/${company.id}`}
                 icon={<BuildingIcon />}
                 key={company.id}
-                title={`${company.company_name}, ${company.headquarter.city}`}
+                title={`${company.companyName}, ${company.headquarter.city}`}
               />
             ))}
           </ItemGroup>
@@ -59,11 +59,11 @@ export async function PersonsList() {
     collection: "persons",
     limit: 5,
     select: {
-      first_name: true,
-      sir_name: true,
+      firstName: true,
+      sirName: true,
       city: true,
     },
-    sort: ["sir_name", "firstName"],
+    sort: ["sirName", "firstName"],
   });
 
   return (
@@ -84,7 +84,7 @@ export async function PersonsList() {
                 href={`persons/${person.id}`}
                 icon={<UserRoundIcon />}
                 key={person.id}
-                title={`${person.first_name} ${person.sir_name}`}
+                title={`${person.firstName} ${person.sirName}`}
               />
             ))}
           </ItemGroup>

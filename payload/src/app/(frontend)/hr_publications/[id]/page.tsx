@@ -44,8 +44,8 @@ export default async function Page({
       title: true,
       summary: true,
       company: true,
-      publication_date: true,
-      publication_data: true,
+      publicationDate: true,
+      publicationData: true,
       description: true,
       docs: true,
     },
@@ -54,7 +54,7 @@ export default async function Page({
       docs: {
         title: true,
         type: true,
-        document_createdAt: true,
+        documentCreatedAt: true,
         createdAt: true,
         url: true,
         filename: true,
@@ -73,28 +73,28 @@ export default async function Page({
             className="font-semibold"
             href={`/companies/${item.company?.id}`}
           >
-            {item.company?.hr_dept} {item.company?.hr_number} /{" "}
-            {item.company?.company_name}
+            {item.company?.hrDept} {item.company?.hrNumber} /{" "}
+            {item.company?.companyName}
           </Link>
         ) : (
           ""
         )}
         <span className="hidden text-right font-semibold text-primary sm:block">
-          {germanDate(item.publication_date)}
+          {germanDate(item.publicationDate)}
         </span>
       </div>
-      {item.publication_data && item.publication_data.length > 0 && (
+      {item.publicationData && item.publicationData.length > 0 && (
         <div>
           <Headline level="h3">Gegliederte Informationen</Headline>
           <DescriptionList className="font-mono">
-            {item.publication_data.map((data) => (
+            {item.publicationData.map((data) => (
               <DescriptionListRow
                 className="md:grid md:grid-cols-2"
                 key={data.id}
               >
                 <DescriptionTerm
                   className={
-                    data.outdated_by !== null
+                    data.outdatedBy !== null
                       ? "text-destructive line-through"
                       : ""
                   }
@@ -104,22 +104,22 @@ export default async function Page({
                 <DescriptionElement>
                   <RichText
                     className={
-                      data.outdated_by !== null
+                      data.outdatedBy !== null
                         ? "text-destructive line-through"
                         : ""
                     }
                     data={data.value}
                   />
-                  {data.outdated_by !== null &&
-                    typeof data.outdated_by === "object" && (
+                  {data.outdatedBy !== null &&
+                    typeof data.outdatedBy === "object" && (
                       <Alert variant="destructive">
                         <AlertDescription className="inline-block">
                           Diese Information wurde duch die{" "}
                           <Link
                             className="text-destructive underline hover:no-underline"
-                            href={`/hr_publications/${data.outdated_by.id}`}
+                            href={`/hr_publications/${data.outdatedBy.id}`}
                           >
-                            Eintragung #{data.outdated_by.id}
+                            Eintragung #{data.outdatedBy.id}
                           </Link>{" "}
                           geändert.
                         </AlertDescription>
@@ -146,8 +146,8 @@ export default async function Page({
                 return (
                   <ListItem
                     description={
-                      typeof document.document_createdAt === "string"
-                        ? `Erstellt am ${germanDate(document.document_createdAt)}`
+                      typeof document.documentCreatedAt === "string"
+                        ? `Erstellt am ${germanDate(document.documentCreatedAt)}`
                         : `Hochgeladen am ${document.createdAt}`
                     }
                     href={document.url || "#"}
