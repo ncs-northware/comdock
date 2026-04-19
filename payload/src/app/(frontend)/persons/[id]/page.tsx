@@ -68,7 +68,7 @@ export default async function Page({
       publicationDate: true,
       company: true,
     },
-    where: { mentioned_persons: { equals: id } },
+    where: { mentionedPersons: { equals: id } },
     populate: { companies: { companyName: true } },
   });
 
