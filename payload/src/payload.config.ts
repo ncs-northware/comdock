@@ -1,6 +1,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { sqliteAdapter } from "@payloadcms/db-sqlite";
+import { importExportPlugin } from "@payloadcms/plugin-import-export";
 import {
   FixedToolbarFeature,
   lexicalEditor,
@@ -60,5 +61,32 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  jobs: {
+    autoRun: [
+      {
+        cron: "*/5 * * * *", // Check every 5 minutes
+        queue: "default",
+      },
+    ],
+  },
+  plugins: [
+    importExportPlugin({
+      collections: [], // enables import/export for all collections
+      debug: true,
+      overrideExportCollection: ({ collection }) => ({
+        ...collection,
+        admin: {
+          ...collection.admin,
+          group: "Daten-Verwaltung",
+        },
+      }),
+      overrideImportCollection: ({ collection }) => ({
+        ...collection,
+        admin: {
+          ...collection.admin,
+          group: "Daten-Verwaltung",
+        },
+      }),
+    }),
+  ],
 });
