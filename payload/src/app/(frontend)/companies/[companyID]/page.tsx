@@ -209,20 +209,28 @@ export default async function Page({
         <Tabs className="w-full" defaultValue="hr">
           <TabsList className="w-full">
             <TabsTrigger value="hr">Handelsregister</TabsTrigger>
-            <TabsTrigger value="docs">Dokumente</TabsTrigger>
-            <TabsTrigger value="designs">
-              Marken und Geschmacksmuster
-            </TabsTrigger>
+            {docs.totalDocs > 0 && (
+              <TabsTrigger value="docs">Dokumente</TabsTrigger>
+            )}
+            {designs.totalDocs > 0 && (
+              <TabsTrigger value="designs">
+                Marken und Geschmacksmuster
+              </TabsTrigger>
+            )}
           </TabsList>
           <TabsContent value="hr">
             <HRPublications companyID={companyIDNum} publications={hr} />
           </TabsContent>
-          <TabsContent value="docs">
-            <CompanyDocs docs={docs} />
-          </TabsContent>
-          <TabsContent value="designs">
-            <DesignsList designs={designs} />
-          </TabsContent>
+          {docs.totalDocs > 0 && (
+            <TabsContent value="docs">
+              <CompanyDocs docs={docs} />
+            </TabsContent>
+          )}
+          {designs.totalDocs > 0 && (
+            <TabsContent value="designs">
+              <DesignsList designs={designs} />
+            </TabsContent>
+          )}
         </Tabs>
       </div>
     </article>

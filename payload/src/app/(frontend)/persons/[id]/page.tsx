@@ -140,7 +140,7 @@ export default async function Page({
               (item) =>
                 typeof item.company === "object" && (
                   <ListItem
-                    href={`/hr/${item.id}`}
+                    href={`/hr_publications/${item.id}`}
                     icon={<RssIcon />}
                     key={item.id}
                     title={`${item.title}: ${item.summary}`}
