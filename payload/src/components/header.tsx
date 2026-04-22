@@ -1,3 +1,4 @@
+import { ScaleIcon } from "lucide-react";
 import Link from "next/link";
 import ThemeToggle from "@/components/theme-toggle";
 import {
@@ -6,7 +7,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import Logo from "./logo";
 
 export function Header() {
   return (
@@ -24,8 +24,8 @@ function Branding() {
       className="flex flex-row items-center gap-2 font-bold text-2xl"
       href="/"
     >
-      <div className="w-10">
-        <Logo />
+      <div className="flex size-9 items-center justify-center rounded-sm border bg-teal-800">
+        <ScaleIcon />
       </div>
       COMDOCK
     </Link>
