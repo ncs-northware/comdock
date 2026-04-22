@@ -22,7 +22,7 @@ export const ExternalShareholders: CollectionConfig = {
     { name: "registryCourt", type: "text", label: "Amtsgericht" },
     { name: "url", type: "text", label: "URL" },
   ],
-  admin: { useAsTitle: "companyName", enableRichTextLink: false },
+  admin: { useAsTitle: "companyName", enableRichTextLink: false},
   access: {
     create: authenticated,
     read: authenticatedOrPublished,

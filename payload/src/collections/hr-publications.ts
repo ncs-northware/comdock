@@ -110,6 +110,7 @@ export const HRPublications: CollectionConfig = {
     publication_date: true,
     company: true,
   },
+  admin: {group: "Veröffentlichungen und Beziehungen"},
   hooks: {
     beforeChange: [
       ({ data }) => {
