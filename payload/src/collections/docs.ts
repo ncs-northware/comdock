@@ -59,5 +59,5 @@ export const Docs: CollectionConfig = {
     updatedAt: true,
     createdAt: true,
   },
-  admin: { enableRichTextLink: false },
+  admin: { enableRichTextLink: false, group: "Veröffentlichungen und Beziehungen" },
 };

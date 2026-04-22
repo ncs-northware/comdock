@@ -73,6 +73,20 @@ export default buildConfig({
     importExportPlugin({
       collections: [], // enables import/export for all collections
       debug: true,
+      overrideImportCollection: ({collection}) => ({
+        ...collection,
+        admin: {
+          ...collection.admin,
+          group: "Administration"
+        }
+      }),
+      overrideExportCollection: ({collection}) => ({
+        ...collection,
+        admin: {
+          ...collection.admin,
+          group: "Administration"
+        }
+      })
     }),
   ],
 });

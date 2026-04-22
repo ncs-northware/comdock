@@ -80,5 +80,5 @@ export const Designs: CollectionConfig = {
       label: "Nizza Klassifikation",
     },
   ],
-  admin: { useAsTitle: "wordmarkTitle" },
+  admin: { useAsTitle: "wordmarkTitle", group: "Veröffentlichungen und Beziehungen" },
 };

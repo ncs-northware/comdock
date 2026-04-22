@@ -16,7 +16,7 @@ export const Persons: CollectionConfig = {
       },
     },
   ],
-  admin: { useAsTitle: "firstName" },
+  admin: { useAsTitle: "firstName"},
   access: {
     create: authenticated,
     delete: authenticated,

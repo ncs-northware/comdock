@@ -105,7 +105,7 @@ export const LEI: CollectionConfig = {
     singular: "Legal Entity Identifier",
     plural: "Legal Entity Identifiers",
   },
-  admin: { useAsTitle: "id" },
+  admin: { useAsTitle: "id"},
   access: {
     create: authenticated,
     delete: authenticated,
