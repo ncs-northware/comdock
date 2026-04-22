@@ -38,7 +38,7 @@ function Navigation() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink
-            className="font-medium tracking-wide hover:bg-teal-800"
+            className="font-medium tracking-wide hover:bg-teal-800 focus:bg-teal-800"
             href="/companies"
           >
             Firmen
@@ -46,7 +46,7 @@ function Navigation() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink
-            className="font-medium tracking-wide hover:bg-teal-800"
+            className="font-medium tracking-wide hover:bg-teal-800 focus:bg-teal-800"
             href="/persons"
           >
             Personen
