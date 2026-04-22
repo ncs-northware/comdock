@@ -2,6 +2,14 @@ import { BuildingIcon, RssIcon } from "lucide-react";
 import { ListItem } from "@/components/list-item";
 import { Headline } from "@/components/typography";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { ItemGroup } from "@/components/ui/item";
 import { payload } from "@/lib/api";
 import { germanDate } from "@/lib/utils";
@@ -74,6 +82,24 @@ export default async function Page({
 
   return (
     <article>
+      <Breadcrumb className="my-5">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/persons">Personen</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>
+              {person.firstName} {person.sirName}, {person.city}
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <div className="mb-8">
         <Headline level="h1">
           {person.firstName} {person.sirName}, {person.city}
@@ -114,7 +140,7 @@ export default async function Page({
               (item) =>
                 typeof item.company === "object" && (
                   <ListItem
-                    href={`/hr/${item.id}`}
+                    href={`/hr_publications/${item.id}`}
                     icon={<RssIcon />}
                     key={item.id}
                     title={`${item.title}: ${item.summary}`}

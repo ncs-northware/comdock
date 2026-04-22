@@ -86,7 +86,7 @@ export function CompanyDocs({ docs }: { docs: CompanyDocs }) {
           </AlertDescription>
         </Alert>
       ) : (
-        <ItemGroup>
+        <ItemGroup className="gap-4">
           {docs.docs.map((document) => (
             <ListItem
               description={
@@ -124,7 +124,7 @@ export function DesignsList({ designs }: { designs: DesignsList }) {
           </AlertDescription>
         </Alert>
       ) : (
-        <ItemGroup>
+        <ItemGroup className="gap-4">
           {designs.docs.map((design) => (
             <ListItem
               href={`/designs/${design.id}`}

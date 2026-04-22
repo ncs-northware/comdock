@@ -3,7 +3,7 @@ import { CompaniesList, PersonsList } from "./lists";
 
 export default async function HomePage() {
   return (
-    <div>
+    <article>
       <div>
         <Headline level="h1">Herzlich willkommen</Headline>
         <p className="text-justify leading-7">
@@ -26,6 +26,6 @@ export default async function HomePage() {
         </div>
       </div>
       <div />
-    </div>
+    </article>
   );
 }
