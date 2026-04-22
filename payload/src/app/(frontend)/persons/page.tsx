@@ -2,6 +2,14 @@ import { UserRoundIcon } from "lucide-react";
 import { ListItem } from "@/components/list-item";
 import { Headline } from "@/components/typography";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { ItemGroup } from "@/components/ui/item";
 import { payload } from "@/lib/api";
 
@@ -18,7 +26,19 @@ export default async function Page() {
     sort: ["sirName", "firstName"],
   });
   return (
-    <div>
+    <article>
+      <Breadcrumb className="my-5">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Personen</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <Headline level="h1">Personen</Headline>
       {persons.totalDocs === 0 ? (
         <Alert className="my-4">
@@ -40,6 +60,6 @@ export default async function Page() {
           ))}
         </ItemGroup>
       )}
-    </div>
+    </article>
   );
 }

@@ -2,6 +2,14 @@ import { ArrowLeftRightIcon } from "lucide-react";
 import { RichText } from "@/components/richtext";
 import { Headline, Link } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { payload } from "@/lib/api";
 import { CompanyNetwork } from "./network";
@@ -110,6 +118,24 @@ export default async function Page({
 
   return (
     <article>
+      <Breadcrumb className="my-5">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/companies">Firmen</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>
+              {company.companyName}, {company.headquarter.city}
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <div className="mb-8">
         <Headline level="h1">
           {company.companyName}, {company.headquarter.city}

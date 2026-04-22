@@ -2,6 +2,14 @@ import { BuildingIcon } from "lucide-react";
 import { ListItem } from "@/components/list-item";
 import { Headline, Link } from "@/components/typography";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { ItemGroup } from "@/components/ui/item";
 import { payload } from "@/lib/api";
 
@@ -21,7 +29,23 @@ export default async function Page() {
     sort: "companyName",
   });
   return (
-    <div>
+    <article>
+      <Breadcrumb className="my-5">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/companies">Firmen</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Entfernte Firmen</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <Headline level="h1">Entfernte Firmen</Headline>
       <Alert>
         <AlertDescription>
@@ -54,6 +78,6 @@ export default async function Page() {
           ))}
         </ItemGroup>
       )}
-    </div>
+    </article>
   );
 }
