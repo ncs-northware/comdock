@@ -21,8 +21,7 @@ export async function generateMetadata({
   const { id } = await params;
   const pubMetadata = await payload.findByID({
     collection: "hr_publications",
-    // biome-ignore lint/style/useConsistentObjectDefinitions: payload internal
-    id: id,
+    id,
     select: {
       title: true,
     },
@@ -38,8 +37,7 @@ export default async function Page({
   const { id } = await params;
   const item = await payload.findByID({
     collection: "hr_publications",
-    // biome-ignore lint/style/useConsistentObjectDefinitions: payload internals
-    id: id,
+    id,
     select: {
       title: true,
       summary: true,
