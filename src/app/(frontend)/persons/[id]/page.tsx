@@ -118,12 +118,12 @@ export default async function Page({
               (item) =>
                 typeof item.childCompany === "object" && (
                   <ListItem
-                    description={`${item.type} ${item.upto !== null ? `(${germanDate(item.since)} bis ${germanDate(item.upto || "")})` : ""}`}
+                    description={`${item.type} ${item.upto === null ? "" : `(${germanDate(item.since)} bis ${germanDate(item.upto || "")})`}`}
                     href={`/companies/${item.childCompany?.id ?? "#"}`}
                     icon={<BuildingIcon />}
                     key={item.id}
                     title={item.childCompany?.companyName || "Firma"}
-                    variant={item.upto !== null ? "outline" : "muted"}
+                    variant={item.upto === null ? "muted" : "outline"}
                   />
                 )
             )}

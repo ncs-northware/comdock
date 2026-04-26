@@ -58,7 +58,11 @@ export const Network: CollectionConfig = {
       },
     },
   ],
-  admin: { useAsTitle: "type", enableRichTextLink: false, group: "Veröffentlichungen und Beziehungen" },
+  admin: {
+    useAsTitle: "type",
+    enableRichTextLink: false,
+    group: "Veröffentlichungen und Beziehungen",
+  },
   access: {
     create: authenticated,
     read: authenticatedOrPublished,

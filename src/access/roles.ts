@@ -5,9 +5,8 @@ export const anyone: Access = () => true;
 
 type isAuthenticated = (args: AccessArgs<User>) => boolean;
 
-export const authenticated: isAuthenticated = ({ req: { user } }) => {
-  return Boolean(user);
-};
+export const authenticated: isAuthenticated = ({ req: { user } }) =>
+  Boolean(user);
 
 export const authenticatedOrPublished: Access = ({ req: { user } }) => {
   if (user) {

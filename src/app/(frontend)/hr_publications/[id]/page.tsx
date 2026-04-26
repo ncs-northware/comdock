@@ -92,9 +92,9 @@ export default async function Page({
               >
                 <DescriptionTerm
                   className={
-                    data.outdatedBy !== null
-                      ? "text-destructive line-through"
-                      : ""
+                    data.outdatedBy === null
+                      ? ""
+                      : "text-destructive line-through"
                   }
                 >
                   {data.row}
@@ -102,9 +102,9 @@ export default async function Page({
                 <DescriptionElement>
                   <RichText
                     className={
-                      data.outdatedBy !== null
-                        ? "text-destructive line-through"
-                        : ""
+                      data.outdatedBy === null
+                        ? ""
+                        : "text-destructive line-through"
                     }
                     data={data.value}
                   />

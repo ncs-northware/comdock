@@ -1,6 +1,8 @@
 import configPromise from "@payload-config";
 import { getPayload } from "payload";
 
+// FIXME: Is this file needed?
+
 export const GET = async (request: Request) => {
   const payload = await getPayload({
     config: configPromise,

@@ -68,7 +68,7 @@ export function CompanyNetwork({
             if (item.relation?.relationTo === "companies") {
               return (
                 <NetworkItem
-                  description={`${item.type} ${item.upto !== null ? ` | ${germanDate(item.since)} bis ${germanDate(item.upto || "")}` : ""}`}
+                  description={`${item.type} ${item.upto === null ? "" : ` | ${germanDate(item.since)} bis ${germanDate(item.upto || "")}`}`}
                   href={`/companies/${
                     typeof item.relation?.value === "object"
                       ? (item.relation?.value?.id ?? "")
@@ -88,7 +88,7 @@ export function CompanyNetwork({
             if (item.relation?.relationTo === "persons") {
               return (
                 <NetworkItem
-                  description={`${item.type} ${item.upto !== null ? ` | ${germanDate(item.since)} bis ${germanDate(item.upto || "")}` : ""}`}
+                  description={`${item.type} ${item.upto === null ? "" : ` | ${germanDate(item.since)} bis ${germanDate(item.upto || "")}`}`}
                   href={`/persons/${
                     typeof item.relation?.value === "object"
                       ? (item.relation?.value?.id ?? "")
@@ -112,7 +112,7 @@ export function CompanyNetwork({
             }
             return (
               <NetworkItem
-                description={`${item.type} ${item.upto !== null ? ` | ${germanDate(item.since)} bis ${germanDate(item.upto || "")}` : ""}`}
+                description={`${item.type} ${item.upto === null ? "" : ` | ${germanDate(item.since)} bis ${germanDate(item.upto || "")}`}`}
                 href={
                   typeof item.relation?.value === "object"
                     ? (item.relation?.value?.url ?? "")

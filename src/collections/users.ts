@@ -5,7 +5,7 @@ export const Users: CollectionConfig = {
   admin: {
     useAsTitle: "email",
     enableRichTextLink: false,
-    group: "Administration"
+    group: "Administration",
   },
   labels: { singular: "Benutzer", plural: "Benutzer" },
   auth: true,
