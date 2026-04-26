@@ -6,14 +6,21 @@
 version: 2
 updates:
   - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/payload" # Location of package manifests
+    directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
-    reviewers:
-      - "onissen"
+      interval: "weekly"
+      day: "friday"
+      time: "14:00"
     labels:
       - "dependencies"
     commit-message:
       prefix: "[dependabot]"
       include: "scope"
     versioning-strategy: "increase"
+    groups:
+      payload:
+        patterns:
+          - "payloadcms"
+          - "@payloadcms"
+      non-major:
+        update-types: ["patch", "minor"]
