@@ -1,9 +1,9 @@
 {
   "name": "comdock",
+  "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
   "license": "MIT",
   "homepage": "https://github.com/ncs-northware/comdock",
   "bugs": "https://github.com/ncs-northware/comdock/issues",
@@ -18,13 +18,13 @@
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
     "check": "ultracite check",
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --port=40090",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "fix": "ultracite fix",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start --port=40090",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
