@@ -18,8 +18,7 @@ export async function generateMetadata({
   const { id } = await params;
   const designMetadata = await payload.findByID({
     collection: "designs",
-    // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internals
-    id: id,
+    id,
     select: { type: true, wordmarkTitle: true },
   });
 
@@ -34,8 +33,7 @@ export default async function Page({
   const { id } = await params;
   const design = await payload.findByID({
     collection: "designs",
-    // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internals
-    id: id,
+    id,
     select: {
       type: true,
       wordmarkTitle: true,

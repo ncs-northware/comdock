@@ -19,8 +19,7 @@ export async function generateMetadata({
   const { id } = await params;
   const leiMetadata = await payload.findByID({
     collection: "lei",
-    // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internal
-    id: id,
+    id,
     select: { id: true },
   });
 
@@ -35,8 +34,7 @@ export default async function Page({
   const { id } = await params;
   const lei = await payload.findByID({
     collection: "lei",
-    // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internal
-    id: id,
+    id,
     select: {
       company: true,
       firstRegistration: true,

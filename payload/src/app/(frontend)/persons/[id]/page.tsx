@@ -22,8 +22,7 @@ export async function generateMetadata({
   const { id } = await params;
   const personMetadata = await payload.findByID({
     collection: "persons",
-    // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internal
-    id: id,
+    id,
     select: { firstName: true, sirName: true, city: true },
   });
   return {
@@ -40,8 +39,7 @@ export default async function Page({
 
   const person = await payload.findByID({
     collection: "persons",
-    // biome-ignore lint/style/useConsistentObjectDefinitions: Payload SDK internals
-    id: id,
+    id,
     select: {
       firstName: true,
       sirName: true,
