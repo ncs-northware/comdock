@@ -69,6 +69,7 @@ export default buildConfig({
       },
     ],
   },
+  graphQL: { disable: true },
   plugins: [
     importExportPlugin({
       collections: [], // enables import/export for all collections
