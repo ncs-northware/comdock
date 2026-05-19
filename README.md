@@ -1,6 +1,6 @@
 # COMDOCK
 
-COMDOCK is a web application that allows you to view simulated **fake** company informations, similar to what you would find in applications such as [NorthData](http://www.northdata.de) or the German Websites [unternehmensregister.de](http://www.unternehmensregister.de) and [handelsregister.de](http://www.handelsregister.de) for real informations.
+COMDOCK is a web application that allows you to view simulated **fake** company informations, similar to what you would find in applications such as [NorthData](http://www.northdata.de) or the German Websites [unternehmensregister.de](http://www.unternehmensregister.de) for real informations.
 
 ## What you can do with this App
 
@@ -19,52 +19,11 @@ The resulting web application and its contents of this repository are in many pa
 The containing data of the website should be inserted exclusively through an external database. If you still find data into the code of this repository that does not seem to serve the basic structure of the website, please report by an [issue](https://github.com/ncs-northware/comdock/issues) into this repository. Even if you find parts of the code that do not seem to be intended for the public despite our previous review (such as access data or other backdoors), please [report](https://github.com/ncs-northware/comdock/issues) them as an issue to the repository owner. Thank you!
 
 
-## Install and run this project
+## About this project
 
-### Install the backend
+This project uses [Payload CMS](https://payloadcms.com/) paired with a classic [Next.js](https://nextjs.org/) App.
+To get the project up and running, rename the `example.env` to `.env` and update the informations if needed.
 
-**Run these commands in the `/backend` folder.**
+You can now run `pnpm install` and after it `pnpm start` to run the App in Production or `pnpm dev` for a Development Environment.
 
-First you will have to install all that is needed, so run
-
-```bash
-npm install
-```
-
-The installation process will install all needed packages as defined in `package.json`.
-
-After it rename the file `env.example` to `.env` and fill the secrets as described.
-
-To start this Strapi Application in Development configuration, now run
-
-```bash
-npm run dev
-```
-
-**Attention**: In other Strapi projects this will not work, since the default command provided by strapi is `npm run develop`.
-
-### Install the frontend
-
-**Run these commands in `/frontend`.**
-
-To connect this frontend to the backend you need to create an `.env` File in `/frontend` that contains the `NEXT_PUBLIC_STRAPI_URL`:
-
-```bash
-NEXT_PUBLIC_STRAPI_URL = <your backend URL>
-```
-
-To install and run the project in development configuration, run the commands in your command line:
-
-```bash
-npm install
-npm run dev
-```
-
-After it, navigate to [localhost:3000](localhost:3000) with your Browser to see the App.
-
-## More Infos
-
-- Please see the issue [Strapi Backup (Data Import/Export/Transfer) #117](https://github.com/ncs-northware/comdock/issues/117) to learn how to backup data when using this App.
-- [Next.js Documentation](https://nextjs.org/docs/)
-- [Strapi Documentation](http://docs.strapi.io)
-- I've learned Next.js and Strapi Development with the official YouTube series [Create your "next" app using Next.js and Strapi](http://youtube.com/playlist?list=PL7Q0DQYATmvjXSuHfB8CY_n_oUeqZzauZ) by Strapi.
+The App launches at `localhost:40090`. To fill the database and manage the App, navigate to `localhost:40090/admin` and start playing.
