@@ -24,7 +24,7 @@ function Branding() {
       className="flex flex-row items-center gap-2 font-bold text-2xl"
       href="/"
     >
-      <div className="flex size-9 items-center justify-center rounded-sm border bg-teal-800">
+      <div className="flex size-9 items-center justify-center rounded-sm bg-teal-800">
         <ScaleIcon />
       </div>
       COMDOCK
