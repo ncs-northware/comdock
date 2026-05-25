@@ -114,22 +114,56 @@ export const HRPublications: CollectionConfig = {
   hooks: {
     beforeChange: [
       ({ data }) => {
-        /*** Set Summary ****************************************/
         const MAX = 150;
-        if (typeof data.summary === "string" && data.summary.trim()) {
+
+        // If summary already contains text, leave it unchanged.
+        const hasValue = (value: unknown): value is string =>
+          typeof value === "string" && value.trim().length > 0;
+
+        if (hasValue(data.summary)) {
           return data;
         }
 
-        const truncate = (s: string) => {
-          if (s.length <= MAX) {
-            return `${s}...`;
+        // Shorten text to MAX characters and add ellipsis only when needed.
+        const truncate = (value: string): string => {
+          const normalized = value.replace(/\s+/g, " ").trim();
+          if (normalized.length <= MAX) {
+            return normalized;
           }
-          return `${s.slice(0, MAX - 3)}...`;
+          return `${normalized.slice(0, MAX - 3).trimEnd()}...`;
         };
 
-        // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: its a complex task
-        // biome-ignore lint/suspicious/noExplicitAny: The type of node is too complex
-        const walkNode = (node: any, parts: string[]): void => {
+        // Normalize whitespace inside strings.
+        const normalizeText = (value: string): string =>
+          value.replace(/\s+/g, " ").trim();
+
+        // Walk a nested rich text object and collect any text nodes.
+        // This skips structural metadata and only returns actual written content.
+        const walkObject = (
+          objectNode: Record<string, unknown>,
+          parts: string[]
+        ): void => {
+          if (typeof objectNode.text === "string") {
+            parts.push(objectNode.text);
+          }
+
+          if (Array.isArray(objectNode.children)) {
+            walk(objectNode.children, parts);
+          }
+
+          const root = objectNode.root;
+          if (
+            root &&
+            typeof root === "object" &&
+            !Array.isArray(root) &&
+            Array.isArray((root as Record<string, unknown>).children)
+          ) {
+            walk((root as Record<string, unknown>).children, parts);
+          }
+        };
+
+        // Recursively traverse arrays and rich text nodes.
+        const walk = (node: unknown, parts: string[]): void => {
           if (node == null) {
             return;
           }
@@ -139,56 +173,60 @@ export const HRPublications: CollectionConfig = {
           }
           if (Array.isArray(node)) {
             for (const child of node) {
-              walkNode(child, parts);
+              walk(child, parts);
             }
             return;
           }
           if (typeof node === "object") {
-            if (typeof node.text === "string") {
-              parts.push(node.text);
-              return;
-            }
-            if (Array.isArray(node.children) && node.children.length) {
-              walkNode(node.children, parts);
-              return;
-            }
-            if (node.root && Array.isArray(node.root.children)) {
-              walkNode(node.root.children, parts);
-              return;
-            }
-            for (const child of Object.values(node)) {
-              walkNode(child, parts);
-            }
+            walkObject(node as Record<string, unknown>, parts);
           }
         };
 
-        const extractTextFromRichText = (val: string): string => {
-          if (val == null) {
+        // Convert rich text data into a plain text string.
+        const extractTextFromRichText = (value: unknown): string => {
+          if (value == null) {
             return "";
           }
-          if (typeof val === "string") {
-            return val.replace(/\s+/g, " ").trim();
+          if (typeof value === "string") {
+            return normalizeText(value);
           }
+
           const parts: string[] = [];
-          walkNode(val, parts);
+          walk(value, parts);
           return parts.join(" ").replace(/\s+/g, " ").trim();
         };
 
-        if (
-          Array.isArray(data.publication_data) &&
-          data.publication_data.length > 0
-        ) {
-          const used = data.publication_data
-            // biome-ignore lint/suspicious/noExplicitAny: unclear type of property r
-            .map((r: any) => r?.row)
-            .filter(Boolean);
-          const unique = Array.from(new Set(used));
-          data.summary = truncate(unique.join(", "));
+        // Read the publicationData field from the document.
+        const publicationData = Array.isArray(data.publicationData)
+          ? data.publicationData
+          : [];
+
+        // Generate a string from used publicationData.rows
+        if (publicationData.length > 0) {
+          const rows = publicationData
+            .map((item) =>
+              typeof item === "object" && item !== null
+                ? (item as Record<string, unknown>).row
+                : undefined
+            )
+            .filter(
+              (row): row is string =>
+                typeof row === "string" && row.trim().length > 0
+            );
+
+          if (rows.length > 0) {
+            const uniqueRows = Array.from(new Set(rows));
+            data.summary = truncate(uniqueRows.join(", "));
+            return data;
+          }
+
+          return data;
         }
 
-        const descText = extractTextFromRichText(data.description);
-        if (descText) {
-          data.summary = truncate(descText);
+        // If publicationData is null use the text from description
+        const descriptionText = extractTextFromRichText(data.description);
+        if (descriptionText) {
+          data.summary = truncate(descriptionText);
         }
 
         return data;
