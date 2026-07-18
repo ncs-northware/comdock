@@ -2,6 +2,8 @@
 "comdock": patch
 ---
 
+Multiple Dependeny Updates, some fixes and linting
+
 * chore: update changelog by @onissen in https://github.com/ncs-northware/comdock/pull/419
 * feat: recreate issue template for security reports in YAML by @onissen in https://github.com/ncs-northware/comdock/pull/420
 * [dependabot](deps-dev): Bump @types/node from 25.9.1 to 26.1.0 by @dependabot[bot] in https://github.com/ncs-northware/comdock/pull/431
