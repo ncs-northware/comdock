@@ -25,10 +25,10 @@ const dirname = path.dirname(filename);
 
 export default buildConfig({
   admin: {
-    user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    user: Users.slug,
   },
   collections: [
     Docs,
@@ -41,26 +41,22 @@ export default buildConfig({
     Network,
     Designs,
   ],
+  db: sqliteAdapter({
+    client: {
+      url: process.env.DATABASE_URL || "",
+    },
+  }),
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
       FixedToolbarFeature(),
     ],
   }),
+  graphQL: { disable: true },
   i18n: {
     fallbackLanguage: "de",
-    supportedLanguages: { en, de },
+    supportedLanguages: { de, en },
   },
-  secret: process.env.PAYLOAD_SECRET || "",
-  typescript: {
-    outputFile: path.resolve(dirname, "payload-types.ts"),
-  },
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URL || "",
-    },
-  }),
-  sharp,
   jobs: {
     autoRun: [
       {
@@ -69,19 +65,18 @@ export default buildConfig({
       },
     ],
   },
-  graphQL: { disable: true },
   plugins: [
     importExportPlugin({
       collections: [], // enables import/export for all collections
       debug: true,
-      overrideImportCollection: ({ collection }) => ({
+      overrideExportCollection: ({ collection }) => ({
         ...collection,
         admin: {
           ...collection.admin,
           group: "Administration",
         },
       }),
-      overrideExportCollection: ({ collection }) => ({
+      overrideImportCollection: ({ collection }) => ({
         ...collection,
         admin: {
           ...collection.admin,
@@ -90,4 +85,9 @@ export default buildConfig({
       }),
     }),
   ],
+  secret: process.env.PAYLOAD_SECRET || "",
+  sharp,
+  typescript: {
+    outputFile: path.resolve(dirname, "payload-types.ts"),
+  },
 });

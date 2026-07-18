@@ -25,8 +25,8 @@ export default async function Page() {
       hrDept: true,
       hrNumber: true,
     },
-    where: { hrStatus: { equals: "aktiv" } },
     sort: "companyName",
+    where: { hrStatus: { equals: "aktiv" } },
   });
   return (
     <article>

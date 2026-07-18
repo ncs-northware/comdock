@@ -37,26 +37,26 @@ export default async function Page({
   const { id } = await params;
   const item = await payload.findByID({
     collection: "hr_publications",
-    id,
-    select: {
-      title: true,
-      summary: true,
-      company: true,
-      publicationDate: true,
-      publicationData: true,
-      description: true,
-      docs: true,
-    },
     depth: 1,
+    id,
     populate: {
       docs: {
+        createdAt: true,
+        documentCreatedAt: true,
+        filename: true,
         title: true,
         type: true,
-        documentCreatedAt: true,
-        createdAt: true,
         url: true,
-        filename: true,
       },
+    },
+    select: {
+      company: true,
+      description: true,
+      docs: true,
+      publicationData: true,
+      publicationDate: true,
+      summary: true,
+      title: true,
     },
   });
   return (

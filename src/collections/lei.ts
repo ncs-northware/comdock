@@ -2,63 +2,70 @@ import type { CollectionConfig } from "payload";
 import { authenticated, authenticatedOrPublished } from "@/access/roles";
 
 export const LEI: CollectionConfig = {
-  slug: "lei",
+  access: {
+    create: authenticated,
+    delete: authenticated,
+    read: authenticatedOrPublished,
+    update: authenticated,
+  },
+  admin: { useAsTitle: "id" },
+  defaultPopulate: {
+    company: true,
+    id: true,
+  },
+  defaultSort: "id",
   fields: [
     {
-      name: "id",
-      type: "text",
-      required: true,
-      unique: true,
-      label: "Legal Entity Identifier",
       access: {
         create: () => true,
         read: () => true,
         update: () => false,
       },
-    },
-    {
-      name: "company",
-      type: "relationship",
-      relationTo: "companies",
-      hasMany: false,
+      label: "Legal Entity Identifier",
+      name: "id",
       required: true,
-      label: "Firma",
+      type: "text",
+      unique: true,
     },
     {
+      hasMany: false,
+      label: "Firma",
+      name: "company",
+      relationTo: "companies",
+      required: true,
+      type: "relationship",
+    },
+    {
+      defaultValue: "WM Datenservice (5299000J2N45DDNE4Y28)",
+      label: "Vergabestelle (LOU)",
       name: "lou",
-      type: "select",
       options: [
         "Bloomberg Finance LP (5493001KJTIIGC8Y1R12)",
         "Bundesanzeiger Verlag GmbH (39120001KULK7200U106)",
         "WM Datenservice (5299000J2N45DDNE4Y28)",
       ],
-      defaultValue: "WM Datenservice (5299000J2N45DDNE4Y28)",
-      label: "Vergabestelle (LOU)",
+      type: "select",
     },
     {
+      defaultValue: "ISSUED (ausgegeben)",
+      label: "LEI Status",
       name: "leiStatus",
-      type: "select",
       options: [
         "ISSUED (ausgegeben)",
         "LAPSED (abgelaufen)",
         "INACTIVE",
         "PLANNED",
       ],
-      defaultValue: "ISSUED (ausgegeben)",
       required: true,
-      label: "LEI Status",
+      type: "select",
     },
     {
-      name: "firstRegistration",
-      type: "date",
-      required: true,
       admin: {
         date: {
-          pickerAppearance: "dayAndTime",
           displayFormat: "dd.MM.yyyy hh:mm",
+          pickerAppearance: "dayAndTime",
         },
       },
-      label: "Erstvergabe",
       hooks: {
         beforeChange: [
           ({ operation, value }) => {
@@ -69,52 +76,45 @@ export const LEI: CollectionConfig = {
           },
         ],
       },
+      label: "Erstvergabe",
+      name: "firstRegistration",
+      required: true,
+      type: "date",
     },
     {
-      name: "autoRenew",
-      type: "checkbox",
-      defaultValue: true,
-      required: true,
-      label: "Automatische Verlängerung",
       admin: {
         description:
           "Die letzte und nächste Verlängerung werden automatisch errechnet.",
       },
+      defaultValue: true,
+      label: "Automatische Verlängerung",
+      name: "autoRenew",
+      required: true,
+      type: "checkbox",
     },
     {
-      name: "lastRenewal",
-      type: "date",
-      label: "Letzte Aktualisierung",
       admin: {
-        date: {
-          pickerAppearance: "dayAndTime",
-          displayFormat: "dd.MM.yyyy hh:mm",
-        },
-        description:
-          "Nur bei Einträgen ohne automatische Verlängerung angeben.",
         condition: (data) => {
           if (data.auto_renew === false) {
             return true;
           }
           return false;
         },
+        date: {
+          displayFormat: "dd.MM.yyyy hh:mm",
+          pickerAppearance: "dayAndTime",
+        },
+        description:
+          "Nur bei Einträgen ohne automatische Verlängerung angeben.",
       },
+      label: "Letzte Aktualisierung",
+      name: "lastRenewal",
+      type: "date",
     },
   ],
   labels: {
-    singular: "Legal Entity Identifier",
     plural: "Legal Entity Identifiers",
+    singular: "Legal Entity Identifier",
   },
-  admin: { useAsTitle: "id" },
-  access: {
-    create: authenticated,
-    delete: authenticated,
-    read: authenticatedOrPublished,
-    update: authenticated,
-  },
-  defaultSort: "id",
-  defaultPopulate: {
-    id: true,
-    company: true,
-  },
+  slug: "lei",
 };

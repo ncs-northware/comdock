@@ -33,21 +33,17 @@ export function NetworkItem({
       variant={variant === "former" ? "outline" : "muted"}
     >
       <Link href={href || "#"}>
-        {icon ? (
-          <ItemMedia
-            className={cn(
-              variant === "current" &&
-                "group-hover/item:border-teal-700 group-hover/item:bg-teal-800 group-hover/item:text-primary-foreground",
-              variant === "parent" &&
-                "border-teal-700 bg-teal-800 text-primary-foreground"
-            )}
-            variant="icon"
-          >
-            {icon}
-          </ItemMedia>
-        ) : (
-          ""
-        )}
+        <ItemMedia
+          className={cn(
+            variant === "current" &&
+              "group-hover/item:border-teal-700 group-hover/item:bg-teal-800 group-hover/item:text-primary-foreground",
+            variant === "parent" &&
+              "border-teal-700 bg-teal-800 text-primary-foreground"
+          )}
+          variant="icon"
+        >
+          {icon}
+        </ItemMedia>
         <ItemContent
           className={cn("truncate", variant === "former" && "italic")}
         >

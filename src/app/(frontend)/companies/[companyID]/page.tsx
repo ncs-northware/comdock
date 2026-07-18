@@ -42,13 +42,13 @@ export default async function Page({
     collection: "companies",
     id: companyIDNum,
     select: {
+      branches: true,
       companyName: true,
+      corpObject: true,
+      headquarter: true,
+      hrCourt: true,
       hrDept: true,
       hrNumber: true,
-      hrCourt: true,
-      headquarter: true,
-      branches: true,
-      corpObject: true,
       prevNames: true,
     },
   });
@@ -69,51 +69,51 @@ export default async function Page({
     collection: "network",
     depth: 1,
     select: {
-      type: true,
-      since: true,
-      upto: true,
       relation: true,
+      since: true,
+      type: true,
+      upto: true,
     },
+    sort: ["upto", "since"],
     where: {
       childCompany: { equals: companyID },
     },
-    sort: ["upto", "since"],
   });
 
   const hr = await payload.find({
     collection: "hr_publications",
     select: {
       company: true,
-      title: true,
-      summary: true,
       publicationDate: true,
+      summary: true,
+      title: true,
     },
+    sort: "-publicationDate",
     where: {
       or: [
         { company: { equals: companyID } },
         { mentionedCompanies: { in: [companyID] } },
       ],
     },
-    sort: "-publicationDate",
   });
 
   const docs = await payload.find({
     collection: "docs",
-    where: { company: { equals: companyID } },
     select: {
-      title: true,
-      type: true,
       createdAt: true,
       documentCreatedAt: true,
       filename: true,
+      title: true,
+      type: true,
       url: true,
     },
+    where: { company: { equals: companyID } },
   });
 
   const designs = await payload.find({
     collection: "designs",
+    select: { registrationDate: true, type: true, wordmarkTitle: true },
     where: { company: { equals: companyID } },
-    select: { type: true, wordmarkTitle: true, registrationDate: true },
   });
 
   return (

@@ -23,7 +23,7 @@ export async function generateMetadata({
   const personMetadata = await payload.findByID({
     collection: "persons",
     id,
-    select: { firstName: true, sirName: true, city: true },
+    select: { city: true, firstName: true, sirName: true },
   });
   return {
     title: `${personMetadata.firstName} ${personMetadata.sirName}, ${personMetadata.city}`,
@@ -41,19 +41,22 @@ export default async function Page({
     collection: "persons",
     id,
     select: {
+      city: true,
       firstName: true,
       sirName: true,
-      city: true,
     },
   });
 
   const network = await payload.find({
     collection: "network",
+    populate: {
+      companies: { companyName: true, id: true },
+    },
     select: {
       childCompany: true,
+      since: true,
       type: true,
       upto: true,
-      since: true,
     },
     where: {
       and: [
@@ -61,21 +64,18 @@ export default async function Page({
         { "relation.value": { equals: id } },
       ],
     },
-    populate: {
-      companies: { companyName: true, id: true },
-    },
   });
 
   const publications = await payload.find({
     collection: "hr_publications",
+    populate: { companies: { companyName: true } },
     select: {
-      title: true,
-      summary: true,
-      publicationDate: true,
       company: true,
+      publicationDate: true,
+      summary: true,
+      title: true,
     },
     where: { mentionedPersons: { equals: id } },
-    populate: { companies: { companyName: true } },
   });
 
   return (

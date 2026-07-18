@@ -8,8 +8,8 @@ import { Header } from "@/components/header";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | COMDOCK",
     default: "COMDOCK",
+    template: "%s | COMDOCK",
   },
 };
 

@@ -9,16 +9,16 @@ import { payload } from "@/lib/api";
 export async function CompaniesList() {
   const companies = await payload.find({
     collection: "companies",
+    limit: 5,
     select: {
       companyName: true,
+      headquarter: { city: true },
       hrCourt: true,
       hrDept: true,
       hrNumber: true,
-      headquarter: { city: true },
     },
-    where: { hrStatus: { equals: "aktiv" } },
-    limit: 5,
     sort: "company_name",
+    where: { hrStatus: { equals: "aktiv" } },
   });
 
   return (
@@ -59,9 +59,9 @@ export async function PersonsList() {
     collection: "persons",
     limit: 5,
     select: {
+      city: true,
       firstName: true,
       sirName: true,
-      city: true,
     },
     sort: ["sirName", "firstName"],
   });

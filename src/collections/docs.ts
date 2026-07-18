@@ -2,26 +2,33 @@ import type { CollectionConfig } from "payload";
 import { anyone, authenticated } from "@/access/roles";
 
 export const Docs: CollectionConfig = {
-  slug: "docs",
-  labels: {
-    plural: "Dokumente",
-    singular: "Dokument",
-  },
   access: {
     create: authenticated,
+    delete: authenticated,
     read: anyone,
     update: authenticated,
-    delete: authenticated,
+  },
+  admin: {
+    enableRichTextLink: false,
+    group: "Veröffentlichungen und Beziehungen",
+  },
+  defaultPopulate: {
+    company: true,
+    createdAt: true,
+    filename: true,
+    type: true,
+    updatedAt: true,
+    url: true,
   },
   fields: [
     {
+      label: "Titel",
       name: "title",
       type: "text",
-      label: "Titel",
     },
     {
+      label: "Typ",
       name: "type",
-      type: "select",
       options: [
         "Gesellschaftsvertrag",
         "Liste der Gesellschafter",
@@ -31,36 +38,29 @@ export const Docs: CollectionConfig = {
         "Eintragungsanzeige",
         "Weitere Unterlagen",
       ],
-      label: "Typ",
+      type: "select",
     },
     {
-      name: "company",
-      type: "relationship",
-      relationTo: "companies",
       label: "Firma",
+      name: "company",
+      relationTo: "companies",
+      type: "relationship",
     },
     {
+      admin: {
+        date: { displayFormat: "dd.MM.yyyy", pickerAppearance: "dayOnly" },
+      },
+      label: "Dokument erstellt am",
       name: "documentCreatedAt",
       type: "date",
-      label: "Dokument erstellt am",
-      admin: {
-        date: { pickerAppearance: "dayOnly", displayFormat: "dd.MM.yyyy" },
-      },
     },
   ],
+  labels: {
+    plural: "Dokumente",
+    singular: "Dokument",
+  },
+  slug: "docs",
   upload: {
     staticDir: "uploads/docs",
-  },
-  defaultPopulate: {
-    type: true,
-    url: true,
-    filename: true,
-    company: true,
-    updatedAt: true,
-    createdAt: true,
-  },
-  admin: {
-    enableRichTextLink: false,
-    group: "Veröffentlichungen und Beziehungen",
   },
 };

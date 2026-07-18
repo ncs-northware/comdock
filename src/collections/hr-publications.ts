@@ -2,40 +2,51 @@ import type { CollectionConfig } from "payload";
 import { authenticated, authenticatedOrPublished } from "@/access/roles";
 
 export const HRPublications: CollectionConfig = {
-  slug: "hr_publications",
+  access: {
+    create: authenticated,
+    delete: authenticated,
+    read: authenticatedOrPublished,
+    update: authenticated,
+  },
+  admin: { group: "Veröffentlichungen und Beziehungen" },
+  defaultPopulate: {
+    company: true,
+    id: true,
+    publication_date: true,
+    summary: true,
+    title: true,
+  },
   fields: [
     {
-      name: "company",
-      type: "relationship",
-      relationTo: "companies",
       label: "Firma",
+      name: "company",
+      relationTo: "companies",
+      type: "relationship",
     },
-    { name: "title", type: "text", required: true, label: "Titel" },
+    { label: "Titel", name: "title", required: true, type: "text" },
     {
-      name: "summary",
-      type: "text",
-      label: "Zusammenfassung",
       admin: {
         description:
           "Wenn dieses Feld leer ist, wird es automatisch befüllt. Für automatische Änderung Feld leeren.",
       },
+      label: "Zusammenfassung",
+      name: "summary",
+      type: "text",
     },
     {
-      name: "publicationDate",
-      type: "date",
-      label: "Veröffentlichungsdatum",
       admin: {
-        date: { pickerAppearance: "dayOnly", displayFormat: "dd.MM.yyyy" },
+        date: { displayFormat: "dd.MM.yyyy", pickerAppearance: "dayOnly" },
       },
+      label: "Veröffentlichungsdatum",
+      name: "publicationDate",
       required: true,
+      type: "date",
     },
     {
-      name: "publicationData",
-      type: "array",
       fields: [
         {
+          label: "Spalte",
           name: "row",
-          type: "select",
           options: [
             "Firma",
             "Sitz, Niederlassung, Zweigniederlassung",
@@ -51,66 +62,50 @@ export const HRPublications: CollectionConfig = {
             "Sonstige Rechtsverhältnisse",
             "Kommanditisten, Mitglieder",
           ],
-          label: "Spalte",
           required: true,
+          type: "select",
         },
-        { name: "value", type: "richText", required: true, label: "Inhalt" },
+        { label: "Inhalt", name: "value", required: true, type: "richText" },
         {
-          name: "outdatedBy",
-          type: "relationship",
-          relationTo: "hr_publications",
-          label: "Aufgehoben durch",
-          hasMany: false,
+          admin: { allowCreate: false },
           filterOptions: {
             id: { not_equals: "{ID}" },
           },
-          admin: { allowCreate: false },
+          hasMany: false,
+          label: "Aufgehoben durch",
+          name: "outdatedBy",
+          relationTo: "hr_publications",
+          type: "relationship",
         },
       ],
       label: "Gliederungsdaten",
       minRows: 1,
+      name: "publicationData",
+      type: "array",
     },
-    { name: "description", type: "richText", label: "Beschreibung" },
+    { label: "Beschreibung", name: "description", type: "richText" },
     {
-      name: "docs",
-      type: "upload",
-      relationTo: "docs",
+      hasMany: true,
       label: "Verbundene Dokumente",
-      hasMany: true,
+      name: "docs",
+      relationTo: "docs",
+      type: "upload",
     },
     {
-      name: "mentionedCompanies",
-      type: "relationship",
-      relationTo: "companies",
+      hasMany: true,
       label: "Erwähnte Firmen",
-      hasMany: true,
+      name: "mentionedCompanies",
+      relationTo: "companies",
+      type: "relationship",
     },
     {
-      name: "mentionedPersons",
-      type: "relationship",
-      relationTo: "persons",
-      label: "Erwähnte Personen",
       hasMany: true,
+      label: "Erwähnte Personen",
+      name: "mentionedPersons",
+      relationTo: "persons",
+      type: "relationship",
     },
   ],
-  labels: {
-    singular: "HR Veröffentlichung",
-    plural: "HR Veröffentlichungen",
-  },
-  access: {
-    create: authenticated,
-    delete: authenticated,
-    read: authenticatedOrPublished,
-    update: authenticated,
-  },
-  defaultPopulate: {
-    id: true,
-    title: true,
-    summary: true,
-    publication_date: true,
-    company: true,
-  },
-  admin: { group: "Veröffentlichungen und Beziehungen" },
   hooks: {
     beforeChange: [
       ({ data }) => {
@@ -151,20 +146,19 @@ export const HRPublications: CollectionConfig = {
             walk(objectNode.children, parts);
           }
 
-          const root = objectNode.root;
           if (
-            root &&
-            typeof root === "object" &&
-            !Array.isArray(root) &&
-            Array.isArray((root as Record<string, unknown>).children)
+            objectNode.root &&
+            typeof objectNode.root === "object" &&
+            !Array.isArray(objectNode.root) &&
+            Array.isArray((objectNode.root as Record<string, unknown>).children)
           ) {
-            walk((root as Record<string, unknown>).children, parts);
+            walk((objectNode.root as Record<string, unknown>).children, parts);
           }
         };
 
         // Recursively traverse arrays and rich text nodes.
         const walk = (node: unknown, parts: string[]): void => {
-          if (node == null) {
+          if (node === null) {
             return;
           }
           if (typeof node === "string") {
@@ -184,7 +178,7 @@ export const HRPublications: CollectionConfig = {
 
         // Convert rich text data into a plain text string.
         const extractTextFromRichText = (value: unknown): string => {
-          if (value == null) {
+          if (value === null) {
             return "";
           }
           if (typeof value === "string") {
@@ -233,4 +227,9 @@ export const HRPublications: CollectionConfig = {
       },
     ],
   },
+  labels: {
+    plural: "HR Veröffentlichungen",
+    singular: "HR Veröffentlichung",
+  },
+  slug: "hr_publications",
 };

@@ -2,7 +2,7 @@
 
 import { BuildingIcon, HandshakeIcon, UserRoundIcon } from "lucide-react";
 import type { PaginatedDocs } from "payload";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { NetworkItem } from "@/components/network-item";
 import { Headline } from "@/components/typography";
 import { Button } from "@/components/ui/button";
@@ -51,6 +51,9 @@ export function CompanyNetwork({
   const [ShowFullNetwork, setShowFullNetwark] = useState(false);
   const initalNum = 4;
   const numToShow = ShowFullNetwork ? network.totalDocs : initalNum;
+  const toggleShowFullNetwork = useCallback(() => {
+    setShowFullNetwark((s) => !s);
+  }, []);
   return (
     <div className="mb-8">
       <Headline level="h3">Netzwerk</Headline>
@@ -133,7 +136,7 @@ export function CompanyNetwork({
         {network.totalDocs > initalNum && (
           <Button
             className="w-full"
-            onClick={() => setShowFullNetwark(!ShowFullNetwork)}
+            onClick={toggleShowFullNetwork}
             size="sm"
             variant="outline"
           >

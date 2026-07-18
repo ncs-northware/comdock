@@ -2,26 +2,20 @@ import type { CollectionConfig } from "payload";
 import { anyone, authenticated } from "@/access/roles";
 
 export const Designs: CollectionConfig = {
-  slug: "designs",
-  labels: {
-    plural: "Marken und Geschmacksmuster",
-    singular: "Marke/Geschmacksmuster",
-  },
   access: {
     create: authenticated,
     delete: authenticated,
     read: anyone,
     update: authenticated,
   },
-  upload: {
-    staticDir: "uploads/images",
-    filesRequiredOnCreate: false,
-    mimeTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
+  admin: {
+    group: "Veröffentlichungen und Beziehungen",
+    useAsTitle: "wordmarkTitle",
   },
   fields: [
     {
+      label: "Typ",
       name: "type",
-      type: "select",
       options: [
         "Wortmarke",
         "Wort-/Bildmarke",
@@ -31,57 +25,63 @@ export const Designs: CollectionConfig = {
         "Patent",
       ],
       required: true,
-      label: "Typ",
-    },
-    {
-      name: "wordmarkTitle",
-      type: "text",
-      label: "Wortmarke/Titel",
-      required: true,
-    },
-    {
-      name: "company",
-      type: "relationship",
-      relationTo: "companies",
-      hasMany: false,
-      required: true,
-      label: "Firma",
-    },
-    {
-      name: "itemStatus",
       type: "select",
+    },
+    {
+      label: "Wortmarke/Titel",
+      name: "wordmarkTitle",
+      required: true,
+      type: "text",
+    },
+    {
+      hasMany: false,
+      label: "Firma",
+      name: "company",
+      relationTo: "companies",
+      required: true,
+      type: "relationship",
+    },
+    {
+      defaultValue: "Eingetragen und veröffentlicht",
+      label: "Status der Eintragung",
+      name: "itemStatus",
       options: [
         "Eingetragen und veröffentlicht",
         "Eintragung gelöscht",
         "Eintragung abgelaufen",
       ],
-      label: "Status der Eintragung",
-      defaultValue: "Eingetragen und veröffentlicht",
       required: true,
+      type: "select",
     },
     {
-      name: "registrationDate",
-      type: "date",
-      label: "Eingetragen am",
-      required: true,
       admin: {
-        date: { pickerAppearance: "dayOnly", displayFormat: "dd.MM.yyyy" },
+        date: { displayFormat: "dd.MM.yyyy", pickerAppearance: "dayOnly" },
       },
+      label: "Eingetragen am",
+      name: "registrationDate",
+      required: true,
+      type: "date",
     },
-    { name: "colors", type: "text", label: "Farben", hasMany: true },
+    { hasMany: true, label: "Farben", name: "colors", type: "text" },
     {
+      label: "Wiener Klassifikation",
       name: "viennaClass",
       type: "richText",
-      label: "Wiener Klassifikation",
     },
     {
+      label: "Nizza Klassifikation",
       name: "niceClass",
       type: "richText",
-      label: "Nizza Klassifikation",
     },
   ],
-  admin: {
-    useAsTitle: "wordmarkTitle",
-    group: "Veröffentlichungen und Beziehungen",
+  labels: {
+    plural: "Marken und Geschmacksmuster",
+    singular: "Marke/Geschmacksmuster",
+  },
+  slug: "designs",
+  upload: {
+    filesRequiredOnCreate: false,
+    mimeTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
+    staticDir: "uploads/images",
   },
 };
