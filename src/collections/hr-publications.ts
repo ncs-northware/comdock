@@ -146,20 +146,19 @@ export const HRPublications: CollectionConfig = {
             walk(objectNode.children, parts);
           }
 
-          const root = objectNode.root;
           if (
-            root &&
-            typeof root === "object" &&
-            !Array.isArray(root) &&
-            Array.isArray((root as Record<string, unknown>).children)
+            objectNode.root &&
+            typeof objectNode.root === "object" &&
+            !Array.isArray(objectNode.root) &&
+            Array.isArray((objectNode.root as Record<string, unknown>).children)
           ) {
-            walk((root as Record<string, unknown>).children, parts);
+            walk((objectNode.root as Record<string, unknown>).children, parts);
           }
         };
 
         // Recursively traverse arrays and rich text nodes.
         const walk = (node: unknown, parts: string[]): void => {
-          if (node == null) {
+          if (node === null) {
             return;
           }
           if (typeof node === "string") {
@@ -179,7 +178,7 @@ export const HRPublications: CollectionConfig = {
 
         // Convert rich text data into a plain text string.
         const extractTextFromRichText = (value: unknown): string => {
-          if (value == null) {
+          if (value === null) {
             return "";
           }
           if (typeof value === "string") {

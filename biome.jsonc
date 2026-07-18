@@ -2,6 +2,11 @@
   "$schema": "https://biomejs.dev/schemas/2.5.4/schema.json",
   "extends": ["ultracite/biome/core", "ultracite/biome/next"],
   "files": {
-    "includes": ["!src/app/(payload)", "!src/payload-types.ts", "!tests"]
+    "includes": [
+      "!src/app/(payload)",
+      "!src/payload-types.ts",
+      "!tests",
+      "!*.svg"
+    ]
   }
 }
