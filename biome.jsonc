@@ -6,7 +6,7 @@
       "!src/app/(payload)",
       "!src/payload-types.ts",
       "!tests",
-      "!*.svg"
+      "!!src/**/*.svg"
     ]
   }
 }
