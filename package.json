@@ -1,7 +1,7 @@
 {
   "name": "comdock",
   "type": "module",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
   "private": true,
   "license": "MIT",
