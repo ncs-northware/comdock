@@ -2,106 +2,111 @@ import type { CollectionConfig } from "payload";
 import { authenticated, authenticatedOrPublished } from "@/access/roles";
 
 export const Companies: CollectionConfig = {
-  slug: "companies",
-  fields: [
-    { name: "id", type: "number", label: "ID", admin: { hidden: true } },
-    { name: "companyName", type: "text", required: true, label: "Firmenname" },
-    {
-      name: "hrStatus",
-      type: "select",
-      options: ["aktiv", "gelöscht", "Liquidation", "Gesellschaft verlassen"],
-      label: "Status",
-      defaultValue: "aktiv",
-    },
-    {
-      name: "hrDept",
-      type: "select",
-      options: ["HRA", "HRB"],
-      label: "HR Abteilung",
-      required: true,
-    },
-    {
-      name: "hrNumber",
-      type: "text",
-      required: true,
-      unique: true,
-      label: "HR Nummer",
-      access: {
-        create: () => true,
-        update: () => false,
-        read: () => true,
-      },
-    },
-    { name: "hrCourt", type: "text", required: true, label: "Amtsgericht" },
-    {
-      name: "headquarter",
-      type: "group",
-      fields: [
-        { name: "street", type: "text", label: "Straße", required: true },
-        {
-          name: "zipcode",
-          type: "text",
-          label: "Postleitzahl",
-          required: true,
-        },
-        { name: "city", type: "text", label: "Ort", required: true },
-      ],
-      label: "Hauptsitz",
-    },
-    {
-      name: "branches",
-      type: "array",
-      labels: {
-        singular: "Zweigniederlassung",
-        plural: "Zweigniederlassungen",
-      },
-      fields: [
-        { name: "street", type: "text", label: "Straße", required: true },
-        {
-          name: "zipcode",
-          type: "text",
-          label: "Postleitzahl",
-          required: true,
-        },
-        { name: "city", type: "text", label: "Ort", required: true },
-      ],
-    },
-    { name: "corpObject", type: "richText", label: "Unternehmensgegenstand" },
-    { name: "capital", type: "number", label: "Stammkapital" },
-    {
-      name: "representRules",
-      type: "richText",
-      label: "Allgemeine Vertretungsregelung",
-    },
-    {
-      name: "prevNames",
-      type: "array",
-      label: "Vorherige Namen",
-      fields: [
-        {
-          name: "prevName",
-          type: "text",
-          label: "Vorheriger Firmenname",
-          required: true,
-        },
-        {
-          name: "nameUpto",
-          type: "date",
-          label: "Name bis",
-          admin: { date: { displayFormat: "dd.MM.yyyy" } },
-        },
-      ],
-    },
-  ],
-  admin: {
-    useAsTitle: "companyName",
-  },
   access: {
     create: authenticated,
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
   },
+  admin: {
+    useAsTitle: "companyName",
+  },
+  defaultPopulate: {
+    companyName: true,
+    hrDept: true,
+    hrNumber: true,
+  },
+  defaultSort: "companyName",
+  fields: [
+    { admin: { hidden: true }, label: "ID", name: "id", type: "number" },
+    { label: "Firmenname", name: "companyName", required: true, type: "text" },
+    {
+      defaultValue: "aktiv",
+      label: "Status",
+      name: "hrStatus",
+      options: ["aktiv", "gelöscht", "Liquidation", "Gesellschaft verlassen"],
+      type: "select",
+    },
+    {
+      label: "HR Abteilung",
+      name: "hrDept",
+      options: ["HRA", "HRB"],
+      required: true,
+      type: "select",
+    },
+    {
+      access: {
+        create: () => true,
+        read: () => true,
+        update: () => false,
+      },
+      label: "HR Nummer",
+      name: "hrNumber",
+      required: true,
+      type: "text",
+      unique: true,
+    },
+    { label: "Amtsgericht", name: "hrCourt", required: true, type: "text" },
+    {
+      fields: [
+        { label: "Straße", name: "street", required: true, type: "text" },
+        {
+          label: "Postleitzahl",
+          name: "zipcode",
+          required: true,
+          type: "text",
+        },
+        { label: "Ort", name: "city", required: true, type: "text" },
+      ],
+      label: "Hauptsitz",
+      name: "headquarter",
+      type: "group",
+    },
+    {
+      fields: [
+        { label: "Straße", name: "street", required: true, type: "text" },
+        {
+          label: "Postleitzahl",
+          name: "zipcode",
+          required: true,
+          type: "text",
+        },
+        { label: "Ort", name: "city", required: true, type: "text" },
+      ],
+      labels: {
+        plural: "Zweigniederlassungen",
+        singular: "Zweigniederlassung",
+      },
+      name: "branches",
+      type: "array",
+    },
+    { label: "Unternehmensgegenstand", name: "corpObject", type: "richText" },
+    { label: "Stammkapital", name: "capital", type: "number" },
+    {
+      label: "Allgemeine Vertretungsregelung",
+      name: "representRules",
+      type: "richText",
+    },
+    {
+      fields: [
+        {
+          label: "Vorheriger Firmenname",
+          name: "prevName",
+          required: true,
+          type: "text",
+        },
+        {
+          admin: { date: { displayFormat: "dd.MM.yyyy" } },
+          label: "Name bis",
+          name: "nameUpto",
+          type: "date",
+        },
+      ],
+      label: "Vorherige Namen",
+      name: "prevNames",
+      type: "array",
+    },
+  ],
   hooks: {
     beforeValidate: [
       ({ data }) => {
@@ -123,10 +128,5 @@ export const Companies: CollectionConfig = {
     plural: "Firmen",
     singular: "Firma",
   },
-  defaultSort: "companyName",
-  defaultPopulate: {
-    companyName: true,
-    hrDept: true,
-    hrNumber: true,
-  },
+  slug: "companies",
 };

@@ -2,35 +2,35 @@ import type { CollectionConfig } from "payload";
 import { authenticated, authenticatedOrPublished } from "@/access/roles";
 
 export const ExternalShareholders: CollectionConfig = {
-  slug: "external-shareholders",
-  fields: [
-    { name: "companyName", type: "text", required: true, label: "Firmenname" },
-    {
-      name: "registry",
-      type: "select",
-      options: ["HRA", "HRB", "GnR", "Behörde", "ANDERE"],
-      required: true,
-      label: "Register",
-    },
-    {
-      name: "registryNumber",
-      type: "text",
-      required: true,
-      unique: true,
-      label: "Registernummer",
-    },
-    { name: "registryCourt", type: "text", label: "Amtsgericht" },
-    { name: "url", type: "text", label: "URL" },
-  ],
-  admin: { useAsTitle: "companyName", enableRichTextLink: false },
   access: {
     create: authenticated,
+    delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
-    delete: authenticated,
   },
+  admin: { enableRichTextLink: false, useAsTitle: "companyName" },
+  fields: [
+    { label: "Firmenname", name: "companyName", required: true, type: "text" },
+    {
+      label: "Register",
+      name: "registry",
+      options: ["HRA", "HRB", "GnR", "Behörde", "ANDERE"],
+      required: true,
+      type: "select",
+    },
+    {
+      label: "Registernummer",
+      name: "registryNumber",
+      required: true,
+      type: "text",
+      unique: true,
+    },
+    { label: "Amtsgericht", name: "registryCourt", type: "text" },
+    { label: "URL", name: "url", type: "text" },
+  ],
   labels: {
     plural: "Externe Gesellschafter",
     singular: "Externer Gesellschafter",
   },
+  slug: "external-shareholders",
 };

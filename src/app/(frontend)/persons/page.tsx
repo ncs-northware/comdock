@@ -19,9 +19,9 @@ export default async function Page() {
   const persons = await payload.find({
     collection: "persons",
     select: {
+      city: true,
       firstName: true,
       sirName: true,
-      city: true,
     },
     sort: ["sirName", "firstName"],
   });

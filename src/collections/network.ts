@@ -2,18 +2,28 @@ import type { CollectionConfig } from "payload";
 import { authenticated, authenticatedOrPublished } from "@/access/roles";
 
 export const Network: CollectionConfig = {
-  slug: "network",
+  access: {
+    create: authenticated,
+    delete: authenticated,
+    read: authenticatedOrPublished,
+    update: authenticated,
+  },
+  admin: {
+    enableRichTextLink: false,
+    group: "Veröffentlichungen und Beziehungen",
+    useAsTitle: "type",
+  },
   fields: [
     {
-      name: "childCompany",
-      type: "relationship",
-      relationTo: "companies",
       label: "Firma",
+      name: "childCompany",
+      relationTo: "companies",
+      type: "relationship",
     },
-    { name: "leiParent", type: "checkbox", label: "LEI Muttergesellschaft" },
+    { label: "LEI Muttergesellschaft", name: "leiParent", type: "checkbox" },
     {
+      label: "Verbindungstyp",
       name: "type",
-      type: "select",
       options: [
         "Beteiligung",
         "Komplementär VH",
@@ -28,49 +38,39 @@ export const Network: CollectionConfig = {
         "Andere Vertretungsbefugnis",
       ],
       required: true,
-      label: "Verbindungstyp",
+      type: "select",
     },
     {
-      name: "since",
-      type: "date",
-      required: true,
-      label: "Beginn der Verbindung",
       admin: {
         date: { displayFormat: "dd.MM.yyyy", pickerAppearance: "dayOnly" },
       },
+      label: "Beginn der Verbindung",
+      name: "since",
+      required: true,
+      type: "date",
     },
     {
+      admin: {
+        date: { displayFormat: "dd.MM.yyyy", pickerAppearance: "dayOnly" },
+      },
+      label: "Ende der Verbindung",
       name: "upto",
       type: "date",
-      label: "Ende der Verbindung",
-      admin: {
-        date: { displayFormat: "dd.MM.yyyy", pickerAppearance: "dayOnly" },
-      },
     },
     {
-      name: "relation",
-      type: "relationship",
-      relationTo: ["companies", "external-shareholders", "persons"],
-      label: "Verbindung zu",
       admin: {
         description:
           "Verbindung zu einer anderen Firma, einer Person oder einem anderen Gesellschafter als Muttergesellschaft",
       },
+      label: "Verbindung zu",
+      name: "relation",
+      relationTo: ["companies", "external-shareholders", "persons"],
+      type: "relationship",
     },
   ],
-  admin: {
-    useAsTitle: "type",
-    enableRichTextLink: false,
-    group: "Veröffentlichungen und Beziehungen",
-  },
-  access: {
-    create: authenticated,
-    read: authenticatedOrPublished,
-    update: authenticated,
-    delete: authenticated,
-  },
   labels: {
-    singular: "Netzwerk-Eintrag",
     plural: "Netzwerk-Einträge",
+    singular: "Netzwerk-Eintrag",
   },
+  slug: "network",
 };

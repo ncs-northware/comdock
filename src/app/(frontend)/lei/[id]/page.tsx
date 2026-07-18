@@ -35,23 +35,23 @@ export default async function Page({
   const lei = await payload.findByID({
     collection: "lei",
     id,
-    select: {
-      company: true,
-      firstRegistration: true,
-      leiStatus: true,
-      lou: true,
-      autoRenew: true,
-      lastRenewal: true,
-    },
     populate: {
       companies: {
         companyName: true,
+        headquarter: true,
         hrCourt: true,
         hrDept: true,
         hrNumber: true,
         hrStatus: true,
-        headquarter: true,
       },
+    },
+    select: {
+      autoRenew: true,
+      company: true,
+      firstRegistration: true,
+      lastRenewal: true,
+      leiStatus: true,
+      lou: true,
     },
   });
 
@@ -59,8 +59,8 @@ export default async function Page({
     const companyId = lei.company.id;
     const leiNetwork = await payload.find({
       collection: "network",
-      select: { childCompany: true, relation: true, type: true },
       populate: { companies: { companyName: true, id: true } },
+      select: { childCompany: true, relation: true, type: true },
       where: {
         and: [
           {
