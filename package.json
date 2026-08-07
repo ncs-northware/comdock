@@ -1,20 +1,20 @@
 {
   "name": "comdock",
-  "type": "module",
   "version": "2.0.2",
-  "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
   "private": true,
-  "license": "MIT",
+  "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
   "homepage": "https://github.com/ncs-northware/comdock",
   "bugs": "https://github.com/ncs-northware/comdock/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ncs-northware/comdock.git"
   },
+  "license": "MIT",
   "author": "NCS Northware (https://github.com/ncs-northware)",
   "contributors": [
     "onissen (https://github.com/onissen)"
   ],
+  "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
     "check": "ultracite check",
@@ -73,9 +73,9 @@
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "4.1.10"
   },
+  "packageManager": "pnpm@11.14.0",
   "engines": {
     "node": ">=24.16.0",
     "pnpm": "^11"
-  },
-  "packageManager": "pnpm@11.14.0"
+  }
 }
