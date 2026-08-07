@@ -1,20 +1,20 @@
 {
   "name": "comdock",
-  "type": "module",
   "version": "2.0.2",
-  "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
   "private": true,
-  "license": "MIT",
+  "description": "COMDOCK is a web application that allows you to view simulated fake company informations.",
   "homepage": "https://github.com/ncs-northware/comdock",
   "bugs": "https://github.com/ncs-northware/comdock/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ncs-northware/comdock.git"
   },
+  "license": "MIT",
   "author": "NCS Northware (https://github.com/ncs-northware)",
   "contributors": [
     "onissen (https://github.com/onissen)"
   ],
+  "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
     "check": "ultracite check",
@@ -31,22 +31,22 @@
     "tsc-check": "tsc --noemit"
   },
   "dependencies": {
-    "@payloadcms/db-sqlite": "3.86.0",
-    "@payloadcms/next": "3.86.0",
-    "@payloadcms/plugin-import-export": "^3.86.0",
-    "@payloadcms/richtext-lexical": "3.86.0",
-    "@payloadcms/translations": "^3.86.0",
-    "@payloadcms/ui": "3.86.0",
+    "@payloadcms/db-sqlite": "3.87.0",
+    "@payloadcms/next": "3.87.0",
+    "@payloadcms/plugin-import-export": "^3.87.0",
+    "@payloadcms/richtext-lexical": "3.87.0",
+    "@payloadcms/translations": "^3.87.0",
+    "@payloadcms/ui": "3.87.0",
     "@tailwindcss/postcss": "^4.3.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^10.1.0",
     "dotenv": "17.4.2",
     "graphql": "^17.0.2",
-    "lucide-react": "^1.27.0",
-    "next": "16.2.12",
+    "lucide-react": "^1.28.0",
+    "next": "16.3.0",
     "next-themes": "^0.4.6",
-    "payload": "3.86.0",
+    "payload": "3.87.0",
     "postcss": "^8.5.25",
     "radix-ui": "^1.6.7",
     "react": "19.2.8",
@@ -56,26 +56,26 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.6",
+    "@biomejs/biome": "2.5.7",
     "@changesets/cli": "^2.31.1",
-    "@playwright/test": "1.62.0",
+    "@playwright/test": "1.62.1",
     "@testing-library/react": "16.3.2",
     "@types/node": "^26.1.2",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.4",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
     "jsdom": "30.0.1",
-    "playwright": "1.62.0",
-    "playwright-core": "1.62.0",
+    "playwright": "1.62.1",
+    "playwright-core": "1.62.1",
     "tw-animate-css": "^1.4.0",
     "typescript": "7.0.2",
-    "ultracite": "7.9.4",
+    "ultracite": "7.10.0",
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "4.1.10"
   },
+  "packageManager": "pnpm@11.14.0",
   "engines": {
     "node": ">=24.16.0",
     "pnpm": "^11"
-  },
-  "packageManager": "pnpm@11.14.0"
+  }
 }
