@@ -2,7 +2,7 @@ import { BuildingIcon, UserRoundIcon } from "lucide-react";
 import Link from "next/link";
 import { ListItem } from "@/components/list-item";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { ItemGroup } from "@/components/ui/item";
 import { payload } from "@/lib/api";
 
@@ -44,9 +44,15 @@ export async function CompaniesList() {
             ))}
           </ItemGroup>
           <div className="flex justify-center">
-            <Button asChild className="mx-auto">
-              <Link href="/companies">Mehr Firmen</Link>
-            </Button>
+            <Link
+              className={buttonVariants({
+                size: "default",
+                variant: "default",
+              })}
+              href="/companies"
+            >
+              Mehr Firmen
+            </Link>
           </div>
         </div>
       )}
@@ -89,9 +95,15 @@ export async function PersonsList() {
             ))}
           </ItemGroup>
           <div className="flex justify-center">
-            <Button asChild>
-              <Link href="/persons">Mehr Personen</Link>
-            </Button>
+            <Link
+              className={buttonVariants({
+                size: "default",
+                variant: "default",
+              })}
+              href="/persons"
+            >
+              Mehr Personen
+            </Link>
           </div>
         </div>
       )}
