@@ -1,0 +1,40 @@
+name: TypeScript Syntax Checks
+
+# This Action Checks for Syntax Issues in TypeScript Files
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  tsc:
+    name: TypeScript Syntax Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.19.0
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: TypeScript Check at Root Level
+        run: pnpm tsc-check:root
+
+      - name: TypeScript Check of Packages and Apps
+        run: pnpm turbo tsc-check
