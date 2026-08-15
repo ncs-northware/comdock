@@ -34,7 +34,4 @@ jobs:
         run: pnpm install
 
       - name: TypeScript Check at Root Level
-        run: pnpm tsc-check:root
-
-      - name: TypeScript Check of Packages and Apps
-        run: pnpm turbo tsc-check
+        run: pnpm tsc-check
