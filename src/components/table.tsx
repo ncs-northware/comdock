@@ -1,6 +1,6 @@
 "use client";
+import { cn } from "cn";
 import type { ComponentProps } from "react";
-import { cn } from "@/lib/utils";
 
 function Table({ className, ...props }: ComponentProps<"table">) {
   return (

@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
+import { cn } from "cn";
 import NextLink, { type LinkProps } from "next/link";
 import { createElement, type HTMLAttributes, type ReactNode } from "react";
-import { cn } from "@/lib/utils";
 
 interface HeadlineProps extends HTMLAttributes<HTMLHeadingElement> {
   children: ReactNode;

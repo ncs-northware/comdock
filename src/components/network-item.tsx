@@ -1,3 +1,4 @@
+import { cn } from "cn";
 import Link from "next/link";
 import type { JSX } from "react";
 import {
@@ -7,7 +8,6 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import { cn } from "@/lib/utils";
 
 export function NetworkItem({
   variant,
