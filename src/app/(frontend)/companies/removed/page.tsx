@@ -51,8 +51,8 @@ export default async function Page() {
         <AlertDescription>
           <p>
             In dieser Anscht werden Firmen angezeigt, die vormals mit einem
-            Unternehmen des NCS Verbunds verbunden waren, sich in Liquidation
-            befinden oder bereits gelöscht wurden. <br />
+            Unternehmen des Stadtkern Verbunds verbunden waren, sich in
+            Liquidation befinden oder bereits gelöscht wurden. <br />
             Unter <Link href="/companies">Firmen</Link> finden Sie die aktuell
             aktiven Firmen.
           </p>

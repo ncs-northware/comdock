@@ -8,11 +8,12 @@ export default async function HomePage() {
         <Headline level="h1">Herzlich willkommen</Headline>
         <p className="text-justify leading-7">
           COMDOCK ist eine Plattform, die Ihnen Zugang zu Informationen über die
-          Unternehmen der NCS Group bietet. Sie können die Unternehmensdaten,
-          das Unternehmensnetzwerk und offizielle Bekanntmachungen und Dokumente
-          einsehen. Die NCS Group veröffentlich über COMDOCK alle nötigen
-          Informationen im Unternehmensregister, im Register des Deutschen
-          Patent- und Markenamtes und in einigen anderen Registern.
+          Unternehmen der Stadtkern Gruppe bietet. Sie können die
+          Unternehmensdaten, das Unternehmensnetzwerk und offizielle
+          Bekanntmachungen und Dokumente einsehen. Die Stadtkern Gruppe
+          veröffentlich über COMDOCK alle nötigen Informationen im
+          Unternehmensregister, im Register des Deutschen Patent- und
+          Markenamtes und in einigen anderen Registern.
         </p>
       </div>
       <div className="grid gap-4 py-8 md:grid-cols-2">
