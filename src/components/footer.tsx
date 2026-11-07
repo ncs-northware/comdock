@@ -9,14 +9,14 @@ export function Footer() {
         Jegliche Daten sind frei erfunden.{" "}
         <Link
           className="hover:underline"
-          href="https://github.com/ncs-northware/comdock/blob/main/README.md"
+          href="https://github.com/northware-it/comdock/blob/main/README.md"
         >
           Mehr Infos in der README-Datei
         </Link>
       </p>
       <p>
         © {year}{" "}
-        <Link href="https://github.com/ncs-northware">ncs-northware</Link> and{" "}
+        <Link href="https://github.com/northware-it">Northware IT</Link> and{" "}
         <Link href="https://github.com/onissen">onissen</Link>
       </p>
     </footer>

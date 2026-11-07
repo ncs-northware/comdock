@@ -69,7 +69,7 @@ export default async function Page() {
             In dieser Ansicht werden nur aktive Firmen angezeigt.
             <br />
             Unter <Link href="/companies/removed">Entfernte Firmen</Link> finden
-            Sie Firmen, die vormals mit einem Unternehmen des NCS Verbunds
+            Sie Firmen, die vormals mit einem Unternehmen des Stadtkern Verbunds
             verbunden waren, sich in Liquidation befinden oder bereits gelöscht
             wurden.
           </p>
